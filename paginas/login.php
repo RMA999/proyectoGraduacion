@@ -7,6 +7,6 @@
     <title>Login</title>
 </head>
 <body>
-    <h1>Titulo pagina login TESTETTESTSETSETS</h1>
+    <h1>Titulo pagina login</h1>
 </body>
 </html>
