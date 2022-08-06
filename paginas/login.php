@@ -29,12 +29,12 @@
         <form class="p-3 mt-3" onsubmit="event.preventDefault(); iniciarSesion();">
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
-                <input type="text" name="inputUsuario" id="inputUsuario" placeholder="Usuario" value="mike">
+                <input type="text" name="inputUsuario" id="inputUsuario" placeholder="Usuario" value="">
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
                 <input type="password" name="inputContrasenia" id="inputContrasenia" placeholder="Contraseña"
-                    value="contrasenia">
+                    value="">
             </div>
             <button class="btn mt-3">Acceder</button>
         </form>

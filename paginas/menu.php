@@ -23,6 +23,11 @@
         <li><a href="#">Buscar</a></li>
     </ul>
 </nav>
-<section></section>
+
+<div class="container">
+<img src="logo/logo.jpg">
+</div>
+
+<!-- <section></section> -->
 </body>
 </html>
