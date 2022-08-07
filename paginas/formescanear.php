@@ -221,7 +221,7 @@
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/proyectoChalen/paginas/listardocumentos.php";
+                                    window.location.href = "/proyectoFinal/paginas/listardocumentos.php";
                                 }, 3000);
 
                             }
