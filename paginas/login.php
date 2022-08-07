@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
     <?php
     include("headers/headerBootstrap.php");
+    include("headers/headerFirebase.php");
     ?>
 
 
@@ -20,8 +21,7 @@
 
     <div class="wrapper">
         <div class="logo">
-            <img src="https://w7.pngwing.com/pngs/770/246/png-transparent-judge-lawyer-gavel-training-course-hand-logo-law-firm.png"
-                alt="">
+            <img src="https://w7.pngwing.com/pngs/770/246/png-transparent-judge-lawyer-gavel-training-course-hand-logo-law-firm.png" alt="">
         </div>
         <div class="text-center mt-4 name">
             Iniciar Sesion
@@ -33,8 +33,7 @@
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
-                <input type="password" name="inputContrasenia" id="inputContrasenia" placeholder="Contraseña"
-                    value="">
+                <input type="password" name="inputContrasenia" id="inputContrasenia" placeholder="Contraseña" value="">
             </div>
             <button class="btn mt-3">Acceder</button>
         </form>
@@ -44,18 +43,6 @@
     </div>
 
     <script>
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCXwPn2E2rUXh1oT2AeJpVTAV7pMw1NNcY",
-            authDomain: "wifinet-df089.firebaseapp.com",
-            databaseURL: "https://wifinet-df089.firebaseio.com",
-            projectId: "wifinet-df089",
-            storageBucket: "wifinet-df089.appspot.com",
-            messagingSenderId: "964535514142",
-            appId: "1:964535514142:web:5a3c567bcfe000cfadaa0f"
-        };
-
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
 
@@ -93,7 +80,7 @@
                             pass: contrasenia,
                             hash: doc.data().contrasenia
                         },
-                        success: function (response) {
+                        success: function(response) {
                             console.log(response);
                             if (response === 'valid') {
                                 console.log('sesion iniciada');
@@ -108,7 +95,7 @@
                                     setTimeout(() => {
                                         window.location.href = "/proyectoFinal/paginas/menu.php";
                                     }, 2000);
-                                    
+
                                 }, 1200);
 
                             } else {
@@ -123,14 +110,14 @@
                                 }, 1200);
                             }
                         },
-                        error: function (xhr, status) {
+                        error: function(xhr, status) {
                             setTimeout(() => {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'No se pudo iniciar sesión',
-                                        showConfirmButton: false
-                                    });
-                                }, 1200);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'No se pudo iniciar sesión',
+                                    showConfirmButton: false
+                                });
+                            }, 1200);
                         }
                     });
 
@@ -138,16 +125,24 @@
                 } else {
                     console.log('not exists');
                     setTimeout(() => {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'revise sus credenciales',
-                                        showConfirmButton: false,
-                                        showCloseButton: true,
-                                    });
-                                }, 1200);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'revise sus credenciales',
+                            showConfirmButton: false,
+                            showCloseButton: true,
+                        });
+                    }, 1200);
                 }
             }).catch((error) => {
                 console.log("Error getting document:", error);
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de conexion a la base de datos',
+                        showConfirmButton: false,
+                        showCloseButton: true,
+                    });
+                }, 1200);
             });
 
         }
@@ -275,7 +270,6 @@
             // console.log(liam);
 
         }
-
     </script>
 
 </body>

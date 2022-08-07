@@ -17,16 +17,16 @@
    $searchQuery = " ";
    if($searchValue != ''){
       $searchQuery = " AND (
-           nombre_persona LIKE :nombre_persona -- OR 
-        --    first_name LIKE :first_name OR
-        --    last_name LIKE :last_name OR 
-        --    address LIKE :address 
+           tipo_documento LIKE :tipo_documento  OR 
+           nombre_vendedor LIKE :nombre_vendedor  OR
+           nombre_comprador LIKE :nombre_comprador OR 
+           numero_escritura LIKE :numero_escritura 
            ) ";
       $searchArray = array( 
-           'nombre_persona'=>"%$searchValue%",
-        //    'first_name'=>"%$searchValue%",
-        //    'last_name'=>"%$searchValue%",
-        //    'address'=>"%$searchValue%"
+           'tipo_documento'=>"%$searchValue%",
+           'nombre_vendedor'=>"%$searchValue%",
+           'nombre_comprador'=>"%$searchValue%",
+           'numero_escritura'=>"%$searchValue%"
       );
    }
 
@@ -60,7 +60,12 @@
    foreach ($empRecords as $row) {
       $data[] = array(
         "id"=>$row['id'],
-        "nombre_persona"=>$row['nombre_persona'],
+        "tipo_documento"=>$row['tipo_documento'],
+        "nombre_vendedor"=>$row['nombre_vendedor'],
+        "nombre_comprador"=>$row['nombre_comprador'],
+        "dpi_vendedor"=>$row['dpi_vendedor'],
+        "dpi_comprador"=>$row['dpi_comprador'],
+        "numero_escritura"=>$row['numero_escritura'],
         "url_archivo"=>$row['url_archivo'],
       );
    }
