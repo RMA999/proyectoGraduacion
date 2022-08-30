@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,7 @@
 
 <body>
 
-    <div class="container mt-2">
+<div class="container mt-2">
 
         <div class="row">
 
@@ -34,17 +35,6 @@
                     <div class="card-body">
 
                         <div class="row">
-
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class="mb-3">
-                                    <label for="idInputTipoDoc" class="form-label">Tipo de documento</label>
-                                    <select class="form-select" id="idInputTipoDoc" aria-label="Default select example">
-                                        <!-- <option selected></option> -->
-                                        <option value="Documento tipo 1">Documento tipo 1</option>
-                                        <option value="Documento tipo 2">Documento tipo 2</option>
-                                    </select>
-                                </div>
-                            </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
@@ -135,7 +125,6 @@
     <a href="#" class="float" onclick="guardarDocumento()">
         <i class="fa fa-save fa-lg my-float"></i>
     </a>
-
 
     <script>
         // Initialize Firebase

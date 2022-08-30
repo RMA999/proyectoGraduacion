@@ -18,7 +18,6 @@
 </head>
 
 <body>
-
     <div class="wrapper">
         <div class="logo">
             <img src="https://w7.pngwing.com/pngs/770/246/png-transparent-judge-lawyer-gavel-training-course-hand-logo-law-firm.png" alt="">
@@ -36,6 +35,8 @@
                 <input type="password" name="inputContrasenia" id="inputContrasenia" placeholder="Contraseña" value="">
             </div>
             <button class="btn mt-3">Acceder</button>
+            <p class="text-center text-muted mt-5 mb-0">No tiesnes un Usuario? <a href="/proyectoFinal/paginas/registro.php" class="fw-bold text-body"><u>Registrate</u></a></p>
+
         </form>
         <!-- <div class="text-center fs-6">
             <a href="#">Forget password?</a> or <a href="#">Sign up</a>
@@ -93,7 +94,7 @@
                                     });
 
                                     setTimeout(() => {
-                                        window.location.href = "/proyectoFinal/paginas/menu.php";
+                                        window.location.href = "/proyectoFinal/paginas/principal.php";
                                     }, 2000);
 
                                 }, 1200);
