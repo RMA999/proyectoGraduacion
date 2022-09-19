@@ -7,6 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
 
+
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Escanear</a>
           <div class="dropdown-menu">
@@ -44,7 +45,7 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="/proyectoFinal/paginas/login.php">Cerrar Sesión</a></li>
+            <li><a class="dropdown-item" href="/proyectoFinal/paginas/formularios/login.php">Cerrar Sesión</a></li>
           </ul>
 
         </li>

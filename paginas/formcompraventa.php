@@ -30,7 +30,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        Datos Documento
+                        Datos Compraventa
                     </div>
                     <div class="card-body">
 
@@ -124,6 +124,8 @@
 
     <a href="#" class="float" onclick="guardarDocumento()">
         <i class="fa fa-save fa-lg my-float"></i>
+        <br>
+        <label>Subir</label>
     </a>
 
     <script>
@@ -154,7 +156,7 @@
             });
 
             var documento = {
-                tipoDocumento: document.getElementById('idInputTipoDoc').value,
+                tipoDocumento: "Compraventa",
                 nombreVendedor: document.getElementById('idInputNombreVendedor').value,
                 nombreComprador: document.getElementById('idInputNombreComprador').value,
                 dpiVendedor: document.getElementById('idInputDpiVendedor').value,

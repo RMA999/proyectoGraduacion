@@ -110,6 +110,8 @@
 
     <a href="#" class="float" onclick="guardarDocumento()">
         <i class="fa fa-save fa-lg my-float"></i>
+        <br>
+        <label>Subir</label>
     </a>
 
     <script>

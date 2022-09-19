@@ -37,28 +37,28 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreVendedor" class="form-label">Nombre de cedente</label>
-                                    <input type="text" class="form-control" id="idInputNombreVendedor" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNombreCedente" placeholder="">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreComprador" class="form-label">Nombre de cesionario</label>
-                                    <input type="text" class="form-control" id="idInputNombreComprador" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNombreCesionario" placeholder="">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiVendedor" class="form-label">No. DPI cedente</label>
-                                    <input type="text" class="form-control" id="idInputDpiVendedor" placeholder="">
+                                    <input type="text" class="form-control" id="idInputDpiCedente" placeholder="">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiComprador" class="form-label">No. DPI cesionario</label>
-                                    <input type="text" class="form-control" id="idInputDpiComprador" placeholder="">
+                                    <input type="text" class="form-control" id="idInputDpiCesionario" placeholder="">
                                 </div>
                             </div>
 
@@ -122,6 +122,8 @@
 
     <a href="#" class="float" onclick="guardarDocumento()">
         <i class="fa fa-save fa-lg my-float"></i>
+        <br>
+        <label>Subir</label>
     </a>
 
     <script>
@@ -152,11 +154,11 @@
             });
 
             var documento = {
-                tipoDocumento: document.getElementById('idInputTipoDoc').value,
-                nombreVendedor: document.getElementById('idInputNombreVendedor').value,
-                nombreComprador: document.getElementById('idInputNombreComprador').value,
-                dpiVendedor: document.getElementById('idInputDpiVendedor').value,
-                dpiComprador: document.getElementById('idInputDpiComprador').value,
+                tipoDocumento: "Cesion",
+                nombreCedente: document.getElementById('idInputNombreCedente').value,
+                nombreCesionario: document.getElementById('idInputNombreCesionario').value,
+                dpiCedente: document.getElementById('idInputDpiCedente').value,
+                dpiCesionario: document.getElementById('idInputDpiCesionario').value,
                 fecha: document.getElementById('idInputFecha').value,
                 numEscritura: document.getElementById('idInputNumEscritura').value,
                 urlArchivo: ""

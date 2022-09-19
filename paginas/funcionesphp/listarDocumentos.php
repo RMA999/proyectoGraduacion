@@ -19,13 +19,16 @@
       $searchQuery = " AND (
            tipo_documento LIKE :tipo_documento  OR 
            nombre_vendedor LIKE :nombre_vendedor  OR
-           nombre_comprador LIKE :nombre_comprador OR 
+           nombre_comprador LIKE :nombre_comprador OR
+           
            numero_escritura LIKE :numero_escritura 
+            
            ) ";
       $searchArray = array( 
            'tipo_documento'=>"%$searchValue%",
            'nombre_vendedor'=>"%$searchValue%",
            'nombre_comprador'=>"%$searchValue%",
+           
            'numero_escritura'=>"%$searchValue%"
       );
    }

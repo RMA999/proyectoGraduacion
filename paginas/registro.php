@@ -27,53 +27,60 @@
 
                                 <form>
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="idInputNombres" class="form-control form-control-lg" />
                                         <label class="form-label" for="idInputNombres">Nombres</label>
+                                        <input type="text" id="idInputNombres" class="form-control form-control-lg" />
+
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="idInputApellidos" class="form-control form-control-lg" />
                                         <label class="form-label" for="idInputApellidos">Apellidos</label>
+                                        <input type="text" id="idInputApellidos" class="form-control form-control-lg" />
+
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="idInputNombreUsuario" class="form-control form-control-lg" />
                                         <label class="form-label" for="idInputNombreUsuario">Nombre Usuario</label>
+                                        <input type="text" id="idInputNombreUsuario" class="form-control form-control-lg" />
+
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="idInputEmail" class="form-control form-control-lg" />
                                         <label class="form-label" for="idInputEmail">Email</label>
+                                        <input type="email" id="idInputEmail" class="form-control form-control-lg" />
+
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="idInputPassword" class="form-control form-control-lg" />
                                         <label class="form-label" for="idInputPassword">Contraseña</label>
+                                        <input type="password" id="idInputPassword" class="form-control form-control-lg" />
+
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="idInputPasswordRepeat" class="form-control form-control-lg" />
                                         <label class="form-label" for="idInputPasswordRepeat">Repetir contraseña</label>
+                                        <input type="password" id="idInputPasswordRepeat" class="form-control form-control-lg" />
+
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <select id= "idInputRol" class="form-select" aria-label="Default select example">
+                                        <label class="form-label" for="idInputRol">Seleccionar Rol</label>
+                                        <select id="idInputRol" class="form-select" aria-label="Default select example">
                                             <option selected></option>
                                             <option value="Usuario">Usuario</option>
                                             <option value="Administrador">Administrador</option>
                                         </select>
-                                        <label class="form-label" for="idInputRol">Seleccionar Rols</label>
+
                                     </div>
 
                                     <div class="form-check d-flex justify-content-center mb-5">
                                         <input class="form-check-input me-2" type="checkbox" value="" id="idInputAccept" />
                                         <label class="form-check-label" for="form2Example3g">
-                                            I agree all statements in <a href="#!" class="text-body"><u>Terminos y Servicios</u></a>
+                                            Aceptar <a href="#!" class="text-body"><u>Terminos y Servicios</u></a>
                                         </label>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="button" onclick="registrarUsuario()" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                                        <button type="button" onclick="registrarUsuario()" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Registrar</button>
                                     </div>
 
                                     <p class="text-center text-muted mt-5 mb-0">Tiesnes un Usuario? <a href="/proyectoFinal/paginas/login.php" class="fw-bold text-body"><u>login</u></a></p>
