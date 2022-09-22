@@ -23,7 +23,7 @@
 
 <body>
 
-<div class="container mt-2">
+    <div class="container mt-2">
 
         <div class="row">
 
@@ -212,7 +212,7 @@
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/proyectoFinal/paginas/listardocumentos.php";
+                                    window.location.href = "/paginas/listardocumentos.php";
                                 }, 3000);
 
                             }

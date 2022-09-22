@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="/proyectoFinal/paginas/principal.php">Inicio</a>
+    <a class="navbar-brand" href="/paginas/principal.php">Inicio</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,10 +11,10 @@
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Escanear</a>
           <div class="dropdown-menu">
-            <a href="/proyectoFinal/paginas/formcompraventa.php" class="dropdown-item">Compraventa</a>
-            <a href="/proyectoFinal/paginas/formdeclaracion.php" class="dropdown-item">Declaración jurada</a>
-            <a href="/proyectoFinal/paginas/formcesion.php" class="dropdown-item">Cesion de Derechos Hereditarios</a>
-            <a href="/proyectoFinal/paginas/formdonacion.php" class="dropdown-item">Donacion Entre Vivos</a>
+            <a href="/paginas/formcompraventa.php" class="dropdown-item">Compraventa</a>
+            <a href="/paginas/formdeclaracion.php" class="dropdown-item">Declaración jurada</a>
+            <a href="/paginas/formcesion.php" class="dropdown-item">Cesion de Derechos Hereditarios</a>
+            <a href="/paginas/formdonacion.php" class="dropdown-item">Donacion Entre Vivos</a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">Cerrar</a>
           </div>
@@ -45,7 +45,7 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="/proyectoFinal/paginas/formularios/login.php">Cerrar Sesión</a></li>
+            <li><a class="dropdown-item" href="/paginas/login.php">Cerrar Sesión</a></li>
           </ul>
 
         </li>
