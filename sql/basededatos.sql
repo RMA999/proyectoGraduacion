@@ -1,6 +1,6 @@
 CREATE TABLE personas (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    dpi VARCHAR(20) NOT NULL,
+    dpi VARCHAR(13) NOT NULL,
     nombres VARCHAR(255) NOT NULL,
     apellidos VARCHAR(255) NOT NULL,
     direccion VARCHAR(255) NOT NULL
@@ -33,6 +33,7 @@ CREATE TABLE documentos (
     id_persona_vendedor INT,
     id_persona_comprador INT,
     fecha DATE NOT NULL,
+    fecha_escaneado DATE DEFAULT CURRENT_TIMESTAMP,
     numero_escritura VARCHAR(20) NOT NULL,
     url_archivo VARCHAR(2083) NOT NULL,
     CONSTRAINT FK_documento_persona_vendedor FOREIGN KEY (id_persona_vendedor) REFERENCES `personas` (id),
