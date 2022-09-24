@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compraventa</title>
+    <title>Guardar</title>
 
     <link rel="stylesheet" href="css/formescanear.css">
 
@@ -146,17 +146,17 @@
 
         function guardarDocumento() {
 
-            // Swal.fire({
-            //     title: 'Guardando...',
-            //     timerProgressBar: true,
-            //     allowOutsideClick: false,
-            //     didOpen: () => {
-            //         Swal.showLoading()
-            //     },
-            // });
+            Swal.fire({
+                title: 'Guardando...',
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+            });
 
             var documento = {
-                tipoDocumento: 1,
+                tipoDocumento: "Compraventa",
                 nombreVendedor: document.getElementById('idInputNombreVendedor').value,
                 nombreComprador: document.getElementById('idInputNombreComprador').value,
                 dpiVendedor: document.getElementById('idInputDpiVendedor').value,
@@ -165,48 +165,6 @@
                 numEscritura: document.getElementById('idInputNumEscritura').value,
                 urlArchivo: ""
             }
-
-            console.log(documento);
-
-            $.ajax({
-                type: "POST",
-                url: '/funcionesphp/guardardocumento.php',
-                data: documento,
-                success: function(response) {
-                    console.log(response);
-
-                    // if (response.estado === "ok") {
-
-                    //     setTimeout(() => {
-                    //         Swal.fire({
-                    //             icon: 'success',
-                    //             title: 'Documento guardado',
-                    //             showConfirmButton: false
-                    //         });
-                    //     }, 1200);
-
-                    //     setTimeout(() => {
-                    //         window.location.href = "/paginas/listardocumentos.php";
-                    //     }, 3000);
-
-                    // }
-
-
-                },
-                error: function(xhr, status) {
-                    console.log('HUBO UN ERROR');
-                    console.log(xhr, status);
-                    // Swal.fire({
-                    //     icon: 'error',
-                    //     title: 'Error en el servidor',
-                    //     showConfirmButton: false,
-                    //     showCloseButton: true,
-                    // });
-                }
-            });
-
-
-            return;
 
             // const inputArchivo = document.getElementById("idInputFile");
             const archivo = inputArchivo.files[0];
