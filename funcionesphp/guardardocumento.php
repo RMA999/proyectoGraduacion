@@ -18,13 +18,13 @@ $urlArchivo = $_POST['urlArchivo'];
 
 $stmt = $conn->prepare("INSERT INTO personas(dpi,nombre) 
                               VALUES(?,?);");
-$stmt->execute([$nombreVendedor, $dpiVendedor]);
+$stmt->execute([$dpiVendedor, $nombreVendedor]);
 $idVendedor = $conn->lastInsertId();
 
 
 $stmt = $conn->prepare("INSERT INTO personas(dpi,nombre) 
                               VALUES(?,?);");
-$stmt->execute([$nombreComprador, $dpiComprador]);
+$stmt->execute([$dpiComprador, $nombreComprador]);
 $idComprador = $conn->lastInsertId();
 
 $stmt = $conn->prepare("INSERT INTO documentos(id_tipo_documento, id_persona_vendedor, id_persona_comprador, fecha, numero_escritura, url_archivo) 

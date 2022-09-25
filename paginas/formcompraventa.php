@@ -94,22 +94,21 @@
                     </div>
                     <div class="card-body">
 
-                        <div class="row d-flex justify-content-center">
+                        <button type="button" class="btn btn-dark mb-3" onclick="realizarEscaneo()">Escanear</button>
+                        <label class="btn btn-dark mb-3">
+                            Seleccionar archivo
+                            <input style="opacity: 0;" type="file" id="idInputFile" onchange="fileSelected(this)" accept="application/pdf" hidden>
+                        </label>
 
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="mb-3">
-                                    <label for="idInputFile" class="form-label">Documento Escaneado</label>
-                                    <input class="form-control" type="file" id="idInputFile" onchange="fileSelected(this)" accept="application/pdf">
-                                </div>
-                            </div>
+                        <div class="d-flex justify-content-center">
 
-                            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                            <embed src="" id="idembed" width="80%" height="500" type="application/pdf">
 
-                                <embed src="" id="idembed" width="100%" height="500" type="application/pdf">
-
-                            </div>
 
                         </div>
+
+
+
 
 
                     </div>
@@ -136,24 +135,58 @@
 
         const inputArchivo = document.getElementById("idInputFile");
 
+        var bytesArchivo;
+
 
         function fileSelected(event) {
             console.log(event.files[0].name);
             const url = window.URL.createObjectURL(event.files[0]);
             document.getElementById('idembed').src = url;
+            bytesArchivo = inputArchivo.files[0];
+        }
+
+        function realizarEscaneo() {
+            console.log("Comienza escaneo");
+            inputArchivo.value = '';
+            document.getElementById("idembed").src = "";
+
+            Swal.fire({
+                title: 'Escaneando, por favor espere...',
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+            });
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://192.168.1.101:3000/scan", true);
+            xhr.responseType = "blob";
+            xhr.onload = function(e) {
+                if (this.status === 200) {
+                    var file = window.URL.createObjectURL(this.response);
+                    document.getElementById("idembed").src = file;
+                    bytesArchivo = this.response;
+
+                    Swal.close();
+
+                }
+                console.log("Termina escaneo");
+            };
+            xhr.send();
         }
 
 
         function guardarDocumento() {
 
-            // Swal.fire({
-            //     title: 'Guardando...',
-            //     timerProgressBar: true,
-            //     allowOutsideClick: false,
-            //     didOpen: () => {
-            //         Swal.showLoading()
-            //     },
-            // });
+            Swal.fire({
+                title: 'Guardando...',
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+            });
 
             var documento = {
                 tipoDocumento: 1,
@@ -167,55 +200,11 @@
             }
 
             console.log(documento);
-
-            $.ajax({
-                type: "POST",
-                url: '/funcionesphp/guardardocumento.php',
-                data: documento,
-                success: function(response) {
-                    console.log(response);
-
-                    // if (response.estado === "ok") {
-
-                    //     setTimeout(() => {
-                    //         Swal.fire({
-                    //             icon: 'success',
-                    //             title: 'Documento guardado',
-                    //             showConfirmButton: false
-                    //         });
-                    //     }, 1200);
-
-                    //     setTimeout(() => {
-                    //         window.location.href = "/paginas/listardocumentos.php";
-                    //     }, 3000);
-
-                    // }
-
-
-                },
-                error: function(xhr, status) {
-                    console.log('HUBO UN ERROR');
-                    console.log(xhr, status);
-                    // Swal.fire({
-                    //     icon: 'error',
-                    //     title: 'Error en el servidor',
-                    //     showConfirmButton: false,
-                    //     showCloseButton: true,
-                    // });
-                }
-            });
-
-
-            return;
-
-            // const inputArchivo = document.getElementById("idInputFile");
-            const archivo = inputArchivo.files[0];
-
-            const nombreArchivo = archivo.name.split('.')[0] + '-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.' + archivo.name.split('.')[1];
+            const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
 
 
             const storageRef = storage.ref('escaneos/' + nombreArchivo);
-            const task = storageRef.put(archivo);
+            const task = storageRef.put(bytesArchivo);
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 // uploader.value = percentage;
@@ -238,7 +227,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: 'funcionesphp/guardardocumento.php',
+                        url: '/funcionesphp/guardardocumento.php',
                         data: documento,
                         success: function(response) {
                             console.log(response);
@@ -254,7 +243,7 @@
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/paginas/listardocumentos.php";
+                                    window.location.href = "/paginas/principal.php";
                                 }, 3000);
 
                             }
