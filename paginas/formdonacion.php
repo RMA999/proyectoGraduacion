@@ -2,10 +2,11 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardar</title>
+    <title>Donaciones</title>
 
     <link rel="stylesheet" href="css/formescanear.css">
 
@@ -21,6 +22,7 @@
 </head>
 
 <body>
+
     <div class="container mt-2">
 
         <div class="row">
@@ -28,7 +30,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        Datos Documento
+                        Datos Donación
                     </div>
                     <div class="card-body">
 
@@ -36,29 +38,29 @@
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <label for="idInputNombreVendedor" class="form-label">Nombre de cedente</label>
-                                    <input type="text" class="form-control" id="idInputNombreCedente" placeholder="">
+                                    <label for="idInputNombreDonante" class="form-label">Nombre donante</label>
+                                    <input type="text" class="form-control" id="idInputNombreDonante" placeholder="">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <label for="idInputNombreComprador" class="form-label">Nombre de cesionario</label>
-                                    <input type="text" class="form-control" id="idInputNombreCesionario" placeholder="">
+                                    <label for="idInputNombreDonatario" class="form-label">Nombre donatario</label>
+                                    <input type="text" class="form-control" id="idInputNombreDonatario" placeholder="">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <label for="idInputDpiVendedor" class="form-label">No. DPI cedente</label>
-                                    <input type="text" class="form-control" id="idInputDpiCedente" placeholder="">
+                                    <label for="idInputDpiDonante" class="form-label">No. DPI Donante</label>
+                                    <input type="text" class="form-control" id="idInputDpiDonante" placeholder="">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <label for="idInputDpiComprador" class="form-label">No. DPI cesionario</label>
-                                    <input type="text" class="form-control" id="idInputDpiCesionario" placeholder="">
+                                    <label for="idInputDpiDonatario" class="form-label">No. DPI Donatario</label>
+                                    <input type="text" class="form-control" id="idInputDpiDonatario" placeholder="">
                                 </div>
                             </div>
 
@@ -92,20 +94,16 @@
                     </div>
                     <div class="card-body">
 
-                        <div class="row d-flex justify-content-center">
+                        <button type="button" class="btn btn-dark mb-3" onclick="realizarEscaneo()">Escanear</button>
+                        <label class="btn btn-dark mb-3">
+                            Seleccionar archivo
+                            <input style="opacity: 0;" type="file" id="idInputFile" onchange="fileSelected(this)" accept="application/pdf" hidden>
+                        </label>
 
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="mb-3">
-                                    <label for="idInputFile" class="form-label">Documento Escaneado</label>
-                                    <input class="form-control" type="file" id="idInputFile" onchange="fileSelected(this)" accept="application/pdf">
-                                </div>
-                            </div>
+                        <div class="d-flex justify-content-center">
 
-                            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                            <embed src="" id="idembed" width="80%" height="500" type="application/pdf">
 
-                                <embed src="" id="idembed" width="100%" height="500" type="application/pdf">
-
-                            </div>
 
                         </div>
 
@@ -134,11 +132,45 @@
 
         const inputArchivo = document.getElementById("idInputFile");
 
+        var bytesArchivo;
+
 
         function fileSelected(event) {
             console.log(event.files[0].name);
             const url = window.URL.createObjectURL(event.files[0]);
             document.getElementById('idembed').src = url;
+            bytesArchivo = event.files[0];
+        }
+
+        function realizarEscaneo() {
+            console.log("Comienza escaneo");
+            inputArchivo.value = '';
+            document.getElementById("idembed").src = "";
+
+            Swal.fire({
+                title: 'Escaneando, por favor espere...',
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+            });
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://192.168.1.101:3000/scan", true);
+            xhr.responseType = "blob";
+            xhr.onload = function(e) {
+                if (this.status === 200) {
+                    var file = window.URL.createObjectURL(this.response);
+                    document.getElementById("idembed").src = file;
+                    bytesArchivo = this.response;
+
+                    Swal.close();
+
+                }
+                console.log("Termina escaneo");
+            };
+            xhr.send();
         }
 
 
@@ -154,24 +186,22 @@
             });
 
             var documento = {
-                tipoDocumento: "Cesion",
-                nombreCedente: document.getElementById('idInputNombreCedente').value,
-                nombreCesionario: document.getElementById('idInputNombreCesionario').value,
-                dpiCedente: document.getElementById('idInputDpiCedente').value,
-                dpiCesionario: document.getElementById('idInputDpiCesionario').value,
+                tipoDocumento: 4,
+                nombreDonante: document.getElementById('idInputNombreDonante').value,
+                nombreDonatario: document.getElementById('idInputNombreDonatario').value,
+                dpiDonante: document.getElementById('idInputDpiDonante').value,
+                dpiDonatario: document.getElementById('idInputDpiDonatario').value,
                 fecha: document.getElementById('idInputFecha').value,
                 numEscritura: document.getElementById('idInputNumEscritura').value,
                 urlArchivo: ""
             }
 
-            // const inputArchivo = document.getElementById("idInputFile");
-            const archivo = inputArchivo.files[0];
-
-            const nombreArchivo = archivo.name.split('.')[0] + '-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.' + archivo.name.split('.')[1];
+            console.log(documento);
+            const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
 
 
-            const storageRef = storage.ref('escaneos/' + nombreArchivo);
-            const task = storageRef.put(archivo);
+            const storageRef = storage.ref('escaneos/declaracionesJuradas/' + nombreArchivo);
+            const task = storageRef.put(bytesArchivo);
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 // uploader.value = percentage;
@@ -194,7 +224,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: 'funcionesphp/guardardocumento.php',
+                        url: '/funcionesphp/guardarDocumentoDonacion.php',
                         data: documento,
                         success: function(response) {
                             console.log(response);
@@ -210,7 +240,7 @@
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/paginas/listardocumentos.php";
+                                    window.location.href = "/paginas/principal.php";
                                 }, 3000);
 
                             }
@@ -235,7 +265,6 @@
 
         }
     </script>
-
 
 </body>
 

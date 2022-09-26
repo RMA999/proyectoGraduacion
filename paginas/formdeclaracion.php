@@ -107,7 +107,7 @@
     <a href="#" class="float" onclick="guardarDocumento()">
         <i class="fa fa-save fa-lg my-float"></i>
         <br>
-        <label>Subir</label>
+        <label>Guardar</label>
     </a>
 
     <script>
@@ -172,7 +172,7 @@
             });
 
             var documento = {
-                tipoDocumento: 1,
+                tipoDocumento: 2,
                 nombreDeclarador: document.getElementById('idInputNombreDeclarador').value,
                 dpiDeclarador: document.getElementById('idInputDpiDeclarador').value,
                 fecha: document.getElementById('idInputFecha').value,
