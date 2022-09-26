@@ -55,9 +55,9 @@ CREATE TABLE documentos (
     -- tipo de documento Declaración jurada
     id_persona_donatario INT,
     id_persona_donador INT,
-    id_persona_difunto INT,
+    id_persona_cedente INT,
     -- tipo sesion de derecho hereditario
-    id_persona_heredera INT,
+    id_persona_cesionario INT,
     -- tipo sesion de derecho hereditario (pueden ser mas de una persona) de ultimo
     fecha DATE NOT NULL,
     fecha_escaneado DATE DEFAULT CURRENT_TIMESTAMP,
@@ -68,7 +68,7 @@ CREATE TABLE documentos (
     CONSTRAINT FK_documento_persona_donatario FOREIGN KEY (id_persona_donatario) REFERENCES `personas` (id),
     CONSTRAINT FK_documento_persona_donador FOREIGN KEY (id_persona_donador) REFERENCES `personas` (id),
     CONSTRAINT FK_documento_persona_declarador FOREIGN KEY (id_persona_declarador) REFERENCES `personas` (id),
-    CONSTRAINT FK_documento_persona_difunto FOREIGN KEY (id_persona_difunto) REFERENCES `personas` (id),
-    CONSTRAINT FK_documento_persona_heredera FOREIGN KEY (id_persona_heredera) REFERENCES `personas` (id),
+    CONSTRAINT FK_documento_persona_difunto FOREIGN KEY (id_persona_cedente) REFERENCES `personas` (id),
+    CONSTRAINT FK_documento_persona_heredera FOREIGN KEY (id_persona_cesionario) REFERENCES `personas` (id),
     CONSTRAINT FK_documento_tipos_documento FOREIGN KEY (id_tipo_documento) REFERENCES `tipos_documentos` (id)
 );

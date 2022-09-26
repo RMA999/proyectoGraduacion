@@ -13,7 +13,7 @@
           <div class="dropdown-menu">
             <a href="/paginas/formcompraventa.php" class="dropdown-item">Compraventa</a>
             <a href="/paginas/formdeclaracion.php" class="dropdown-item">Declaración jurada</a>
-            <a href="/paginas/formcesion.php" class="dropdown-item">Cesion de Derechos Hereditarios</a>
+            <a href="/paginas/formherencia.php" class="dropdown-item">Cesion de Derechos Hereditarios</a>
             <a href="/paginas/formdonacion.php" class="dropdown-item">Donacion Entre Vivos</a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">Cerrar</a>
