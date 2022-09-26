@@ -284,30 +284,46 @@
             }
 
             console.log(cesionarios);
-
-            return;
-
-            Swal.fire({
-                title: 'Guardando...',
-                timerProgressBar: true,
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading()
-                },
-            });
+            
+            // Swal.fire({
+            //     title: 'Guardando...',
+            //     timerProgressBar: true,
+            //     allowOutsideClick: false,
+            //     didOpen: () => {
+            //         Swal.showLoading()
+            //     },
+            // });
 
             var documento = {
-                tipoDocumento: 4,
-                nombreDonante: document.getElementById('idInputNombreCedente').value,
-                nombreDonatario: document.getElementById('idInputNombreDonatario').value,
-                dpiDonante: document.getElementById('idInputDpiCedente').value,
-                dpiDonatario: document.getElementById('idInputDpiDonatario').value,
+                tipoDocumento: 3,
+                nombreCedente: document.getElementById('idInputNombreCedente').value,
+                dpiCedente: document.getElementById('idInputDpiCedente').value,
+                cesionarios: cesionarios,
                 fecha: document.getElementById('idInputFecha').value,
                 numEscritura: document.getElementById('idInputNumEscritura').value,
                 urlArchivo: ""
             }
 
             console.log(documento);
+
+            $.ajax({
+                        type: "POST",
+                        url: '/funcionesphp/guardarDocumentoHerencia.php',
+                        data: documento,
+                        success: function(response) {
+                            console.log(response);
+
+
+                        },
+                        error: function(xhr, status) {
+                            console.log('HUBO UN ERROR');
+                            console.log(xhr, status);
+                            
+                        }
+                    });
+
+
+            return;
             const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
 
 
