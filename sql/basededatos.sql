@@ -51,10 +51,10 @@ CREATE TABLE documentos (
     id_tipo_documento INT NOT NULL,
     id_persona_vendedor INT,
     id_persona_comprador INT,
-    id_persona_donatario INT,
-    id_persona_donador INT,
     id_persona_declarador INT,
     -- tipo de documento Declaración jurada
+    id_persona_donatario INT,
+    id_persona_donador INT,
     id_persona_difunto INT,
     -- tipo sesion de derecho hereditario
     id_persona_heredera INT,
