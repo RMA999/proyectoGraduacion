@@ -72,3 +72,23 @@ CREATE TABLE documentos (
     CONSTRAINT FK_documento_persona_heredera FOREIGN KEY (id_persona_cesionario) REFERENCES `personas` (id),
     CONSTRAINT FK_documento_tipos_documento FOREIGN KEY (id_tipo_documento) REFERENCES `tipos_documentos` (id)
 );
+
+CREATE
+OR REPLACE VIEW vista_documentos AS
+SELECT
+    ROW_NUMBER() OVER (
+        ORDER BY
+            documentos.id
+    ) as rowNumber,
+    documentos.id AS id_documento,
+    documentos.numero_escritura,
+    tipos_documentos.nombre AS tipo_documento,
+    documentos.fecha AS fecha_documento,
+    documentos.url_archivo
+FROM
+    (
+        documentos
+        INNER JOIN tipos_documentos ON documentos.id_tipo_documento = tipos_documentos.id
+    )
+GROUP BY
+    documentos.numero_escritura;
