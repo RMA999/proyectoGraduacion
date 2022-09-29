@@ -1,3 +1,6 @@
+<?php
+include '../funcionesphp/detallesDocumentoHerencia.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herencias</title>
+    <title>Detalle Herencia</title>
 
     <link rel="stylesheet" href="css/formescanear.css">
 
@@ -30,10 +33,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        Datos Herencia
+                        Detalle Herencia
                     </div>
                     <div class="card-body">
-
                         <div class="row">
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
@@ -61,7 +63,7 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $_GET['numero_escritura'] ?>">
                                 </div>
                             </div>
 
@@ -306,6 +308,24 @@
 
             console.log(documento);
 
+            $.ajax({
+                type: "POST",
+                url: '/funcionesphp/guardarDocumentoHerencia.php',
+                data: documento,
+                success: function(response) {
+                    console.log(response);
+
+
+                },
+                error: function(xhr, status) {
+                    console.log('HUBO UN ERROR');
+                    console.log(xhr, status);
+
+                }
+            });
+
+
+            return;
             const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
 
 
@@ -333,7 +353,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: '/funcionesphp/guardarDocumentoHerencia.php',
+                        url: '/funcionesphp/guardarDocumentoDonacion.php',
                         data: documento,
                         success: function(response) {
                             console.log(response);

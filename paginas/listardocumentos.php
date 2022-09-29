@@ -60,6 +60,7 @@
                             return '<div class="btn-group">' +
                                 '<button type="button" id="idAccion1" class="btn btn-outline-secondary" > <i class="fa-solid fa-eye" data-toggle="tooltip" data-placement="top" title="Ver documento"></i> </button>' +
                                 '<button type="button" id="idAccion2" class="btn btn-outline-secondary" > <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Modificar"></i> </button>' +
+                                '<button type="button" id="idAccion3" class="btn btn-outline-secondary" > <i class="fa-solid fa-info-circle" data-toggle="tooltip" data-placement="top" title="Detalles"></i> </button>' +
                                 '</div>'
                         },
                     }
@@ -98,15 +99,35 @@
 
 
             $('#idTabladocumentos tbody').on('click', '#idAccion1', function() {
-                console.log("accion1");
                 var data = tabla.row($(this).parents('tr')).data();
-                console.log(data);
+                window.open(data['url_archivo'], '_blank').focus();
+
+                // var xhr = new XMLHttpRequest();
+                // xhr.open("GET", data['url_archivo'], true);
+                // xhr.responseType = "blob";
+                // xhr.onload = function(e) {
+                //     if (this.status === 200) {
+                //         var url = window.URL.createObjectURL(this.response);
+                //         window.open(url, '_blank').focus();
+                //     }
+                // };
+                // xhr.send();
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccion2', function() {
                 console.log("accion2");
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
+            });
+
+            $('#idTabladocumentos tbody').on('click', '#idAccion3', function() {
+                var data = tabla.row($(this).parents('tr')).data();
+                console.log(data);
+
+                if (data['tipo_documento'] === "Cesion de Derechos Hereditarios") {
+                    window.location.href = `/paginas/detallesherencia.php?numero_escritura=${data['numero_escritura']}&id_documento=${data['id_documento']}`;
+                }
+
             });
 
 
