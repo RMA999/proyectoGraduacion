@@ -63,7 +63,7 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $_GET['numero_escritura'] ?>">
+                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura'] ?>">
                                 </div>
                             </div>
 

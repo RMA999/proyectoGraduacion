@@ -200,7 +200,7 @@
             const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
 
 
-            const storageRef = storage.ref('escaneos/declaracionesJuradas/' + nombreArchivo);
+            const storageRef = storage.ref('escaneos/donaciones/' + nombreArchivo);
             const task = storageRef.put(bytesArchivo);
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;

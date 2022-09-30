@@ -100,18 +100,18 @@
 
             $('#idTabladocumentos tbody').on('click', '#idAccion1', function() {
                 var data = tabla.row($(this).parents('tr')).data();
-                window.open(data['url_archivo'], '_blank').focus();
+                // window.open(data['url_archivo'], '_blank').focus();
 
-                // var xhr = new XMLHttpRequest();
-                // xhr.open("GET", data['url_archivo'], true);
-                // xhr.responseType = "blob";
-                // xhr.onload = function(e) {
-                //     if (this.status === 200) {
-                //         var url = window.URL.createObjectURL(this.response);
-                //         window.open(url, '_blank').focus();
-                //     }
-                // };
-                // xhr.send();
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", data['url_archivo'], true);
+                xhr.responseType = "blob";
+                xhr.onload = function(e) {
+                    if (this.status === 200) {
+                        var url = window.URL.createObjectURL(this.response);
+                        window.open(url, '_blank').focus();
+                    }
+                };
+                xhr.send();
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccion2', function() {
@@ -125,7 +125,7 @@
                 console.log(data);
 
                 if (data['tipo_documento'] === "Cesion de Derechos Hereditarios") {
-                    window.location.href = `/paginas/detallesherencia.php?numero_escritura=${data['numero_escritura']}&id_documento=${data['id_documento']}`;
+                    window.location.href = `/paginas/detallesherencia.php?id_documento=${data['id_documento']}`;
                 }
 
             });

@@ -92,3 +92,16 @@ FROM
     )
 GROUP BY
     documentos.numero_escritura;
+
+CREATE
+OR REPLACE VIEW vista_cesionarios AS
+SELECT
+    personas.id AS id_persona,
+    personas.nombre AS nombre_cesionario,
+    personas.dpi AS dpi_cesionario,
+    documentos.numero_escritura
+FROM
+    (
+        personas
+        INNER JOIN documentos ON personas.id = documentos.id_persona_cesionario
+    );
