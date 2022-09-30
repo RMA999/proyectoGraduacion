@@ -41,14 +41,14 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreCedente" class="form-label">Nombre cedente</label>
-                                    <input type="text" class="form-control" id="idInputNombreCedente" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNombreCedente" value="<?php echo $cedente['nombre'] ?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiCedente" class="form-label">No. DPI cedente</label>
-                                    <input type="text" class="form-control" id="idInputDpiCedente" placeholder="">
+                                    <input type="text" class="form-control" id="idInputDpiCedente" value="<?php echo $cedente['dpi'] ?>">
                                 </div>
                             </div>
 
@@ -56,7 +56,7 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputFecha" class="form-label">Fecha</label>
-                                    <input type="date" class="form-control" id="idInputFecha" placeholder="">
+                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento'] ?>">
                                 </div>
                             </div>
 
@@ -159,10 +159,10 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
 
     </div>
 
-    <a href="#" class="float" onclick="guardarDocumento()">
-        <i class="fa fa-save fa-lg my-float"></i>
+    <a href="#" class="float" onclick="history.back()">
+        <i class="fa fa-arrow-left fa-lg my-float"></i>
         <br>
-        <label>Guardar</label>
+        <label>Regresar</label>
     </a>
 
     <script>
