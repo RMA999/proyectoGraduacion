@@ -49,8 +49,8 @@
                     },
 
                     {
-                        title: 'Tipo Documento',
-                        data: 'tipo_documento'
+                        title: 'Fecha',
+                        data: 'fecha_documento'
                     },
 
                     {

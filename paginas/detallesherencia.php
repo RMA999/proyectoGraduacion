@@ -41,14 +41,14 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreCedente" class="form-label">Nombre cedente</label>
-                                    <input type="text" class="form-control" id="idInputNombreCedente" value="<?php echo $cedente['nombre'] ?>">
+                                    <input type="text" class="form-control" id="idInputNombreCedente" value="<?php echo $cedente['nombre'] ?>" readonly>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiCedente" class="form-label">No. DPI cedente</label>
-                                    <input type="text" class="form-control" id="idInputDpiCedente" value="<?php echo $cedente['dpi'] ?>">
+                                    <input type="text" class="form-control" id="idInputDpiCedente" value="<?php echo $cedente['dpi'] ?>" readonly>
                                 </div>
                             </div>
 
@@ -56,14 +56,14 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputFecha" class="form-label">Fecha</label>
-                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento'] ?>">
+                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento'] ?>" readonly>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura'] ?>">
+                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura'] ?>" readonly>
                                 </div>
                             </div>
 
@@ -84,7 +84,7 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
 
                     <div class="card-body">
 
-                        <div class="row mb-3">
+                        <!-- <div class="row mb-3">
                             <div class="col-3">
                                 <button class="btn btn-dark" onclick="agregarCesionarios()">Agregar Cesionario</button>
                             </div>
@@ -92,27 +92,44 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
                             <div class="col-3">
                                 <button class="btn btn-dark" onclick="eliminarCesionarios()">Eliminar Cesionario</button>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div id="idCardCesionarios">
 
-                            <div class="row">
 
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                    <div class="mb-3">
-                                        <label for="idInputNombreCesionario1" class="form-label">Nombre cesionario 1</label>
-                                        <input type="text" class="form-control" id="idInputNombreCesionario1" placeholder="">
+                            <?php
+                            $numeroCesionario = 1;
+                            if (count($cesionarios) > 0) {
+                                foreach ($cesionarios as $cesionario) {
+                            ?>
+                                    <div class="row">
+
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="mb-3">
+                                                <label for="idInputNombreCesionario1" class="form-label">Nombre cesionario <?php echo $numeroCesionario ?></label>
+                                                <input type="text" class="form-control" id="idInputNombreCesionario1" readonly value="<?php echo $cesionario['nombre'] ?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="mb-3">
+                                                <label for="idInputDpiCesionario1" class="form-label">No. DPI cesionario <?php echo $numeroCesionario ?></label>
+                                                <input type="text" class="form-control" id="idInputDpiCesionario1" readonly value="<?php echo $cesionario['dpi'] ?>">
+                                            </div>
+                                        </div>
+
+
                                     </div>
-                                </div>
 
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                    <div class="mb-3">
-                                        <label for="idInputDpiCesionario1" class="form-label">No. DPI cesionario 1</label>
-                                        <input type="text" class="form-control" id="idInputDpiCesionario1" placeholder="">
-                                    </div>
-                                </div>
 
-                            </div>
+                            <?php
+                                    $numeroCesionario++;
+                                }
+                            }
+                            ?>
+
+
+
 
                         </div>
 
@@ -135,15 +152,15 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
                     </div>
                     <div class="card-body">
 
-                        <button type="button" class="btn btn-dark mb-3" onclick="realizarEscaneo()">Escanear</button>
+                        <!-- <button type="button" class="btn btn-dark mb-3" onclick="realizarEscaneo()">Escanear</button>
                         <label class="btn btn-dark mb-3">
                             Seleccionar archivo
                             <input style="opacity: 0;" type="file" id="idInputFile" onchange="fileSelected(this)" accept="application/pdf" hidden>
-                        </label>
+                        </label> -->
 
                         <div class="d-flex justify-content-center">
 
-                            <embed src="" id="idembed" width="80%" height="500" type="application/pdf">
+                            <embed src="<?php echo $documento['url_archivo'] ?>" id="idembed" width="80%" height="500" type="application/pdf">
 
 
                         </div>
