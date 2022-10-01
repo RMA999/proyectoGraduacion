@@ -61,6 +61,7 @@
                                 '<button type="button" id="idAccion1" class="btn btn-outline-secondary" > <i class="fa-solid fa-eye" data-toggle="tooltip" data-placement="top" title="Ver documento"></i> </button>' +
                                 '<button type="button" id="idAccion2" class="btn btn-outline-secondary" > <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Modificar"></i> </button>' +
                                 '<button type="button" id="idAccion3" class="btn btn-outline-secondary" > <i class="fa-solid fa-info-circle" data-toggle="tooltip" data-placement="top" title="Detalles"></i> </button>' +
+                                '<button type="button" id="idAccion4" class="btn btn-outline-secondary" > <i class="fa-solid fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></i> </button>' +
                                 '</div>'
                         },
                     }
@@ -130,43 +131,74 @@
 
             });
 
+            $('#idTabladocumentos tbody').on('click', '#idAccion4', function() {
+                var data = tabla.row($(this).parents('tr')).data();
+                console.log(data);
+
+                Swal.fire({
+                    title: '¿Estas seguro?',
+                    text: `Eliminar el documento con numero de escritura ${data['numero_escritura']}`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, Borrarlo',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        Swal.fire({
+                            title: 'Eliminando...',
+                            timerProgressBar: true,
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading()
+                            },
+                        });
+
+                        $.ajax({
+                            type: "POST",
+                            url: '/funcionesphp/eliminarDocumento.php',
+                            data: data,
+                            success: function(response) {
+                                console.log(response);
+
+                                if (response.estado === "ok") {
+
+                                    setTimeout(() => {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Documento eliminado',
+                                            showConfirmButton: false
+                                        });
+                                        tabla.ajax.reload();
+                                    }, 1200);
+
+
+                                }
+
+
+                            },
+                            error: function(xhr, status) {
+                                console.log('HUBO UN ERROR');
+                                console.log(xhr, status);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error al intentar eliminar el documento',
+                                    showConfirmButton: false,
+                                    showCloseButton: true,
+                                });
+                            }
+                        });
+
+
+                    }
+                });
+
+            });
+
 
         });
-
-        function abrirArchivoEnOtraPestania(e) {
-            console.log(e);
-            // var url = e;
-            // var w1 = window.open(url, '_blank').focus();
-        }
-
-        function enviarRegistroAModificar() {
-            setTimeout(() => {
-                console.log(filaTabla);
-            }, 200);
-            // setTimeout(() => {
-            //     console.log(filaTabla);
-            //     window.open(url, '_blank').focus();s
-            // }, 150);
-        }
-
-
-        // setTimeout(() => {
-        //     console.log(dataSet);
-        //     dataSet = [];
-        //     dataSet.push(['Unity Butler', 'Marketing Designer', 'San Francisco', '5384', '2009/12/09', '$85,675']);
-        //     console.log(dataSet );
-        //     tabla.clear().rows.add(dataSet).draw();
-
-        // }, 3000);
-
-        // Swal.fire({
-        //   title: 'Auto close alert!',
-        //   timerProgressBar: true,
-        // //   allowOutsideClick: false,
-        //   didOpen: () => {
-        //     Swal.showLoading()
-        //   },
-        // });
     </script>
 
 </body>
