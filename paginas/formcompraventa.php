@@ -189,7 +189,7 @@
             });
 
             var documento = {
-                tipoDocumento: 2,
+                tipoDocumento: 1,
                 nombreVendedor: document.getElementById('idInputNombreVendedor').value,
                 nombreComprador: document.getElementById('idInputNombreComprador').value,
                 dpiVendedor: document.getElementById('idInputDpiVendedor').value,
