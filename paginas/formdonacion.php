@@ -39,42 +39,45 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreDonante" class="form-label">Nombre donante</label>
-                                    <input type="text" class="form-control" id="idInputNombreDonante" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNombreDonante">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreDonatario" class="form-label">Nombre donatario</label>
-                                    <input type="text" class="form-control" id="idInputNombreDonatario" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNombreDonatario">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiDonante" class="form-label">No. DPI Donante</label>
-                                    <input type="text" class="form-control" id="idInputDpiDonante" placeholder="">
+                                    <input type="text" class="form-control" id="idInputDpiDonante">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiDonatario" class="form-label">No. DPI Donatario</label>
-                                    <input type="text" class="form-control" id="idInputDpiDonatario" placeholder="">
+                                    <input type="text" class="form-control" id="idInputDpiDonatario">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputFecha" class="form-label">Fecha</label>
-                                    <input type="date" class="form-control" id="idInputFecha" placeholder="">
+                                    <input type="date" class="form-control" id="idInputFecha">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNumEscritura" onkeyup="validarNumeroEscritura(this.value)">
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        Numero de escritura ya existe
+                                    </div>
                                 </div>
                             </div>
 
@@ -129,10 +132,36 @@
         const app = firebase.initializeApp(firebaseConfig);
         // Initialize Cloud Storage and get a reference to the service
         const storage = app.storage();
-
         const inputArchivo = document.getElementById("idInputFile");
-
         var bytesArchivo;
+
+        var existeNumeroEscritura = false;
+
+
+        function validarNumeroEscritura(value) {
+            $.ajax({
+                type: "POST",
+                url: '/funcionesphp/validarNumeroEscritura.php',
+                data: {
+                    numEscritura: value,
+                    validNumEscritura: 'si'
+                },
+                success: function(response) {
+                    if (response.estado === "ok") {
+                        $("#idInputNumEscritura").removeClass("is-invalid");
+                        existeNumeroEscritura = false;
+                    }
+                    if (response.estado === "error") {
+                        $("#idInputNumEscritura").addClass("is-invalid");
+                        existeNumeroEscritura = true;
+                    }
+                },
+                error: function(xhr, status) {
+                    console.log('HUBO UN ERROR');
+                    console.log(xhr, status);
+                }
+            });
+        }
 
 
         function fileSelected(event) {
@@ -175,6 +204,16 @@
 
 
         function guardarDocumento() {
+
+            if (existeNumeroEscritura) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'El numero de escritura ya existe',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                });
+                return;
+            }
 
             Swal.fire({
                 title: 'Guardando...',

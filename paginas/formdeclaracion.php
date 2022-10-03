@@ -132,7 +132,6 @@
                     validNumEscritura: 'si'
                 },
                 success: function(response) {
-                    console.log(response);
                     if (response.estado === "ok") {
                         $("#idInputNumEscritura").removeClass("is-invalid");
                         existeNumeroEscritura = false;
