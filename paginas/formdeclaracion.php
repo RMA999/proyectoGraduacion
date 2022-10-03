@@ -107,7 +107,7 @@
 
     </div>
 
-    <a href="#" class="float" onclick="guardarDocumento()">
+    <a class="float" onclick="guardarDocumento()">
         <i class="fa fa-save fa-lg my-float"></i>
         <br>
         <label>Guardar</label>
@@ -124,12 +124,9 @@
         var existeNumeroEscritura = false;
 
         function validarNumeroEscritura(value) {
-            console.log(value);
-            // $("#idInputNumEscritura").addClass("is-invalid");
-            // $("#idInputNumEscritura").removeClass("is-invalid");
             $.ajax({
                 type: "POST",
-                url: '/funcionesphp/guardarDocumentoDeclaracionJurada.php',
+                url: '/funcionesphp/validarNumeroEscritura.php',
                 data: {
                     numEscritura: value,
                     validNumEscritura: 'si'

@@ -39,42 +39,45 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreVendedor" class="form-label">Nombre vendedor</label>
-                                    <input type="text" class="form-control" id="idInputNombreVendedor" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNombreVendedor">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreComprador" class="form-label">Nombre comprador</label>
-                                    <input type="text" class="form-control" id="idInputNombreComprador" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNombreComprador">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiVendedor" class="form-label">No. DPI vendedor</label>
-                                    <input type="text" class="form-control" id="idInputDpiVendedor" placeholder="">
+                                    <input type="text" class="form-control" id="idInputDpiVendedor">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiComprador" class="form-label">No. DPI comprador</label>
-                                    <input type="text" class="form-control" id="idInputDpiComprador" placeholder="">
+                                    <input type="text" class="form-control" id="idInputDpiComprador">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputFecha" class="form-label">Fecha</label>
-                                    <input type="date" class="form-control" id="idInputFecha" placeholder="">
+                                    <input type="date" class="form-control" id="idInputFecha">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNumEscritura" onkeyup="validarNumeroEscritura(this.value)">
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        Numero de escritura ya existe
+                                    </div>
                                 </div>
                             </div>
 
@@ -121,7 +124,7 @@
 
     </div>
 
-    <a href="#" class="float" onclick="guardarDocumento()">
+    <a class="float" onclick="guardarDocumento()">
         <i class="fa fa-save fa-lg my-float"></i>
         <br>
         <label>Guardar</label>
@@ -132,11 +135,37 @@
         const app = firebase.initializeApp(firebaseConfig);
         // Initialize Cloud Storage and get a reference to the service
         const storage = app.storage();
-
         const inputArchivo = document.getElementById("idInputFile");
-
         var bytesArchivo;
 
+        var existeNumeroEscritura = false;
+
+
+        function validarNumeroEscritura(value) {
+            $.ajax({
+                type: "POST",
+                url: '/funcionesphp/validarNumeroEscritura.php',
+                data: {
+                    numEscritura: value,
+                    validNumEscritura: 'si'
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.estado === "ok") {
+                        $("#idInputNumEscritura").removeClass("is-invalid");
+                        existeNumeroEscritura = false;
+                    }
+                    if (response.estado === "error") {
+                        $("#idInputNumEscritura").addClass("is-invalid");
+                        existeNumeroEscritura = true;
+                    }
+                },
+                error: function(xhr, status) {
+                    console.log('HUBO UN ERROR');
+                    console.log(xhr, status);
+                }
+            });
+        }
 
         function fileSelected(event) {
             console.log(event.files[0].name);
@@ -178,6 +207,16 @@
 
 
         function guardarDocumento() {
+
+            if (existeNumeroEscritura) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'El numero de escritura ya existe',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                });
+                return;
+            }
 
             Swal.fire({
                 title: 'Guardando...',

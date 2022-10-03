@@ -157,7 +157,7 @@
 
     </div>
 
-    <a href="#" class="float" onclick="guardarDocumento()">
+    <a class="float" onclick="guardarDocumento()">
         <i class="fa fa-save fa-lg my-float"></i>
         <br>
         <label>Guardar</label>
