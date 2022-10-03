@@ -58,10 +58,10 @@
                         data: 'url_archivo',
                         "render": function(data, type, full) {
                             return '<div class="btn-group">' +
-                                '<button type="button" id="idAccion1" class="btn btn-outline-secondary" > <i class="fa-solid fa-eye" data-toggle="tooltip" data-placement="top" title="Ver documento"></i> </button>' +
-                                '<button type="button" id="idAccion2" class="btn btn-outline-secondary" > <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Modificar"></i> </button>' +
-                                '<button type="button" id="idAccion3" class="btn btn-outline-secondary" > <i class="fa-solid fa-info-circle" data-toggle="tooltip" data-placement="top" title="Detalles"></i> </button>' +
-                                '<button type="button" id="idAccion4" class="btn btn-outline-secondary" > <i class="fa-solid fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></i> </button>' +
+                                '<button type="button" id="idAccionMostrarPdf" class="btn btn-outline-secondary" > <i class="fa-solid fa-eye" data-toggle="tooltip" data-placement="top" title="Ver documento"></i> </button>' +
+                                '<button type="button" id="idAccionModificar" class="btn btn-outline-secondary" > <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Modificar"></i> </button>' +
+                                '<button type="button" id="idAccionDetalles" class="btn btn-outline-secondary" > <i class="fa-solid fa-info-circle" data-toggle="tooltip" data-placement="top" title="Detalles"></i> </button>' +
+                                '<button type="button" id="idAccionEliminar" class="btn btn-outline-secondary" > <i class="fa-solid fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></i> </button>' +
                                 '</div>'
                         },
                     }
@@ -99,7 +99,7 @@
             }).draw();
 
 
-            $('#idTabladocumentos tbody').on('click', '#idAccion1', function() {
+            $('#idTabladocumentos tbody').on('click', '#idAccionMostrarPdf', function() {
                 var data = tabla.row($(this).parents('tr')).data();
                 // window.open(data['url_archivo'], '_blank').focus();
 
@@ -115,13 +115,13 @@
                 xhr.send();
             });
 
-            $('#idTabladocumentos tbody').on('click', '#idAccion2', function() {
+            $('#idTabladocumentos tbody').on('click', '#idAccionModificar', function() {
                 console.log("accion2");
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
             });
 
-            $('#idTabladocumentos tbody').on('click', '#idAccion3', function() {
+            $('#idTabladocumentos tbody').on('click', '#idAccionDetalles', function() {
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
 
@@ -131,9 +131,18 @@
 
             });
 
-            $('#idTabladocumentos tbody').on('click', '#idAccion4', function() {
+            $('#idTabladocumentos tbody').on('click', '#idAccionEliminar', function() {
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
+
+                if (data['tipo_documento'] !== "Cesion de Derechos Hereditarios") {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Atencion',
+                        text: 'Aun no se puede eliminar este tipo de documento'
+                    })
+                    return;
+                }
 
                 Swal.fire({
                     title: '¿Estas seguro?',
