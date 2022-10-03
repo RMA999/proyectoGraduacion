@@ -60,7 +60,10 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNumEscritura" onkeyup="validarNumeroEscritura(this.value)">
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        Numero de escritura ya existe
+                                    </div>
                                 </div>
                             </div>
 
@@ -115,11 +118,39 @@
         const app = firebase.initializeApp(firebaseConfig);
         // Initialize Cloud Storage and get a reference to the service
         const storage = app.storage();
-
         const inputArchivo = document.getElementById("idInputFile");
-
         var bytesArchivo;
 
+        var existeNumeroEscritura = false;
+
+        function validarNumeroEscritura(value) {
+            console.log(value);
+            // $("#idInputNumEscritura").addClass("is-invalid");
+            // $("#idInputNumEscritura").removeClass("is-invalid");
+            $.ajax({
+                type: "POST",
+                url: '/funcionesphp/guardarDocumentoDeclaracionJurada.php',
+                data: {
+                    numEscritura: value,
+                    validNumEscritura: 'si'
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.estado === "ok") {
+                        $("#idInputNumEscritura").removeClass("is-invalid");
+                        existeNumeroEscritura = false;
+                    }
+                    if (response.estado === "error") {
+                        $("#idInputNumEscritura").addClass("is-invalid");
+                        existeNumeroEscritura = true;
+                    }
+                },
+                error: function(xhr, status) {
+                    console.log('HUBO UN ERROR');
+                    console.log(xhr, status);
+                }
+            });
+        }
 
         function fileSelected(event) {
             console.log(event.files[0].name);
@@ -161,6 +192,17 @@
 
 
         function guardarDocumento() {
+
+
+            if (existeNumeroEscritura) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'El numero de escritura ya existe',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                });
+                return;
+            }
 
             Swal.fire({
                 title: 'Guardando...',
