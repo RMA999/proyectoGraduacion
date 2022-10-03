@@ -39,14 +39,14 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreCedente" class="form-label">Nombre cedente</label>
-                                    <input type="text" class="form-control" id="idInputNombreCedente" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNombreCedente">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiCedente" class="form-label">No. DPI cedente</label>
-                                    <input type="text" class="form-control" id="idInputDpiCedente" placeholder="">
+                                    <input type="text" class="form-control" id="idInputDpiCedente">
                                 </div>
                             </div>
 
@@ -54,14 +54,17 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputFecha" class="form-label">Fecha</label>
-                                    <input type="date" class="form-control" id="idInputFecha" placeholder="">
+                                    <input type="date" class="form-control" id="idInputFecha">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" placeholder="">
+                                    <input type="text" class="form-control" id="idInputNumEscritura" onkeyup="validarNumeroEscritura(this.value)">
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        Numero de escritura ya existe
+                                    </div>
                                 </div>
                             </div>
 
@@ -99,14 +102,14 @@
                                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                     <div class="mb-3">
                                         <label for="idInputNombreCesionario1" class="form-label">Nombre cesionario 1</label>
-                                        <input type="text" class="form-control" id="idInputNombreCesionario1" placeholder="">
+                                        <input type="text" class="form-control" id="idInputNombreCesionario1">
                                     </div>
                                 </div>
 
                                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                     <div class="mb-3">
                                         <label for="idInputDpiCesionario1" class="form-label">No. DPI cesionario 1</label>
-                                        <input type="text" class="form-control" id="idInputDpiCesionario1" placeholder="">
+                                        <input type="text" class="form-control" id="idInputDpiCesionario1">
                                     </div>
                                 </div>
 
@@ -177,6 +180,34 @@
 
         var cardCesionarios = document.getElementById("idCardCesionarios");
 
+        var existeNumeroEscritura = false;
+
+
+        function validarNumeroEscritura(value) {
+            $.ajax({
+                type: "POST",
+                url: '/funcionesphp/validarNumeroEscritura.php',
+                data: {
+                    numEscritura: value,
+                    validNumEscritura: 'si'
+                },
+                success: function(response) {
+                    if (response.estado === "ok") {
+                        $("#idInputNumEscritura").removeClass("is-invalid");
+                        existeNumeroEscritura = false;
+                    }
+                    if (response.estado === "error") {
+                        $("#idInputNumEscritura").addClass("is-invalid");
+                        existeNumeroEscritura = true;
+                    }
+                },
+                error: function(xhr, status) {
+                    console.log('HUBO UN ERROR');
+                    console.log(xhr, status);
+                }
+            });
+        }
+
         function eliminarCesionarios() {
             if (cantidadCesionarios <= 1) {
                 return;
@@ -192,14 +223,14 @@
 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
     <div class="mb-3">
         <label for="idInputNombreCesionario${index}" class="form-label">Nombre cesionario ${index}</label>
-        <input type="text" class="form-control" id="idInputNombreCesionario${index}" placeholder="">
+        <input type="text" class="form-control" id="idInputNombreCesionario${index}" >
     </div>
 </div>
 
 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
     <div class="mb-3">
         <label for="idInputDpiCesionario${index}" class="form-label">No. DPI cesionario ${index}</label>
-        <input type="text" class="form-control" id="idInputDpiCesionario${index}" placeholder="">
+        <input type="text" class="form-control" id="idInputDpiCesionario${index}" >
     </div>
 </div>
 
@@ -217,14 +248,14 @@
 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
     <div class="mb-3">
         <label for="idInputNombreCesionario${cantidadCesionarios}" class="form-label">Nombre cesionario ${cantidadCesionarios}</label>
-        <input type="text" class="form-control" id="idInputNombreCesionario${cantidadCesionarios}" placeholder="">
+        <input type="text" class="form-control" id="idInputNombreCesionario${cantidadCesionarios}" >
     </div>
 </div>
 
 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
     <div class="mb-3">
         <label for="idInputDpiCesionario${cantidadCesionarios}" class="form-label">No. DPI cesionario ${cantidadCesionarios}</label>
-        <input type="text" class="form-control" id="idInputDpiCesionario${cantidadCesionarios}" placeholder="">
+        <input type="text" class="form-control" id="idInputDpiCesionario${cantidadCesionarios}" >
     </div>
 </div>
 
@@ -273,6 +304,16 @@
 
 
         function guardarDocumento() {
+
+            if (existeNumeroEscritura) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'El numero de escritura ya existe',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                });
+                return;
+            }
 
             var cesionarios = [];
 
