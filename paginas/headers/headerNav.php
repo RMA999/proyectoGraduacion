@@ -15,14 +15,24 @@
             <a href="/paginas/formdeclaracion.php" class="dropdown-item">Declaración jurada</a>
             <a href="/paginas/formherencia.php" class="dropdown-item">Cesion de Derechos Hereditarios</a>
             <a href="/paginas/formdonacion.php" class="dropdown-item">Donacion Entre Vivos</a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">Cerrar</a>
-          </div>
-        </li>
         </li>
 
-        <a class="nav-link" href="listardocumentos.php">Documentos</a>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Documentos</a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">Compraventa</a>
+            <a href="#" class="dropdown-item">Declaración jurada</a>
+            <a href="#" class="dropdown-item">Cesion de Derechos Hereditarios</a>
+            <a href="#" class="dropdown-item">Donacion Entre Vivos</a>
+            <div class="dropdown-divider"></div>
+            <a href="/paginas/listardocumentos.php" class="dropdown-item">Todos los documentos</a>
+          </div>
         </li>
+
+        <!-- <li>
+        <a class="nav-link" href="listardocumentos.php">Documentos</a>
+        </li> -->
+
         <li class="nav-item">
           <a class="nav-link" href="#">Usuarios</a>
         </li>
