@@ -135,15 +135,15 @@
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
 
-                if (data['tipo_documento'] !== "Declaración jurada" && data['tipo_documento'] !== "Compraventa" && 
-                data['tipo_documento'] !== "Donacion Entre Vivos" && data['tipo_documento'] !== "Cesion de Derechos Hereditarios") {
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Atencion',
-                        text: 'Aun no se puede eliminar este tipo de documento'
-                    })
-                    return;
-                }
+                // if (data['tipo_documento'] !== "Declaración jurada" && data['tipo_documento'] !== "Compraventa" && 
+                // data['tipo_documento'] !== "Donacion Entre Vivos" && data['tipo_documento'] !== "Cesion de Derechos Hereditarios") {
+                //     Swal.fire({
+                //         icon: 'info',
+                //         title: 'Atencion',
+                //         text: 'Aun no se puede eliminar este tipo de documento'
+                //     })
+                //     return;
+                // }
 
                 Swal.fire({
                     title: '¿Estas seguro?',
