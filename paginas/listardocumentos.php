@@ -135,7 +135,8 @@
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
 
-                if (data['tipo_documento'] !== "Declaración jurada" && data['tipo_documento'] !== "Compraventa") {
+                if (data['tipo_documento'] !== "Declaración jurada" && data['tipo_documento'] !== "Compraventa" && 
+                data['tipo_documento'] !== "Donacion Entre Vivos") {
                     Swal.fire({
                         icon: 'info',
                         title: 'Atencion',
