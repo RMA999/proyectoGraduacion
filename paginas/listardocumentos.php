@@ -135,7 +135,7 @@
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
 
-                if (data['tipo_documento'] !== "Cesion de Derechos Hereditarios") {
+                if (data['tipo_documento'] !== "Declaración jurada" && data['tipo_documento'] !== "Compraventa") {
                     Swal.fire({
                         icon: 'info',
                         title: 'Atencion',
