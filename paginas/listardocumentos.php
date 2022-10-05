@@ -136,7 +136,7 @@
                 console.log(data);
 
                 if (data['tipo_documento'] !== "Declaración jurada" && data['tipo_documento'] !== "Compraventa" && 
-                data['tipo_documento'] !== "Donacion Entre Vivos") {
+                data['tipo_documento'] !== "Donacion Entre Vivos" && data['tipo_documento'] !== "Cesion de Derechos Hereditarios") {
                     Swal.fire({
                         icon: 'info',
                         title: 'Atencion',
