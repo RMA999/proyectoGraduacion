@@ -116,9 +116,11 @@
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionModificar', function() {
-                console.log("accion2");
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
+                if (data['tipo_documento'] === "Cesion de Derechos Hereditarios") {
+                    window.location.href = `/paginas/modificarherencia.php?id_documento=${data['id_documento']}`;
+                }
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionDetalles', function() {
