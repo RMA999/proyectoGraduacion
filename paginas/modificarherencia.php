@@ -33,7 +33,7 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        Detalle Herencia
+                        Modificar Herencia
                     </div>
                     <div class="card-body">
                         <div class="row">
