@@ -315,6 +315,15 @@
                 return;
             }
 
+            Swal.fire({
+                title: 'Guardando...',
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+            });
+
             var cesionarios = [];
 
             for (var index = 1; index <= cantidadCesionarios; index++) {
@@ -326,14 +335,6 @@
 
             console.log(cesionarios);
 
-            // Swal.fire({
-            //     title: 'Guardando...',
-            //     timerProgressBar: true,
-            //     allowOutsideClick: false,
-            //     didOpen: () => {
-            //         Swal.showLoading()
-            //     },
-            // });
 
             var documento = {
                 tipoDocumento: 3,

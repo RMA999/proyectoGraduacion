@@ -84,7 +84,7 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
 
                     <div class="card-body">
 
-                        <!-- <div class="row mb-3">
+                        <div class="row mb-3">
                             <div class="col-3">
                                 <button class="btn btn-dark" onclick="agregarCesionarios()">Agregar Cesionario</button>
                             </div>
@@ -92,7 +92,7 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
                             <div class="col-3">
                                 <button class="btn btn-dark" onclick="eliminarCesionarios()">Eliminar Cesionario</button>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div id="idCardCesionarios">
 
@@ -107,14 +107,14 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
                                         <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                             <div class="mb-3">
                                                 <label for="idInputNombreCesionario1" class="form-label">Nombre cesionario <?php echo $numeroCesionario ?></label>
-                                                <input type="text" class="form-control" id="idInputNombreCesionario1" value="<?php echo $cesionario['nombre'] ?>">
+                                                <input type="text" class="form-control" id="idInputNombreCesionario<?php echo $numeroCesionario ?>" value="<?php echo $cesionario['nombre'] ?>">
                                             </div>
                                         </div>
 
                                         <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                             <div class="mb-3">
                                                 <label for="idInputDpiCesionario1" class="form-label">No. DPI cesionario <?php echo $numeroCesionario ?></label>
-                                                <input type="text" class="form-control" id="idInputDpiCesionario1" value="<?php echo $cesionario['dpi'] ?>">
+                                                <input type="text" class="form-control" id="idInputDpiCesionario<?php echo $numeroCesionario ?>" value="<?php echo $cesionario['dpi'] ?>">
                                             </div>
                                         </div>
 
@@ -189,10 +189,11 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
         const storage = app.storage();
 
         const inputArchivo = document.getElementById("idInputFile");
+        var cambioArchivo = false;
 
         var bytesArchivo;
 
-        var cantidadCesionarios = 1;
+        var cantidadCesionarios = <?php echo count($cesionarios) ?>;
 
         var cardCesionarios = document.getElementById("idCardCesionarios");
 
@@ -253,6 +254,7 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
 
 
         function fileSelected(event) {
+            cambioArchivo = true;
             console.log(event.files[0].name);
             const url = window.URL.createObjectURL(event.files[0]);
             document.getElementById('idembed').src = url;
@@ -293,14 +295,6 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
 
         function modificarDocumento() {
 
-            Swal.fire({
-                icon: 'info',
-                title: 'Atencion',
-                text: 'Aun no se puede modificar este tipo de documento'
-            });
-
-            return;
-
             var cesionarios = [];
 
             for (var index = 1; index <= cantidadCesionarios; index++) {
@@ -322,7 +316,8 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
             // });
 
             var documento = {
-                tipoDocumento: 3,
+                numEscrituraAnt: <?php echo $documento['numero_escritura'] ?>,
+                idTipoDocumento: 3,
                 nombreCedente: document.getElementById('idInputNombreCedente').value,
                 dpiCedente: document.getElementById('idInputDpiCedente').value,
                 cesionarios: cesionarios,
@@ -333,28 +328,49 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
 
             console.log(documento);
 
-            $.ajax({
-                type: "POST",
-                url: '/funcionesphp/guardarDocumentoHerencia.php',
-                data: documento,
-                success: function(response) {
-                    console.log(response);
+            if (!cambioArchivo) {
+                documento.urlArchivo = "<?php echo $documento['url_archivo'] ?>";
+                $.ajax({
+                    type: "POST",
+                    url: '/funcionesphp/modificarDocumento.php',
+                    data: documento,
+                    success: function(response) {
+                        console.log(response);
+
+                        if (response.estado === "ok") {
+
+                            setTimeout(() => {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Documento guardado',
+                                    showConfirmButton: false
+                                });
+                            }, 1200);
+
+                            setTimeout(() => {
+                                window.location.href = "/paginas/listardocumentos.php";
+                            }, 3000);
+
+                        }
 
 
-                },
-                error: function(xhr, status) {
-                    console.log('HUBO UN ERROR');
-                    console.log(xhr, status);
+                    },
+                    error: function(xhr, status) {
+                        console.log('HUBO UN ERROR');
+                        console.log(xhr, status);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error en el servidor',
+                            showConfirmButton: false,
+                            showCloseButton: true,
+                        });
+                    }
+                });
+                return;
+            }
 
-                }
-            });
-
-
-            return;
             const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
-
-
-            const storageRef = storage.ref('escaneos/declaracionesJuradas/' + nombreArchivo);
+            const storageRef = storage.ref('escaneos/herencias/' + nombreArchivo);
             const task = storageRef.put(bytesArchivo);
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -378,7 +394,7 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
 
                     $.ajax({
                         type: "POST",
-                        url: '/funcionesphp/guardarDocumentoDonacion.php',
+                        url: '/funcionesphp/modificarDocumento.php',
                         data: documento,
                         success: function(response) {
                             console.log(response);
@@ -394,7 +410,7 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/paginas/principal.php";
+                                    window.location.href = "/paginas/listardocumentos.php";
                                 }, 3000);
 
                             }
