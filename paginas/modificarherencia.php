@@ -1,5 +1,5 @@
 <?php
-include '../funcionesphp/detallesDocumentoHerencia.php';
+include '../funcionesphp/detallesDocumento.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

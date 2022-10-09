@@ -119,7 +119,7 @@
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
                 if (data['tipo_documento'] === "Cesion de Derechos Hereditarios") {
-                    window.location.href = `/paginas/modificarherencia.php?id_documento=${data['id_documento']}`;
+                    window.location.href = `/paginas/modificarherencia.php?id_documento=${data['id_documento']}&tipo_documento=${data['tipo_documento']}`;
                 }
             });
 
@@ -128,7 +128,7 @@
                 console.log(data);
 
                 if (data['tipo_documento'] === "Cesion de Derechos Hereditarios") {
-                    window.location.href = `/paginas/detallesherencia.php?id_documento=${data['id_documento']}`;
+                    window.location.href = `/paginas/detallesherencia.php?id_documento=${data['id_documento']}&tipo_documento=${data['tipo_documento']}`;
                 }
 
             });
