@@ -118,3 +118,29 @@ FROM
         personas
         INNER JOIN documentos ON personas.id = documentos.id_persona_cedente
     );
+
+    CREATE
+OR REPLACE VIEW vista_compradores AS
+SELECT
+    personas.id AS id_persona,
+    personas.nombre,
+    personas.dpi,
+    documentos.numero_escritura
+FROM
+    (
+        personas
+        INNER JOIN documentos ON personas.id = documentos.id_persona_comprador
+    );
+
+    CREATE
+OR REPLACE VIEW vista_vendedores AS
+SELECT
+    personas.id AS id_persona,
+    personas.nombre,
+    personas.dpi,
+    documentos.numero_escritura
+FROM
+    (
+        personas
+        INNER JOIN documentos ON personas.id = documentos.id_persona_vendedor
+    );
