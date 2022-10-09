@@ -295,6 +295,15 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
 
         function modificarDocumento() {
 
+            Swal.fire({
+                title: 'Modificando...',
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+            });
+
             var cesionarios = [];
 
             for (var index = 1; index <= cantidadCesionarios; index++) {
@@ -305,15 +314,6 @@ include '../funcionesphp/detallesDocumentoHerencia.php';
             }
 
             console.log(cesionarios);
-
-            // Swal.fire({
-            //     title: 'Guardando...',
-            //     timerProgressBar: true,
-            //     allowOutsideClick: false,
-            //     didOpen: () => {
-            //         Swal.showLoading()
-            //     },
-            // });
 
             var documento = {
                 numEscrituraAnt: <?php echo $documento['numero_escritura'] ?>,
