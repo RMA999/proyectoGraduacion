@@ -1,3 +1,6 @@
+<?php
+include '../funcionesphp/detallesDocumento.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,14 +70,14 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputFecha" class="form-label">Fecha</label>
-                                    <input type="date" class="form-control" id="idInputFecha">
+                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento']?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" onkeyup="validarNumeroEscritura(this.value)">
+                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura']?>" onkeyup="validarNumeroEscritura(this.value)">
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         Numero de escritura ya existe
                                     </div>
@@ -142,6 +145,10 @@
 
 
         function validarNumeroEscritura(value) {
+            var numerEscrituraActual = <?php echo $documento['numero_escritura']; ?>;
+            if (numerEscrituraActual == value) {
+                return;
+            }
             $.ajax({
                 type: "POST",
                 url: '/funcionesphp/validarNumeroEscritura.php',

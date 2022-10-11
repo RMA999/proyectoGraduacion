@@ -121,6 +121,9 @@
                 if (data['tipo_documento'] === "Cesion de Derechos Hereditarios") {
                     window.location.href = `/paginas/modificarherencia.php?id_documento=${data['id_documento']}&tipo_documento=${data['tipo_documento']}`;
                 }
+                if (data['tipo_documento'] === "Compraventa") {
+                    window.location.href = `/paginas/modificarcompraventa.php?id_documento=${data['id_documento']}&tipo_documento=${data['tipo_documento']}`;
+                }
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionDetalles', function() {
