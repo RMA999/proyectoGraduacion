@@ -329,7 +329,7 @@ include '../funcionesphp/detallesDocumento.php';
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/paginas/principal.php";
+                                    window.location.href = "/paginas/listardocumentos.php";
                                 }, 3000);
 
                             }

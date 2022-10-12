@@ -100,12 +100,17 @@ if ($tipoDocumento == "Compraventa") {
         $stmt->execute([$numEscrituraAnt]);
         $documento = $stmt->fetch();
 
-        $stmt = $conn->prepare("DELETE FROM documentos WHERE numero_escritura = ?");
-        $stmt->execute([$numEscrituraAnt]);
+        //Update persona comprador
+        $stmt = $conn->prepare("UPDATE personas SET dpi = ?, nombre = ? WHERE id = ?");
+        $stmt->execute([$dpiComprador, $nombreComprador, $documento['id_persona_comprador']]);
 
-        $stmt = $conn->prepare("DELETE FROM personas WHERE id = ?");
-        $stmt->execute([$documentos[0]['id_persona_cedente']]);
+        //Update persona vendedor
+        $stmt = $conn->prepare("UPDATE personas SET dpi = ?, nombre = ? WHERE id = ?");
+        $stmt->execute([$dpiVendedor, $nombreVendedor, $documento['id_persona_vendedor']]);
 
+        //Update documento
+        $stmt = $conn->prepare("UPDATE documentos SET fecha = ?, numero_escritura = ?, url_archivo = ? WHERE id = ?");
+        $stmt->execute([$fecha, $numEscritura, $urlArchivo, $documento['id']]);
 
         $conn->commit();
 
