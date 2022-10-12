@@ -4,17 +4,6 @@ header('Content-type: application/json');
 include 'conexion.php';
 
 $idTipoDocumento = $_POST['idTipoDocumento'];
-$nombreCedente = $_POST['nombreCedente'];
-$dpiCedente = $_POST['dpiCedente'];
-$fecha = $_POST['fecha'];
-$numEscrituraAnt = $_POST['numEscrituraAnt'];
-$numEscritura = $_POST['numEscritura'];
-$urlArchivo = $_POST['urlArchivo'];
-
-$cesionarios = (array) $_POST['cesionarios'];
-$cantidadCesionarios = count($cesionarios);
-
-
 
 $stmt = $conn->prepare("SELECT * FROM tipos_documentos WHERE id = ? LIMIT 1");
 $stmt->execute([$idTipoDocumento]);
@@ -22,9 +11,17 @@ $resultTipoDocumento = $stmt->fetch();
 $tipoDocumento = $resultTipoDocumento['nombre'];
 
 
-
-
 if ($tipoDocumento == "Cesion de Derechos Hereditarios") {
+
+    $nombreCedente = $_POST['nombreCedente'];
+    $dpiCedente = $_POST['dpiCedente'];
+    $fecha = $_POST['fecha'];
+    $numEscrituraAnt = $_POST['numEscrituraAnt'];
+    $numEscritura = $_POST['numEscritura'];
+    $urlArchivo = $_POST['urlArchivo'];
+
+    $cesionarios = (array) $_POST['cesionarios'];
+    $cantidadCesionarios = count($cesionarios);
 
     try {
 
@@ -84,11 +81,50 @@ if ($tipoDocumento == "Cesion de Derechos Hereditarios") {
 }
 
 
-// if ($tipoDocumento == "Compraventa") {
+if ($tipoDocumento == "Compraventa") {
+    $numEscrituraAnt = $_POST['numEscrituraAnt'];
+    $nombreVendedor = $_POST['nombreVendedor'];
+    $nombreComprador = $_POST['nombreComprador'];
+    $dpiVendedor = $_POST['dpiVendedor'];
+    $dpiComprador = $_POST['dpiComprador'];
+    $fecha = $_POST['fecha'];
+    $numEscritura = $_POST['numEscritura'];
+    $urlArchivo = $_POST['urlArchivo'];
 
 
-//     return;
-// }
+    try {
+
+        $conn->beginTransaction();
+
+        $stmt = $conn->prepare("SELECT * FROM documentos WHERE numero_escritura = ?");
+        $stmt->execute([$numEscrituraAnt]);
+        $documento = $stmt->fetch();
+
+        $stmt = $conn->prepare("DELETE FROM documentos WHERE numero_escritura = ?");
+        $stmt->execute([$numEscrituraAnt]);
+
+        $stmt = $conn->prepare("DELETE FROM personas WHERE id = ?");
+        $stmt->execute([$documentos[0]['id_persona_cedente']]);
+
+
+        $conn->commit();
+
+        $myObj = new stdClass();
+        $myObj->mensaje = "Documento modificado";
+        $myObj->estado = 'ok';
+        echo json_encode($myObj);
+    } catch (Exception $e) {
+        // echo $e->getMessage();
+        $conn->rollBack();
+        $myObj = new stdClass();
+        $myObj->mensaje = $e->getMessage();
+        $myObj->estado = 'error';
+        echo json_encode($myObj);
+    }
+
+
+    return;
+}
 
 
 

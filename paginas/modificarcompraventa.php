@@ -42,28 +42,28 @@ include '../funcionesphp/detallesDocumento.php';
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreVendedor" class="form-label">Nombre vendedor</label>
-                                    <input type="text" class="form-control" id="idInputNombreVendedor">
+                                    <input type="text" class="form-control" id="idInputNombreVendedor" value="<?php echo $vendedor['nombre']?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreComprador" class="form-label">Nombre comprador</label>
-                                    <input type="text" class="form-control" id="idInputNombreComprador">
+                                    <input type="text" class="form-control" id="idInputNombreComprador" value="<?php echo $comprador['nombre']?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiVendedor" class="form-label">No. DPI vendedor</label>
-                                    <input type="text" class="form-control" id="idInputDpiVendedor">
+                                    <input type="text" class="form-control" id="idInputDpiVendedor" value="<?php echo $vendedor['dpi']?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiComprador" class="form-label">No. DPI comprador</label>
-                                    <input type="text" class="form-control" id="idInputDpiComprador">
+                                    <input type="text" class="form-control" id="idInputDpiComprador" value="<?php echo $comprador['dpi']?>">
                                 </div>
                             </div>
 
@@ -108,7 +108,7 @@ include '../funcionesphp/detallesDocumento.php';
 
                         <div class="d-flex justify-content-center">
 
-                            <embed src="" id="idembed" width="80%" height="500" type="application/pdf">
+                            <embed src="<?php echo $documento['url_archivo'] ?>" id="idembed" width="80%" height="500" type="application/pdf">
 
 
                         </div>
@@ -140,8 +140,9 @@ include '../funcionesphp/detallesDocumento.php';
         const storage = app.storage();
         const inputArchivo = document.getElementById("idInputFile");
         var bytesArchivo;
-
         var existeNumeroEscritura = false;
+        var cambioArchivo = false;
+
 
 
         function validarNumeroEscritura(value) {
@@ -174,6 +175,7 @@ include '../funcionesphp/detallesDocumento.php';
         }
 
         function fileSelected(event) {
+            cambioArchivo = true;
             console.log(event.files[0].name);
             const url = window.URL.createObjectURL(event.files[0]);
             document.getElementById('idembed').src = url;
@@ -234,7 +236,8 @@ include '../funcionesphp/detallesDocumento.php';
             });
 
             var documento = {
-                tipoDocumento: 1,
+                numEscrituraAnt: <?php echo $documento['numero_escritura'] ?>,
+                idTipoDocumento: 1,
                 nombreVendedor: document.getElementById('idInputNombreVendedor').value,
                 nombreComprador: document.getElementById('idInputNombreComprador').value,
                 dpiVendedor: document.getElementById('idInputDpiVendedor').value,
@@ -244,10 +247,48 @@ include '../funcionesphp/detallesDocumento.php';
                 urlArchivo: ""
             }
 
-            console.log(documento);
+            if (!cambioArchivo) {
+                documento.urlArchivo = "<?php echo $documento['url_archivo'] ?>";
+                $.ajax({
+                    type: "POST",
+                    url: '/funcionesphp/modificarDocumento.php',
+                    data: documento,
+                    success: function(response) {
+                        console.log(response);
+
+                        if (response.estado === "ok") {
+
+                            setTimeout(() => {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Documento guardado',
+                                    showConfirmButton: false
+                                });
+                            }, 1200);
+
+                            setTimeout(() => {
+                                window.location.href = "/paginas/listardocumentos.php";
+                            }, 3000);
+
+                        }
+
+
+                    },
+                    error: function(xhr, status) {
+                        console.log('HUBO UN ERROR');
+                        console.log(xhr, status);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error en el servidor',
+                            showConfirmButton: false,
+                            showCloseButton: true,
+                        });
+                    }
+                });
+                return;
+            }
+
             const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
-
-
             const storageRef = storage.ref('escaneos/compraVentas/' + nombreArchivo);
             const task = storageRef.put(bytesArchivo);
             task.on('state_changed', function progress(snapshot) {
@@ -272,7 +313,7 @@ include '../funcionesphp/detallesDocumento.php';
 
                     $.ajax({
                         type: "POST",
-                        url: '/funcionesphp/guardarDocumentoCompraVenta.php',
+                        url: '/funcionesphp/modificarDocumento.php',
                         data: documento,
                         success: function(response) {
                             console.log(response);
