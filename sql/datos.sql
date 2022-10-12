@@ -1,10 +1,8 @@
-SET FOREIGN_KEY_CHECKS = 0; 
 TRUNCATE `documentos`;
 TRUNCATE `personas`;
 TRUNCATE `roles`;
 TRUNCATE `tipos_documentos`;
 TRUNCATE `usuarios`;
-SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO `personas` (`id`, `dpi`, `nombre`, `direccion`) VALUES
 (1, '2343', 'vendedor1', ''),
@@ -41,3 +39,4 @@ INSERT INTO `documentos` (`id`, `id_tipo_documento`, `id_persona_vendedor`, `id_
 (8, 2, NULL, NULL, 12, NULL, NULL, NULL, NULL, '2022-09-14', '2022-10-09', '666', 'https://firebasestorage.googleapis.com/v0/b/miprimerproyecto-8abf3.appspot.com/o/escaneos%2FdeclaracionesJuradas%2Fdocumento-1665360123.pdf?alt=media&token=52ecfc91-646a-4543-816b-df93ca721c93'),
 (9, 3, NULL, NULL, NULL, NULL, NULL, 13, 14, '2022-09-18', '2022-10-09', '777', 'https://firebasestorage.googleapis.com/v0/b/miprimerproyecto-8abf3.appspot.com/o/escaneos%2Fherencias%2Fdocumento-1665360162.pdf?alt=media&token=5b833bb3-cff2-456d-b509-950f7225e35a'),
 (10, 3, NULL, NULL, NULL, NULL, NULL, 13, 15, '2022-09-18', '2022-10-09', '777', 'https://firebasestorage.googleapis.com/v0/b/miprimerproyecto-8abf3.appspot.com/o/escaneos%2Fherencias%2Fdocumento-1665360162.pdf?alt=media&token=5b833bb3-cff2-456d-b509-950f7225e35a');
+
