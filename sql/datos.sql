@@ -1,3 +1,10 @@
+TRUNCATE `documentos`;
+TRUNCATE `personas`;
+TRUNCATE `roles`;
+TRUNCATE `tipos_documentos`;
+TRUNCATE `usuarios`;
+
+
 INSERT INTO `personas` (`id`, `dpi`, `nombre`, `direccion`) VALUES
 (1, '2343', 'vendedor1', ''),
 (2, '343453', 'comprador1', ''),
