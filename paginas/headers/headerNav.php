@@ -5,7 +5,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav mr-auto">
 
 
         <li class="nav-item dropdown">
@@ -29,18 +29,25 @@
           </div>
         </li>
 
-        <!-- <li>
-        <a class="nav-link" href="listardocumentos.php">Documentos</a>
-        </li> -->
 
-        <li class="nav-item">
-          <a class="nav-link" href="#">Usuarios</a>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Usuarios</a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">Crear</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">Listar</a>
+          </div>
         </li>
-      </ul>
 
+        </ul>
+    </div>
+  </div>
 
-      <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
-        <li class="nav-item dropdown col-6 col-md-auto">
+  <div class="d-flex">
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav">
+        
+  <li class="nav-item dropdown col-6 col-md-auto">
 
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person">
@@ -49,7 +56,7 @@
               </svg>
             </i>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">Perfil</a></li>
             <li><a class="dropdown-item" href="#">Configuracion</a></li>
             <li>
@@ -59,8 +66,11 @@
           </ul>
 
         </li>
-      </ul>
 
+      </ul>
     </div>
   </div>
-</nav>
+  
+ </nav>
+
+ 
