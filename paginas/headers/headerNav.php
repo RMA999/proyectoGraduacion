@@ -33,7 +33,7 @@
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Usuarios</a>
           <div class="dropdown-menu">
-            <a href="#" class="dropdown-item">Crear</a>
+            <a href="/paginas/formcrearusuario.php" class="dropdown-item">Crear</a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">Listar</a>
           </div>

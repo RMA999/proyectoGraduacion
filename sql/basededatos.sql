@@ -10,6 +10,16 @@ CREATE TABLE roles (
     nombre_rol VARCHAR(255) NOT NULL
 );
 
+INSERT INTO
+    `roles`(`nombre_rol`)
+VALUES
+    ('Administrador');
+
+INSERT INTO
+    `roles`(`nombre_rol`)
+VALUES
+    ('Usuario');
+
 CREATE TABLE usuarios(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombre_usuario VARCHAR(255) NOT NULL,
@@ -20,6 +30,17 @@ CREATE TABLE usuarios(
     CONSTRAINT FK_usuario_persona FOREIGN KEY (id_persona) REFERENCES `personas` (id),
     CONSTRAINT FK_usuario_rol FOREIGN KEY (id_rol) REFERENCES `roles` (id)
 );
+
+INSERT INTO
+    `usuarios`(
+        `nombre_usuario`,
+        `contrasenia`,
+        `estado`,
+        `id_persona`,
+        `id_rol`
+    )
+VALUES
+    ('exbinario', '12345', 'desconectado', 1, 1);
 
 CREATE TABLE tipos_documentos(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -120,7 +141,7 @@ FROM
         INNER JOIN documentos ON personas.id = documentos.id_persona_cedente
     );
 
-    CREATE
+CREATE
 OR REPLACE VIEW vista_compradores AS
 SELECT
     personas.id AS id_persona,
@@ -133,7 +154,7 @@ FROM
         INNER JOIN documentos ON personas.id = documentos.id_persona_comprador
     );
 
-    CREATE
+CREATE
 OR REPLACE VIEW vista_vendedores AS
 SELECT
     personas.id AS id_persona,
@@ -146,8 +167,7 @@ FROM
         INNER JOIN documentos ON personas.id = documentos.id_persona_vendedor
     );
 
-
-    CREATE
+CREATE
 OR REPLACE VIEW vista_declaradores AS
 SELECT
     personas.id AS id_persona,
