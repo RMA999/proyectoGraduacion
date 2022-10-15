@@ -132,19 +132,50 @@ if ($tipoDocumento == "Compraventa") {
 }
 
 
-
-// if ($tipoDocumento == "Donacion Entre Vivos") {
-
-
-//     return;
-// }
-
-
-// if ($tipoDocumento == "Cesion de Derechos Hereditarios") {
+if ($tipoDocumento == "Declaración jurada") {
+    $numEscrituraAnt = $_POST['numEscrituraAnt'];
+    $nombreDeclarador = $_POST['nombreDeclarador'];
+    $dpiDeclarador = $_POST['dpiDeclarador'];
+    $fecha = $_POST['fecha'];
+    $numEscritura = $_POST['numEscritura'];
+    $urlArchivo = $_POST['urlArchivo'];
 
 
-//     return;
-// }
+    try {
+
+        $conn->beginTransaction();
+
+        $stmt = $conn->prepare("SELECT * FROM documentos WHERE numero_escritura = ?");
+        $stmt->execute([$numEscrituraAnt]);
+        $documento = $stmt->fetch();
+
+        //Update persona declarador
+        $stmt = $conn->prepare("UPDATE personas SET dpi = ?, nombre = ? WHERE id = ?");
+        $stmt->execute([$dpiDeclarador, $nombreDeclarador, $documento['id_persona_declarador']]);
+
+        //Update documento
+        $stmt = $conn->prepare("UPDATE documentos SET fecha = ?, numero_escritura = ?, url_archivo = ? WHERE id = ?");
+        $stmt->execute([$fecha, $numEscritura, $urlArchivo, $documento['id']]);
+
+        $conn->commit();
+
+        $myObj = new stdClass();
+        $myObj->mensaje = "Documento modificado";
+        $myObj->estado = 'ok';
+        echo json_encode($myObj);
+    } catch (Exception $e) {
+        // echo $e->getMessage();
+        $conn->rollBack();
+        $myObj = new stdClass();
+        $myObj->mensaje = $e->getMessage();
+        $myObj->estado = 'error';
+        echo json_encode($myObj);
+    }
+
+
+    return;
+}
+
 
 
 $myObj = new stdClass();

@@ -63,6 +63,7 @@ foreach ($empRecords as $row) {
       "rowNumber" => $row['rowNumber'],
       "id_documento" => $row['id_documento'],
       "numero_escritura" => $row['numero_escritura'],
+      "id_tipo_documento" => $row['id_tipo_documento'],
       "tipo_documento" => $row['tipo_documento'],
       "fecha_documento" => $row['fecha_documento'],
       "url_archivo" => $row['url_archivo'],

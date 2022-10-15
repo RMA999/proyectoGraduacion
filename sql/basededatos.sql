@@ -82,6 +82,7 @@ SELECT
     ) as rowNumber,
     documentos.id AS id_documento,
     documentos.numero_escritura,
+    documentos.id_tipo_documento,
     tipos_documentos.nombre AS tipo_documento,
     documentos.fecha AS fecha_documento,
     documentos.url_archivo
@@ -143,4 +144,18 @@ FROM
     (
         personas
         INNER JOIN documentos ON personas.id = documentos.id_persona_vendedor
+    );
+
+
+    CREATE
+OR REPLACE VIEW vista_declaradores AS
+SELECT
+    personas.id AS id_persona,
+    personas.nombre,
+    personas.dpi,
+    documentos.numero_escritura
+FROM
+    (
+        personas
+        INNER JOIN documentos ON personas.id = documentos.id_persona_declarador
     );
