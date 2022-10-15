@@ -10,16 +10,6 @@ CREATE TABLE roles (
     nombre_rol VARCHAR(255) NOT NULL
 );
 
-INSERT INTO
-    `roles`(`nombre_rol`)
-VALUES
-    ('Administrador');
-
-INSERT INTO
-    `roles`(`nombre_rol`)
-VALUES
-    ('Usuario');
-
 CREATE TABLE usuarios(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombre_usuario VARCHAR(255) NOT NULL,
@@ -31,41 +21,11 @@ CREATE TABLE usuarios(
     CONSTRAINT FK_usuario_rol FOREIGN KEY (id_rol) REFERENCES `roles` (id)
 );
 
-INSERT INTO
-    `usuarios`(
-        `nombre_usuario`,
-        `contrasenia`,
-        `estado`,
-        `id_persona`,
-        `id_rol`
-    )
-VALUES
-    ('exbinario', '12345', 'desconectado', 1, 1);
 
 CREATE TABLE tipos_documentos(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(255) NOT NULL
 );
-
-INSERT INTO
-    tipos_documentos (nombre)
-VALUES
-    ('Compraventa');
-
-INSERT INTO
-    tipos_documentos (nombre)
-VALUES
-    ('Declaración jurada');
-
-INSERT INTO
-    tipos_documentos (nombre)
-VALUES
-    ('Cesion de Derechos Hereditarios');
-
-INSERT INTO
-    tipos_documentos (nombre)
-VALUES
-    ('Donacion Entre Vivos');
 
 CREATE TABLE documentos (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,

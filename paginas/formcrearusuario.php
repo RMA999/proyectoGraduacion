@@ -36,6 +36,20 @@
 
                         <div class="row">
 
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3">
+                                    <label for="idInputDpi" class="form-label">Dpi</label>
+                                    <input type="text" class="form-control" id="idInputDpi">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3">
+                                    <label for="idInputNombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="idInputNombre">
+                                </div>
+                            </div>
+
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputUsuario" class="form-label">Usuario</label>
@@ -94,7 +108,7 @@
         const storage = app.storage();
         const inputArchivo = document.getElementById("idInputFile");
         var bytesArchivo;
-        var existeUsuario = false;
+        var existeUsuario = true;
         var contraseniaValida = false;
 
         function validadUsuarioExiste(value) {
@@ -181,6 +195,16 @@
 
         function crearUsuario() {
 
+            if (existeUsuario) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Verifique el Usuario',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                });
+                return;
+            }
+
 
             if (!contraseniaValida) {
                 Swal.fire({
@@ -201,45 +225,20 @@
                 },
             });
 
-            var documento = {
-                tipoDocumento: 2,
-                nombreDeclarador: document.getElementById('idInputUsuario').value,
-                dpiDeclarador: document.getElementById('idInputContrasenia').value,
-                fecha: document.getElementById('idInputFecha').value,
-                numEscritura: document.getElementById('idInputNumEscritura').value,
-                urlArchivo: ""
+            var usuario = {
+                dpi: document.getElementById('idInputDpi').value,
+                nombre: document.getElementById('idInputNombre').value,
+                username: document.getElementById('idInputUsuario').value,
+                password: document.getElementById('idInputContrasenia').value,
+                funcion: "crearUsuario"
             }
 
-            console.log(documento);
-            const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
+            console.log(usuario);
 
-
-            const storageRef = storage.ref('escaneos/declaracionesJuradas/' + nombreArchivo);
-            const task = storageRef.put(bytesArchivo);
-            task.on('state_changed', function progress(snapshot) {
-                var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                // uploader.value = percentage;
-                console.log(percentage);
-
-            }, function error(err) {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error al subir el archivo',
-                    showConfirmButton: false,
-                    showCloseButton: true,
-                });
-
-            }, function complete(data) {
-                console.log("ARCHIVO SUBIDO");
-                storageRef.getDownloadURL().then((url) => {
-                    documento.urlArchivo = url;
-                    console.log(documento);
-
-                    $.ajax({
+            $.ajax({
                         type: "POST",
-                        url: '/funcionesphp/guardarDocumentoDeclaracionJurada.php',
-                        data: documento,
+                        url: '/funcionesphp/funcionesUsuario.php',
+                        data: usuario,
                         success: function(response) {
                             console.log(response);
 
@@ -248,14 +247,14 @@
                                 setTimeout(() => {
                                     Swal.fire({
                                         icon: 'success',
-                                        title: 'Documento guardado',
+                                        title: 'Usuarion creado',
                                         showConfirmButton: false
                                     });
                                 }, 1200);
 
-                                setTimeout(() => {
-                                    window.location.href = "/paginas/principal.php";
-                                }, 3000);
+                                // setTimeout(() => {
+                                //     window.location.href = "/paginas/principal.php";
+                                // }, 3000);
 
                             }
 
@@ -272,10 +271,6 @@
                             });
                         }
                     });
-
-
-                });
-            });
 
         }
     </script>

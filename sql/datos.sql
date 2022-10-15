@@ -21,6 +21,27 @@ INSERT INTO `personas` (`id`, `dpi`, `nombre`, `direccion`) VALUES
 (14, '74674', 'cesinario1', ''),
 (15, '84764', 'cesinario2', '');
 
+INSERT INTO
+    `roles`(`nombre_rol`)
+VALUES
+    ('Administrador');
+
+INSERT INTO
+    `roles`(`nombre_rol`)
+VALUES
+    ('Usuario');
+
+INSERT INTO
+    `usuarios`(
+        `nombre_usuario`,
+        `contrasenia`,
+        `estado`,
+        `id_persona`,
+        `id_rol`
+    )
+VALUES
+    ('exbinario', '12345', 'desconectado', 1, 1);
+
 INSERT INTO `tipos_documentos` (`id`, `nombre`) VALUES
 (1, 'Compraventa'),
 (2, 'Declaración jurada'),
