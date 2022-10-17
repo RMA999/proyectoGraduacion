@@ -20,13 +20,14 @@ if ($searchValue != '') {
            dpi LIKE :dpi  OR 
            nombre LIKE :nombre  OR
            nombre_usuario LIKE :nombre_usuario  OR
+           nombre_rol LIKE :nombre_rol  OR
            estado LIKE :estado 
-            
            ) ";
    $searchArray = array(
       'dpi' => "%$searchValue%",
       'nombre' => "%$searchValue%",
-      'estado' => "%$searchValue%",
+      'nombre_usuario' => "%$searchValue%",
+      'nombre_rol' => "%$searchValue%",
 
       'estado' => "%$searchValue%"
    );
@@ -61,13 +62,14 @@ $data = array();
 
 foreach ($empRecords as $row) {
    $data[] = array(
-      "rowNumber" => $row['rowNumber'],
-      "id_documento" => $row['id_documento'],
-      "dpi" => $row['dpi'],
-      "id_tipo_documento" => $row['id_tipo_documento'],
-      "nombre" => $row['nombre'],
+      "id_usuario" => $row['id_usuario'],
+      "nombre_usuario" => $row['nombre_usuario'],
       "estado" => $row['estado'],
-      "url_archivo" => $row['url_archivo'],
+      "id_rol" => $row['id_rol'],
+      "id_persona" => $row['id_persona'],
+      "dpi" => $row['dpi'],
+      "nombre" => $row['nombre'],
+      "nombre_rol" => $row['nombre_rol'],
    );
 }
 

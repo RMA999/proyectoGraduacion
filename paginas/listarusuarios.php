@@ -33,24 +33,29 @@
                 'serverSide': true,
                 'serverMethod': 'post',
                 'ajax': {
-                    'url': '/funcionesphp/listarDocumentos.php'
+                    'url': '/funcionesphp/listarUsuarios.php'
                 },
                 'columns': [{
                         title: '#',
                         "defaultContent": ""
                     },
                     {
-                        title: 'No. Escritura',
-                        data: 'numero_escritura'
+                        title: 'Nombre',
+                        data: 'nombre'
                     },
                     {
-                        title: 'Tipo Documento',
-                        data: 'tipo_documento'
+                        title: 'Usuario',
+                        data: 'nombre_usuario'
                     },
 
                     {
-                        title: 'Fecha',
-                        data: 'fecha_documento'
+                        title: 'Rol',
+                        data: 'nombre_rol'
+                    },
+
+                    {
+                        title: 'Estado',
+                        data: 'estado'
                     },
 
                     {
@@ -58,7 +63,6 @@
                         data: 'url_archivo',
                         "render": function(data, type, full) {
                             return '<div class="btn-group">' +
-                                '<button type="button" id="idAccionMostrarPdf" class="btn btn-outline-secondary" > <i class="fa-solid fa-eye" data-toggle="tooltip" data-placement="top" title="Ver documento"></i> </button>' +
                                 '<button type="button" id="idAccionModificar" class="btn btn-outline-secondary" > <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Modificar"></i> </button>' +
                                 '<button type="button" id="idAccionDetalles" class="btn btn-outline-secondary" > <i class="fa-solid fa-info-circle" data-toggle="tooltip" data-placement="top" title="Detalles"></i> </button>' +
                                 '<button type="button" id="idAccionEliminar" class="btn btn-outline-secondary" > <i class="fa-solid fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></i> </button>' +
@@ -98,22 +102,6 @@
 
             }).draw();
 
-
-            $('#idTabladocumentos tbody').on('click', '#idAccionMostrarPdf', function() {
-                var data = tabla.row($(this).parents('tr')).data();
-                // window.open(data['url_archivo'], '_blank').focus();
-
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", data['url_archivo'], true);
-                xhr.responseType = "blob";
-                xhr.onload = function(e) {
-                    if (this.status === 200) {
-                        var url = window.URL.createObjectURL(this.response);
-                        window.open(url, '_blank').focus();
-                    }
-                };
-                xhr.send();
-            });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionModificar', function() {
                 var data = tabla.row($(this).parents('tr')).data();
