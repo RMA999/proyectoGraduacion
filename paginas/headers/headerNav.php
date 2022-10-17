@@ -35,7 +35,7 @@
           <div class="dropdown-menu">
             <a href="/paginas/formcrearusuario.php" class="dropdown-item">Crear</a>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">Listar</a>
+            <a href="/paginas/listarusuarios.php" class="dropdown-item">Listar</a>
           </div>
         </li>
 

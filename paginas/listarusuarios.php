@@ -106,15 +106,7 @@
             $('#idTabladocumentos tbody').on('click', '#idAccionModificar', function() {
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
-                if (data['tipo_documento'] === "Cesion de Derechos Hereditarios") {
-                    window.location.href = `/paginas/modificarherencia.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
-                }
-                if (data['tipo_documento'] === "Compraventa") {
-                    window.location.href = `/paginas/modificarcompraventa.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
-                }
-                if (data['tipo_documento'] === "Declaración jurada") {
-                    window.location.href = `/paginas/testmodificardeclaracion.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
-                }
+                window.location.href = `/paginas/modificarusuario.php?idUsuario=${data['id_usuario']}`;
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionDetalles', function() {
