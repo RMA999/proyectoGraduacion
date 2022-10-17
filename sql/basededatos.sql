@@ -139,3 +139,18 @@ FROM
         personas
         INNER JOIN documentos ON personas.id = documentos.id_persona_declarador
     );
+
+CREATE
+OR REPLACE VIEW vista_usuarios AS
+SELECT
+    personas.id AS id_persona,
+    personas.dpi,
+    personas.nombre,
+    usuarios.nombre_usuario,
+    usuarios.estado,
+    usuarios.id_rol
+FROM
+    (
+        personas
+        INNER JOIN usuarios ON personas.id = usuarios.id_persona
+    );
