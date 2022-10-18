@@ -40,6 +40,10 @@
                         "defaultContent": ""
                     },
                     {
+                        title: 'Dpi',
+                        data: 'dpi'
+                    },
+                    {
                         title: 'Nombre',
                         data: 'nombre'
                     },
@@ -106,7 +110,7 @@
             $('#idTabladocumentos tbody').on('click', '#idAccionModificar', function() {
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
-                window.location.href = `/paginas/modificarusuario.php?idUsuario=${data['id_usuario']}`;
+                window.location.href = `/paginas/modificarusuario.php?idUsuario=${data['id_usuario']}&&idPersona=${data['id_persona']}`;
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionDetalles', function() {

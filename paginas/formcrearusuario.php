@@ -102,12 +102,7 @@
     </a>
 
     <script>
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        // Initialize Cloud Storage and get a reference to the service
-        const storage = app.storage();
-        const inputArchivo = document.getElementById("idInputFile");
-        var bytesArchivo;
+      
         var existeUsuario = true;
         var contraseniaValida = false;
 
@@ -135,43 +130,6 @@
             });
         }
 
-        function fileSelected(event) {
-            console.log(event.files[0].name);
-            const url = window.URL.createObjectURL(event.files[0]);
-            document.getElementById('idembed').src = url;
-            bytesArchivo = event.files[0];
-        }
-
-        function realizarEscaneo() {
-            console.log("Comienza escaneo");
-            inputArchivo.value = '';
-            document.getElementById("idembed").src = "";
-
-            Swal.fire({
-                title: 'Escaneando, por favor espere...',
-                timerProgressBar: true,
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading()
-                },
-            });
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://192.168.1.101:3000/scan", true);
-            xhr.responseType = "blob";
-            xhr.onload = function(e) {
-                if (this.status === 200) {
-                    var file = window.URL.createObjectURL(this.response);
-                    document.getElementById("idembed").src = file;
-                    bytesArchivo = this.response;
-
-                    Swal.close();
-
-                }
-                console.log("Termina escaneo");
-            };
-            xhr.send();
-        }
 
         function validarContrasenia(value) {
             const contrasenia = document.getElementById("idInputContrasenia").value;

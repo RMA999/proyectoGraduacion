@@ -33,7 +33,7 @@ include '../funcionesphp/detallesUsuario.php';
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        Crear usuario
+                        Modificar usuario
                     </div>
                     <div class="card-body">
 
@@ -63,25 +63,7 @@ include '../funcionesphp/detallesUsuario.php';
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class="mb-3">
-                                    <label for="idInputContrasenia" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id="idInputContrasenia" >
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class="mb-3">
-                                    <label for="idInputContraseniaConfirm" class="form-label">Confirmar Contraseña</label>
-                                    <input type="password" class="form-control" id="idInputContraseniaConfirm" onkeyup="validarContrasenia(this.value)">
-                                    <div id="validationServer01Feedback" class="invalid-feedback">
-                                        Las contraseñas no coinciden
-                                    </div>
-                                    <div id="validationServer02Feedback" class="valid-feedback">
-                                        Las contraseñas coinciden
-                                    </div>
-                                </div>
-                            </div>
+                       
 
 
                         </div>
@@ -98,23 +80,20 @@ include '../funcionesphp/detallesUsuario.php';
 
     </div>
 
-    <a class="float" onclick="crearUsuario()">
+    <a class="float" onclick="modificarUsuario()">
         <i class="fa fa-save fa-lg my-float"></i>
         <br>
         <label>Guardar</label>
     </a>
 
     <script>
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        // Initialize Cloud Storage and get a reference to the service
-        const storage = app.storage();
-        const inputArchivo = document.getElementById("idInputFile");
-        var bytesArchivo;
-        var existeUsuario = true;
-        var contraseniaValida = false;
+        var existeUsuario = false;
 
         function validadUsuarioExiste(value) {
+            const usuarioActual = "<?php echo $usuario['nombre_usuario']; ?>";
+            if (value == usuarioActual) {
+                return;
+            }
             $.ajax({
                 type: "POST",
                 url: '/funcionesphp/validadUsuarioExiste.php',
@@ -138,81 +117,15 @@ include '../funcionesphp/detallesUsuario.php';
             });
         }
 
-        function fileSelected(event) {
-            console.log(event.files[0].name);
-            const url = window.URL.createObjectURL(event.files[0]);
-            document.getElementById('idembed').src = url;
-            bytesArchivo = event.files[0];
-        }
-
-        function realizarEscaneo() {
-            console.log("Comienza escaneo");
-            inputArchivo.value = '';
-            document.getElementById("idembed").src = "";
-
-            Swal.fire({
-                title: 'Escaneando, por favor espere...',
-                timerProgressBar: true,
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading()
-                },
-            });
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://192.168.1.101:3000/scan", true);
-            xhr.responseType = "blob";
-            xhr.onload = function(e) {
-                if (this.status === 200) {
-                    var file = window.URL.createObjectURL(this.response);
-                    document.getElementById("idembed").src = file;
-                    bytesArchivo = this.response;
-
-                    Swal.close();
-
-                }
-                console.log("Termina escaneo");
-            };
-            xhr.send();
-        }
-
-        function validarContrasenia(value) {
-            const contrasenia = document.getElementById("idInputContrasenia").value;
-            if (value.length >= contrasenia.length) {
-                if (contrasenia === value) {
-                    contraseniaValida = true;
-                    $("#idInputContraseniaConfirm").removeClass("is-invalid");
-                    $("#idInputContraseniaConfirm").addClass("is-valid");
-
-                } 
-                
-                if (contrasenia !== value) {
-                    contraseniaValida = false;
-                    $("#idInputContraseniaConfirm").removeClass("is-valid");
-                    $("#idInputContraseniaConfirm").addClass("is-invalid");
-                } 
-                
-            }
-        }
+      
 
 
-        function crearUsuario() {
+        function modificarUsuario() {
 
             if (existeUsuario) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Verifique el Usuario',
-                    showConfirmButton: false,
-                    showCloseButton: true,
-                });
-                return;
-            }
-
-
-            if (!contraseniaValida) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Verifique la contraseña',
                     showConfirmButton: false,
                     showCloseButton: true,
                 });
@@ -228,12 +141,14 @@ include '../funcionesphp/detallesUsuario.php';
                 },
             });
 
+
             var usuario = {
+                idPersona: "<?php echo $_GET['idPersona']; ?>",
+                idUsuario: "<?php echo $_GET['idUsuario']; ?>",
                 dpi: document.getElementById('idInputDpi').value,
                 nombre: document.getElementById('idInputNombre').value,
                 username: document.getElementById('idInputUsuario').value,
-                password: document.getElementById('idInputContrasenia').value,
-                funcion: "crearUsuario"
+                funcion: "modificarUsuario"
             }
 
             console.log(usuario);
@@ -250,14 +165,14 @@ include '../funcionesphp/detallesUsuario.php';
                                 setTimeout(() => {
                                     Swal.fire({
                                         icon: 'success',
-                                        title: 'Usuarion creado',
+                                        title: 'Usuarion modificado',
                                         showConfirmButton: false
                                     });
                                 }, 1200);
 
-                                // setTimeout(() => {
-                                //     window.location.href = "/paginas/principal.php";
-                                // }, 3000);
+                                setTimeout(() => {
+                                    window.location.href = "/paginas/listarusuarios.php";
+                                }, 3000);
 
                             }
 
