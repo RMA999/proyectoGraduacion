@@ -1,3 +1,7 @@
+<?php
+include '../funcionesphp/listarRoles.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +40,7 @@
 
                         <div class="row">
 
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpi" class="form-label">Dpi</label>
                                     <input type="text" class="form-control" id="idInputDpi">
@@ -63,7 +67,7 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputContrasenia" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id="idInputContrasenia" >
+                                    <input type="password" class="form-control" id="idInputContrasenia">
                                 </div>
                             </div>
 
@@ -77,6 +81,28 @@
                                     <div id="validationServer02Feedback" class="valid-feedback">
                                         Las contraseñas coinciden
                                     </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3">
+                                    <label for="idSelectRol" class="form-label">Rol</label>
+                                    <select class="form-select" id="idSelectRol" aria-label="Default select example">
+                                        <option selected>Seleccione un rol</option>
+                                        <?php
+                                        if (count($roles) > 0) {
+                                            foreach ($roles as $rol) {
+                                        ?>
+                                                <option value="<?php echo $rol['id'] ?>"><?php echo $rol['nombre_rol'] ?></option>
+
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+
+                                    </select>
+
                                 </div>
                             </div>
 
@@ -102,7 +128,6 @@
     </a>
 
     <script>
-      
         var existeUsuario = true;
         var contraseniaValida = false;
 
@@ -139,14 +164,14 @@
                     $("#idInputContraseniaConfirm").removeClass("is-invalid");
                     $("#idInputContraseniaConfirm").addClass("is-valid");
 
-                } 
-                
+                }
+
                 if (contrasenia !== value) {
                     contraseniaValida = false;
                     $("#idInputContraseniaConfirm").removeClass("is-valid");
                     $("#idInputContraseniaConfirm").addClass("is-invalid");
-                } 
-                
+                }
+
             }
         }
 
@@ -174,6 +199,28 @@
                 return;
             }
 
+
+            var usuario = {
+                dpi: document.getElementById('idInputDpi').value,
+                nombre: document.getElementById('idInputNombre').value,
+                username: document.getElementById('idInputUsuario').value,
+                password: document.getElementById('idInputContrasenia').value,
+                idRol: document.getElementById('idSelectRol').value,
+                funcion: "crearUsuario"
+            }
+
+            console.log(usuario);
+
+            if (isNaN(usuario.idRol) || usuario.idRol <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Seleccione un rol',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                });
+                return;
+            }
+
             Swal.fire({
                 title: 'Guardando...',
                 timerProgressBar: true,
@@ -183,52 +230,43 @@
                 },
             });
 
-            var usuario = {
-                dpi: document.getElementById('idInputDpi').value,
-                nombre: document.getElementById('idInputNombre').value,
-                username: document.getElementById('idInputUsuario').value,
-                password: document.getElementById('idInputContrasenia').value,
-                funcion: "crearUsuario"
-            }
-
-            console.log(usuario);
 
             $.ajax({
-                        type: "POST",
-                        url: '/funcionesphp/funcionesUsuario.php',
-                        data: usuario,
-                        success: function(response) {
-                            console.log(response);
+                type: "POST",
+                url: '/funcionesphp/funcionesUsuario.php',
+                data: usuario,
+                success: function(response) {
+                    console.log(response);
 
-                            if (response.estado === "ok") {
+                    if (response.estado === "ok") {
 
-                                setTimeout(() => {
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Usuarion creado',
-                                        showConfirmButton: false
-                                    });
-                                }, 1200);
-
-                                // setTimeout(() => {
-                                //     window.location.href = "/paginas/principal.php";
-                                // }, 3000);
-
-                            }
-
-
-                        },
-                        error: function(xhr, status) {
-                            console.log('HUBO UN ERROR');
-                            console.log(xhr, status);
+                        setTimeout(() => {
                             Swal.fire({
-                                icon: 'error',
-                                title: 'Error en el servidor',
-                                showConfirmButton: false,
-                                showCloseButton: true,
+                                icon: 'success',
+                                title: 'Usuarion creado',
+                                showConfirmButton: false
                             });
-                        }
+                        }, 1200);
+
+                        setTimeout(() => {
+                            window.location.href = "/paginas/listarusuarios.php";
+                        }, 3000);
+
+                    }
+
+
+                },
+                error: function(xhr, status) {
+                    console.log('HUBO UN ERROR');
+                    console.log(xhr, status);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error en el servidor',
+                        showConfirmButton: false,
+                        showCloseButton: true,
                     });
+                }
+            });
 
         }
     </script>

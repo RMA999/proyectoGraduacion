@@ -11,20 +11,20 @@ if ($funcion == "crearUsuario") {
     $nombre = $_POST['nombre'];
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $idRol = 2;
+    $idRol = $_POST['idRol'];
 
     try {
 
         $conn->beginTransaction();
 
-        $stmt = $conn->prepare("UPDATE personas(dpi,nombre) VALUES(?,?);");
+        $stmt = $conn->prepare("INSERT personas(dpi, nombre) VALUES(?, ?);");
         $stmt->execute([$dpi, $nombre]);
         $idPersona = $conn->lastInsertId();
 
-        $stmt = $conn->prepare("UPDATE usuarios(nombre_usuario, contrasenia, id_persona, id_rol) VALUES(?,?,?,?);");
+        $stmt = $conn->prepare("INSERT usuarios(nombre_usuario, contrasenia, id_persona, id_rol) VALUES(?,?,?,?);");
         $stmt->execute([$username, $password, $idPersona, $idRol]);
         $idUsuario = $conn->lastInsertId();
-        
+
 
         $conn->commit();
 
@@ -64,7 +64,7 @@ if ($funcion == "modificarUsuario") {
         $stmt = $conn->prepare("UPDATE usuarios set nombre_usuario = ? WHERE id = ?");
         $stmt->execute([$username, $idUsuario]);
         $idUsuario = $conn->lastInsertId();
-        
+
 
         $conn->commit();
 
@@ -81,10 +81,9 @@ if ($funcion == "modificarUsuario") {
         echo json_encode($myObj);
     }
 
-    
+
 
     return;
-
 }
 
 
@@ -117,10 +116,9 @@ if ($funcion == "eliminarUsuario") {
         echo json_encode($myObj);
     }
 
-    
+
 
     return;
-
 }
 
 
