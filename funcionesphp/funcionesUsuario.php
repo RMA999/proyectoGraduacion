@@ -88,6 +88,42 @@ if ($funcion == "modificarUsuario") {
 }
 
 
+if ($funcion == "eliminarUsuario") {
+    $idPersona = $_POST['idPersona'];
+    $idUsuario = $_POST['idUsuario'];
+    try {
+
+        $conn->beginTransaction();
+
+        $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ?;");
+        $stmt->execute([$idUsuario]);
+
+        $stmt = $conn->prepare("DELETE FROM personas WHERE id = ?;");
+        $stmt->execute([$idPersona]);
+
+
+        $conn->commit();
+
+        $myObj = new stdClass();
+        $myObj->mensaje = "Usuario eliminado";
+        $myObj->estado = 'ok';
+        echo json_encode($myObj);
+    } catch (Exception $e) {
+        // echo $e->getMessage();
+        $conn->rollBack();
+        $myObj = new stdClass();
+        $myObj->mensaje = $e->getMessage();
+        $myObj->estado = 'error';
+        echo json_encode($myObj);
+    }
+
+    
+
+    return;
+
+}
+
+
 
 
 $myObj = new stdClass();

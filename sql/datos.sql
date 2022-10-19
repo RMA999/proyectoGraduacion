@@ -21,6 +21,12 @@ INSERT INTO `personas` (`id`, `dpi`, `nombre`, `direccion`) VALUES
 (14, '74674', 'cesinario1', ''),
 (15, '84764', 'cesinario2', '');
 
+
+INSERT INTO
+    `roles`(`nombre_rol`)
+VALUES
+    ('Super Administrador');
+
 INSERT INTO
     `roles`(`nombre_rol`)
 VALUES

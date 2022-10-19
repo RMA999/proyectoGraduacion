@@ -68,8 +68,8 @@
                         "render": function(data, type, full) {
                             return '<div class="btn-group">' +
                                 '<button type="button" id="idAccionModificar" class="btn btn-outline-secondary" > <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Modificar"></i> </button>' +
-                                '<button type="button" id="idAccionDetalles" class="btn btn-outline-secondary" > <i class="fa-solid fa-info-circle" data-toggle="tooltip" data-placement="top" title="Detalles"></i> </button>' +
                                 '<button type="button" id="idAccionEliminar" class="btn btn-outline-secondary" > <i class="fa-solid fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></i> </button>' +
+                                '<button type="button" id="idAccionMostrarPeticiones" class="btn btn-outline-secondary" > <i class="fa-solid fa-list" data-toggle="tooltip" data-placement="top" title="Mostrar Peticiones"></i> </button>' +
                                 '</div>'
                         },
                     }
@@ -106,6 +106,17 @@
 
             }).draw();
 
+            $('#idTabladocumentos tbody').on('click', '#idAccionMostrarPeticiones', function() {
+                var data = tabla.row($(this).parents('tr')).data();
+                console.log(data);
+
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Funcion no disponible',
+                    showConfirmButton: false
+                });
+
+            });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionModificar', function() {
                 var data = tabla.row($(this).parents('tr')).data();
@@ -113,33 +124,29 @@
                 window.location.href = `/paginas/modificarusuario.php?idUsuario=${data['id_usuario']}&&idPersona=${data['id_persona']}`;
             });
 
-            $('#idTabladocumentos tbody').on('click', '#idAccionDetalles', function() {
-                var data = tabla.row($(this).parents('tr')).data();
-                console.log(data);
-
-                if (data['tipo_documento'] === "Cesion de Derechos Hereditarios") {
-                    window.location.href = `/paginas/detallesherencia.php?id_documento=${data['id_documento']}&tipo_documento=${data['tipo_documento']}`;
-                }
-
-            });
-
             $('#idTabladocumentos tbody').on('click', '#idAccionEliminar', function() {
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
 
-                // if (data['tipo_documento'] !== "Declaración jurada" && data['tipo_documento'] !== "Compraventa" && 
-                // data['tipo_documento'] !== "Donacion Entre Vivos" && data['tipo_documento'] !== "Cesion de Derechos Hereditarios") {
-                //     Swal.fire({
-                //         icon: 'info',
-                //         title: 'Atencion',
-                //         text: 'Aun no se puede eliminar este tipo de documento'
-                //     })
-                //     return;
-                // }
+                if (data['nombre_rol'] == "Super Administrador") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No es permitido eliminar usuario Super Administrador',
+                        showConfirmButton: false,
+                        showCloseButton: true,
+                    });
+                    return;
+                }
+
+                const usuarioAEliminar = {
+                    idUsuario: data['id_usuario'],
+                    idPersona: data['id_persona'],
+                    funcion: 'eliminarUsuario'
+                };
 
                 Swal.fire({
                     title: '¿Estas seguro?',
-                    text: `Eliminar el documento con numero de escritura ${data['numero_escritura']}`,
+                    text: `Eliminar el Usuario: ${data['nombre_usuario']}`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -160,8 +167,8 @@
 
                         $.ajax({
                             type: "POST",
-                            url: '/funcionesphp/eliminarDocumento.php',
-                            data: data,
+                            url: '/funcionesphp/funcionesUsuario.php',
+                            data: usuarioAEliminar,
                             success: function(response) {
                                 console.log(response);
 
@@ -170,7 +177,7 @@
                                     setTimeout(() => {
                                         Swal.fire({
                                             icon: 'success',
-                                            title: 'Documento eliminado',
+                                            title: 'Usuario eliminado',
                                             showConfirmButton: false
                                         });
                                         tabla.ajax.reload();
@@ -186,7 +193,7 @@
                                 console.log(xhr, status);
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Error al intentar eliminar el documento',
+                                    title: 'Error al intentar eliminar el usuario',
                                     showConfirmButton: false,
                                     showCloseButton: true,
                                 });
