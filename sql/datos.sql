@@ -19,7 +19,8 @@ INSERT INTO `personas` (`id`, `dpi`, `nombre`, `direccion`) VALUES
 (12, '784664', 'declarador2', ''),
 (13, '7346764', 'cedente2', ''),
 (14, '74674', 'cesinario1', ''),
-(15, '84764', 'cesinario2', '');
+(15, '84764', 'cesinario2', ''),
+(16, '234235', 'Ronaldo Morales', '');
 
 
 INSERT INTO
@@ -46,7 +47,7 @@ INSERT INTO
         `id_rol`
     )
 VALUES
-    ('exbinario', '12345', 'desconectado', 1, 1);
+    ('rma', '12345', 'desconectado', 16, 1);
 
 INSERT INTO `tipos_documentos` (`id`, `nombre`) VALUES
 (1, 'Compraventa'),
