@@ -1,5 +1,5 @@
 <?php
-include '../funcionesphp/listarRoles.php';
+include '../../funcionesphp/listarRoles.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ include '../funcionesphp/listarRoles.php';
 
     <link rel="stylesheet" href="css/formescanear.css">
 
-    <!-- <script src="/proyectoChalen/paginas/js/checkAuth.js"></script> -->
+    <!-- <script src="/proyectoChalen/paginas/administrador/js/checkAuth.js"></script> -->
 
 
     <?php
@@ -249,7 +249,7 @@ include '../funcionesphp/listarRoles.php';
                         }, 1200);
 
                         setTimeout(() => {
-                            window.location.href = "/paginas/listarusuarios.php";
+                            window.location.href = "/paginas/administrador/listarusuarios.php";
                         }, 3000);
 
                     }

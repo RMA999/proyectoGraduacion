@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="css/formescanear.css">
 
-    <!-- <script src="/proyectoChalen/paginas/js/checkAuth.js"></script> -->
+    <!-- <script src="/proyectoChalen/paginas/administrador/js/checkAuth.js"></script> -->
 
 
     <?php
@@ -198,7 +198,7 @@
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/paginas/listardocumentos.php";
+                                    window.location.href = "/paginas/administrador/listardocumentos.php";
                                 }, 3000);
 
                             }

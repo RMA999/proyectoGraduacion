@@ -1,5 +1,5 @@
 <?php
-include '../funcionesphp/detallesUsuario.php';
+include '../../funcionesphp/detallesUsuario.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@ include '../funcionesphp/detallesUsuario.php';
 
     <link rel="stylesheet" href="css/formescanear.css">
 
-    <!-- <script src="/proyectoChalen/paginas/js/checkAuth.js"></script> -->
+    <!-- <script src="/proyectoChalen/paginas/administrador/js/checkAuth.js"></script> -->
 
 
     <?php
@@ -171,7 +171,7 @@ include '../funcionesphp/detallesUsuario.php';
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/paginas/listarusuarios.php";
+                                    window.location.href = "/paginas/administrador/listarusuarios.php";
                                 }, 3000);
 
                             }

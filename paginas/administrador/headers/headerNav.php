@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="/paginas/principal.php">Inicio</a>
+    <a class="navbar-brand" href="/paginas/administrador/principal.php">Inicio</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,10 +11,10 @@
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Escanear</a>
           <div class="dropdown-menu">
-            <a href="/paginas/formcompraventa.php" class="dropdown-item">Compraventa</a>
-            <a href="/paginas/formdeclaracion.php" class="dropdown-item">Declaración jurada</a>
-            <a href="/paginas/formherencia.php" class="dropdown-item">Cesion de Derechos Hereditarios</a>
-            <a href="/paginas/formdonacion.php" class="dropdown-item">Donacion Entre Vivos</a>
+            <a href="/paginas/administrador/formcompraventa.php" class="dropdown-item">Compraventa</a>
+            <a href="/paginas/administrador/formdeclaracion.php" class="dropdown-item">Declaración jurada</a>
+            <a href="/paginas/administrador/formherencia.php" class="dropdown-item">Cesion de Derechos Hereditarios</a>
+            <a href="/paginas/administrador/formdonacion.php" class="dropdown-item">Donacion Entre Vivos</a>
         </li>
 
         <li class="nav-item dropdown">
@@ -25,7 +25,7 @@
             <a href="#" class="dropdown-item">Cesion de Derechos Hereditarios</a>
             <a href="#" class="dropdown-item">Donacion Entre Vivos</a>
             <div class="dropdown-divider"></div>
-            <a href="/paginas/listardocumentos.php" class="dropdown-item">Todos los documentos</a>
+            <a href="/paginas/administrador/listardocumentos.php" class="dropdown-item">Todos los documentos</a>
           </div>
         </li>
 
@@ -33,9 +33,9 @@
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Usuarios</a>
           <div class="dropdown-menu">
-            <a href="/paginas/formcrearusuario.php" class="dropdown-item">Crear</a>
+            <a href="/paginas/administrador/formcrearusuario.php" class="dropdown-item">Crear</a>
             <div class="dropdown-divider"></div>
-            <a href="/paginas/listarusuarios.php" class="dropdown-item">Listar</a>
+            <a href="/paginas/administrador/listarusuarios.php" class="dropdown-item">Listar</a>
           </div>
         </li>
 
@@ -62,7 +62,7 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="/paginas/login.php">Cerrar Sesión</a></li>
+            <li><a class="dropdown-item" href="/paginas/administrador/login.php">Cerrar Sesión</a></li>
           </ul>
 
         </li>

@@ -6,11 +6,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herencias</title>
+    <title>Compraventa</title>
 
     <link rel="stylesheet" href="css/formescanear.css">
 
-    <!-- <script src="/proyectoChalen/paginas/js/checkAuth.js"></script> -->
+    <!-- <script src="/proyectoChalen/paginas/administrador/js/checkAuth.js"></script> -->
 
 
     <?php
@@ -30,7 +30,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        Datos Herencia
+                        Datos Compraventa
                     </div>
                     <div class="card-body">
 
@@ -38,18 +38,31 @@
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <label for="idInputNombreCedente" class="form-label">Nombre cedente</label>
-                                    <input type="text" class="form-control" id="idInputNombreCedente">
+                                    <label for="idInputNombreVendedor" class="form-label">Nombre vendedor</label>
+                                    <input type="text" class="form-control" id="idInputNombreVendedor">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <label for="idInputDpiCedente" class="form-label">No. DPI cedente</label>
-                                    <input type="text" class="form-control" id="idInputDpiCedente">
+                                    <label for="idInputNombreComprador" class="form-label">Nombre comprador</label>
+                                    <input type="text" class="form-control" id="idInputNombreComprador">
                                 </div>
                             </div>
 
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3">
+                                    <label for="idInputDpiVendedor" class="form-label">No. DPI vendedor</label>
+                                    <input type="text" class="form-control" id="idInputDpiVendedor">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3">
+                                    <label for="idInputDpiComprador" class="form-label">No. DPI comprador</label>
+                                    <input type="text" class="form-control" id="idInputDpiComprador">
+                                </div>
+                            </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
@@ -78,58 +91,6 @@
 
 
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header text-center">
-                        Cesionarios
-                    </div>
-
-                    <div class="card-body">
-
-                        <div class="row mb-3">
-                            <div class="col-3">
-                                <button class="btn btn-dark" onclick="agregarCesionarios()">Agregar Cesionario</button>
-                            </div>
-
-                            <div class="col-3">
-                                <button class="btn btn-dark" onclick="eliminarCesionarios()">Eliminar Cesionario</button>
-                            </div>
-                        </div>
-
-                        <div id="idCardCesionarios">
-
-                            <div class="row">
-
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                    <div class="mb-3">
-                                        <label for="idInputNombreCesionario1" class="form-label">Nombre cesionario 1</label>
-                                        <input type="text" class="form-control" id="idInputNombreCesionario1">
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                    <div class="mb-3">
-                                        <label for="idInputDpiCesionario1" class="form-label">No. DPI cesionario 1</label>
-                                        <input type="text" class="form-control" id="idInputDpiCesionario1">
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-
-            <div class="col-12">
                 <div class="card mt-2 mb-3">
                     <div class="card-header text-center">
                         Documento
@@ -148,6 +109,9 @@
 
 
                         </div>
+
+
+
 
 
                     </div>
@@ -171,14 +135,8 @@
         const app = firebase.initializeApp(firebaseConfig);
         // Initialize Cloud Storage and get a reference to the service
         const storage = app.storage();
-
         const inputArchivo = document.getElementById("idInputFile");
-
         var bytesArchivo;
-
-        var cantidadCesionarios = 1;
-
-        var cardCesionarios = document.getElementById("idCardCesionarios");
 
         var existeNumeroEscritura = false;
 
@@ -207,62 +165,6 @@
                 }
             });
         }
-
-        function eliminarCesionarios() {
-            if (cantidadCesionarios <= 1) {
-                return;
-            }
-            cantidadCesionarios -= 1;
-            cardCesionarios.innerHTML = "";
-            for (let index = 1; index <= cantidadCesionarios; index++) {
-
-                cardCesionarios.innerHTML = cardCesionarios.innerHTML +
-                    `
-            <div class="row">
-
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-    <div class="mb-3">
-        <label for="idInputNombreCesionario${index}" class="form-label">Nombre cesionario ${index}</label>
-        <input type="text" class="form-control" id="idInputNombreCesionario${index}" >
-    </div>
-</div>
-
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-    <div class="mb-3">
-        <label for="idInputDpiCesionario${index}" class="form-label">No. DPI cesionario ${index}</label>
-        <input type="text" class="form-control" id="idInputDpiCesionario${index}" >
-    </div>
-</div>
-
-</div>  `;
-
-            }
-        }
-
-        function agregarCesionarios() {
-            cantidadCesionarios += 1;
-            cardCesionarios.innerHTML = cardCesionarios.innerHTML +
-                `
-            <div class="row">
-
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-    <div class="mb-3">
-        <label for="idInputNombreCesionario${cantidadCesionarios}" class="form-label">Nombre cesionario ${cantidadCesionarios}</label>
-        <input type="text" class="form-control" id="idInputNombreCesionario${cantidadCesionarios}" >
-    </div>
-</div>
-
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-    <div class="mb-3">
-        <label for="idInputDpiCesionario${cantidadCesionarios}" class="form-label">No. DPI cesionario ${cantidadCesionarios}</label>
-        <input type="text" class="form-control" id="idInputDpiCesionario${cantidadCesionarios}" >
-    </div>
-</div>
-
-</div>  `;
-
-        }
-
 
         function fileSelected(event) {
             console.log(event.files[0].name);
@@ -324,34 +226,22 @@
                 },
             });
 
-            var cesionarios = [];
-
-            for (var index = 1; index <= cantidadCesionarios; index++) {
-                cesionarios.push({
-                    nombre: document.getElementById(`idInputNombreCesionario${index}`).value,
-                    dpi: document.getElementById(`idInputDpiCesionario${index}`).value
-                });
-            }
-
-            console.log(cesionarios);
-
-
             var documento = {
-                tipoDocumento: 3,
-                nombreCedente: document.getElementById('idInputNombreCedente').value,
-                dpiCedente: document.getElementById('idInputDpiCedente').value,
-                cesionarios: cesionarios,
+                tipoDocumento: 1,
+                nombreVendedor: document.getElementById('idInputNombreVendedor').value,
+                nombreComprador: document.getElementById('idInputNombreComprador').value,
+                dpiVendedor: document.getElementById('idInputDpiVendedor').value,
+                dpiComprador: document.getElementById('idInputDpiComprador').value,
                 fecha: document.getElementById('idInputFecha').value,
                 numEscritura: document.getElementById('idInputNumEscritura').value,
                 urlArchivo: ""
             }
 
             console.log(documento);
-
             const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
 
 
-            const storageRef = storage.ref('escaneos/herencias/' + nombreArchivo);
+            const storageRef = storage.ref('escaneos/compraVentas/' + nombreArchivo);
             const task = storageRef.put(bytesArchivo);
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -375,7 +265,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: '/funcionesphp/guardarDocumentoHerencia.php',
+                        url: '/funcionesphp/guardarDocumentoCompraVenta.php',
                         data: documento,
                         success: function(response) {
                             console.log(response);
@@ -391,7 +281,7 @@
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/paginas/principal.php";
+                                    window.location.href = "/paginas/administrador/principal.php";
                                 }, 3000);
 
                             }

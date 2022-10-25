@@ -1,6 +1,3 @@
-<?php
-include '../funcionesphp/detallesDocumento.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,11 +6,11 @@ include '../funcionesphp/detallesDocumento.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Declaración jurada</title>
+    <title>Donaciones</title>
 
     <link rel="stylesheet" href="css/formescanear.css">
 
-    <!-- <script src="/proyectoChalen/paginas/js/checkAuth.js"></script> -->
+    <!-- <script src="/proyectoChalen/paginas/administrador/js/checkAuth.js"></script> -->
 
 
     <?php
@@ -33,7 +30,7 @@ include '../funcionesphp/detallesDocumento.php';
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        Datos Declaración jurada
+                        Datos Donación
                     </div>
                     <div class="card-body">
 
@@ -41,29 +38,43 @@ include '../funcionesphp/detallesDocumento.php';
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <label for="idInputNombreDeclarador" class="form-label">Nombre Declarador</label>
-                                    <input type="text" class="form-control" id="idInputNombreDeclarador" value="<?php echo $declarador['nombre']?>">
+                                    <label for="idInputNombreDonante" class="form-label">Nombre donante</label>
+                                    <input type="text" class="form-control" id="idInputNombreDonante">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <label for="idInputDpiDeclarador" class="form-label">No. DPI</label>
-                                    <input type="text" class="form-control" id="idInputDpiDeclarador" value="<?php echo $declarador['dpi']?>">
+                                    <label for="idInputNombreDonatario" class="form-label">Nombre donatario</label>
+                                    <input type="text" class="form-control" id="idInputNombreDonatario">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3">
+                                    <label for="idInputDpiDonante" class="form-label">No. DPI Donante</label>
+                                    <input type="text" class="form-control" id="idInputDpiDonante">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="mb-3">
+                                    <label for="idInputDpiDonatario" class="form-label">No. DPI Donatario</label>
+                                    <input type="text" class="form-control" id="idInputDpiDonatario">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputFecha" class="form-label">Fecha</label>
-                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento']?>">
+                                    <input type="date" class="form-control" id="idInputFecha">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura']?>" onkeyup="validarNumeroEscritura(this.value)">
+                                    <input type="text" class="form-control" id="idInputNumEscritura" onkeyup="validarNumeroEscritura(this.value)">
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         Numero de escritura ya existe
                                     </div>
@@ -94,7 +105,7 @@ include '../funcionesphp/detallesDocumento.php';
 
                         <div class="d-flex justify-content-center">
 
-                            <embed src="<?php echo $documento['url_archivo']?>" id="idembed" width="80%" height="500" type="application/pdf">
+                            <embed src="" id="idembed" width="80%" height="500" type="application/pdf">
 
 
                         </div>
@@ -125,14 +136,9 @@ include '../funcionesphp/detallesDocumento.php';
         var bytesArchivo;
 
         var existeNumeroEscritura = false;
-        var cambioArchivo = false;
 
 
         function validarNumeroEscritura(value) {
-            var numerEscrituraActual = "<?php echo $documento['numero_escritura']; ?>";
-            if (numerEscrituraActual == value) {
-                return;
-            }
             $.ajax({
                 type: "POST",
                 url: '/funcionesphp/validarNumeroEscritura.php',
@@ -157,8 +163,8 @@ include '../funcionesphp/detallesDocumento.php';
             });
         }
 
+
         function fileSelected(event) {
-            cambioArchivo = true;
             console.log(event.files[0].name);
             const url = window.URL.createObjectURL(event.files[0]);
             document.getElementById('idembed').src = url;
@@ -199,7 +205,6 @@ include '../funcionesphp/detallesDocumento.php';
 
         function guardarDocumento() {
 
-
             if (existeNumeroEscritura) {
                 Swal.fire({
                     icon: 'error',
@@ -220,61 +225,21 @@ include '../funcionesphp/detallesDocumento.php';
             });
 
             var documento = {
-                numEscrituraAnt: <?php echo $documento['numero_escritura'] ?>,
-                idTipoDocumento: 2,
-                nombreDeclarador: document.getElementById('idInputNombreDeclarador').value,
-                dpiDeclarador: document.getElementById('idInputDpiDeclarador').value,
+                tipoDocumento: 4,
+                nombreDonante: document.getElementById('idInputNombreDonante').value,
+                nombreDonatario: document.getElementById('idInputNombreDonatario').value,
+                dpiDonante: document.getElementById('idInputDpiDonante').value,
+                dpiDonatario: document.getElementById('idInputDpiDonatario').value,
                 fecha: document.getElementById('idInputFecha').value,
                 numEscritura: document.getElementById('idInputNumEscritura').value,
                 urlArchivo: ""
-            }
-
-            if (!cambioArchivo) {
-                documento.urlArchivo = "<?php echo $documento['url_archivo'] ?>";
-                $.ajax({
-                    type: "POST",
-                    url: '/funcionesphp/modificarDocumento.php',
-                    data: documento,
-                    success: function(response) {
-                        console.log(response);
-
-                        if (response.estado === "ok") {
-
-                            setTimeout(() => {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Documento guardado',
-                                    showConfirmButton: false
-                                });
-                            }, 1200);
-
-                            setTimeout(() => {
-                                window.location.href = "/paginas/listardocumentos.php";
-                            }, 3000);
-
-                        }
-
-
-                    },
-                    error: function(xhr, status) {
-                        console.log('HUBO UN ERROR');
-                        console.log(xhr, status);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error en el servidor',
-                            showConfirmButton: false,
-                            showCloseButton: true,
-                        });
-                    }
-                });
-                return;
             }
 
             console.log(documento);
             const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
 
 
-            const storageRef = storage.ref('escaneos/declaracionesJuradas/' + nombreArchivo);
+            const storageRef = storage.ref('escaneos/donaciones/' + nombreArchivo);
             const task = storageRef.put(bytesArchivo);
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -298,7 +263,7 @@ include '../funcionesphp/detallesDocumento.php';
 
                     $.ajax({
                         type: "POST",
-                        url: '/funcionesphp/modificarDocumento.php',
+                        url: '/funcionesphp/guardarDocumentoDonacion.php',
                         data: documento,
                         success: function(response) {
                             console.log(response);
@@ -314,7 +279,7 @@ include '../funcionesphp/detallesDocumento.php';
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/paginas/listardocumentos.php";
+                                    window.location.href = "/paginas/administrador/principal.php";
                                 }, 3000);
 
                             }

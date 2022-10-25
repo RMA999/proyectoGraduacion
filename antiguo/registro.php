@@ -83,7 +83,7 @@
                                         <button type="button" onclick="registrarUsuario()" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Registrar</button>
                                     </div>
 
-                                    <p class="text-center text-muted mt-5 mb-0">Tiesnes un Usuario? <a href="/paginas/login.php" class="fw-bold text-body"><u>login</u></a></p>
+                                    <p class="text-center text-muted mt-5 mb-0">Tiesnes un Usuario? <a href="/paginas/administrador/login.php" class="fw-bold text-body"><u>login</u></a></p>
 
                                 </form>
 
@@ -141,7 +141,7 @@
                     app.firestore().collection("usuarios").doc(inputNombreUsuario.value).set(nuevoUsuario)
                         .then(() => {
                             console.log("Document successfully written!");
-                            window.location.href = "/paginas/login.php";
+                            window.location.href = "/paginas/administrador/login.php";
                         })
                         .catch((error) => {
                             console.error("Error writing document: ", error);

@@ -119,13 +119,13 @@
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
                 if (data['tipo_documento'] === "Cesion de Derechos Hereditarios") {
-                    window.location.href = `/paginas/modificarherencia.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
+                    window.location.href = `/paginas/administrador/modificarherencia.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
                 }
                 if (data['tipo_documento'] === "Compraventa") {
-                    window.location.href = `/paginas/modificarcompraventa.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
+                    window.location.href = `/paginas/administrador/modificarcompraventa.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
                 }
                 if (data['tipo_documento'] === "Declaración jurada") {
-                    window.location.href = `/paginas/testmodificardeclaracion.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
+                    window.location.href = `/paginas/administrador/testmodificardeclaracion.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
                 }
             });
 
@@ -134,7 +134,7 @@
                 console.log(data);
 
                 if (data['tipo_documento'] === "Cesion de Derechos Hereditarios") {
-                    window.location.href = `/paginas/detallesherencia.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
+                    window.location.href = `/paginas/administrador/detallesherencia.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
                 }
 
             });

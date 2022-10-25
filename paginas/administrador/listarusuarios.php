@@ -121,7 +121,7 @@
             $('#idTabladocumentos tbody').on('click', '#idAccionModificar', function() {
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
-                window.location.href = `/paginas/modificarusuario.php?idUsuario=${data['id_usuario']}&&idPersona=${data['id_persona']}`;
+                window.location.href = `/paginas/administrador/modificarusuario.php?idUsuario=${data['id_usuario']}&&idPersona=${data['id_persona']}`;
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionEliminar', function() {

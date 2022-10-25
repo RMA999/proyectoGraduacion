@@ -1,5 +1,5 @@
 <?php
-include '../funcionesphp/detallesDocumento.php';
+include '../../funcionesphp/detallesDocumento.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,11 +9,11 @@ include '../funcionesphp/detallesDocumento.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle Herencia</title>
+    <title>Declaración jurada</title>
 
     <link rel="stylesheet" href="css/formescanear.css">
 
-    <!-- <script src="/proyectoChalen/paginas/js/checkAuth.js"></script> -->
+    <!-- <script src="/proyectoChalen/paginas/administrador/js/checkAuth.js"></script> -->
 
 
     <?php
@@ -33,37 +33,40 @@ include '../funcionesphp/detallesDocumento.php';
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        Modificar Herencia
+                        Datos Declaración jurada
                     </div>
                     <div class="card-body">
+
                         <div class="row">
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <label for="idInputNombreCedente" class="form-label">Nombre cedente</label>
-                                    <input type="text" class="form-control" id="idInputNombreCedente" value="<?php echo $cedente['nombre'] ?>">
+                                    <label for="idInputNombreDeclarador" class="form-label">Nombre Declarador</label>
+                                    <input type="text" class="form-control" id="idInputNombreDeclarador" value="<?php echo $declarador['nombre']?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <label for="idInputDpiCedente" class="form-label">No. DPI cedente</label>
-                                    <input type="text" class="form-control" id="idInputDpiCedente" value="<?php echo $cedente['dpi'] ?>">
+                                    <label for="idInputDpiDeclarador" class="form-label">No. DPI</label>
+                                    <input type="text" class="form-control" id="idInputDpiDeclarador" value="<?php echo $declarador['dpi']?>">
                                 </div>
                             </div>
-
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputFecha" class="form-label">Fecha</label>
-                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento'] ?>">
+                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento']?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura'] ?>">
+                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura']?>" onkeyup="validarNumeroEscritura(this.value)">
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        Numero de escritura ya existe
+                                    </div>
                                 </div>
                             </div>
 
@@ -73,75 +76,6 @@ include '../funcionesphp/detallesDocumento.php';
                     </div>
                 </div>
             </div>
-
-
-
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header text-center">
-                        Cesionarios
-                    </div>
-
-                    <div class="card-body">
-
-                        <div class="row mb-3">
-                            <div class="col-3">
-                                <button class="btn btn-dark" onclick="agregarCesionarios()">Agregar Cesionario</button>
-                            </div>
-
-                            <div class="col-3">
-                                <button class="btn btn-dark" onclick="eliminarCesionarios()">Eliminar Cesionario</button>
-                            </div>
-                        </div>
-
-                        <div id="idCardCesionarios">
-
-
-                            <?php
-                            $numeroCesionario = 1;
-                            if (count($cesionarios) > 0) {
-                                foreach ($cesionarios as $cesionario) {
-                            ?>
-                                    <div class="row">
-
-                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                            <div class="mb-3">
-                                                <label for="idInputNombreCesionario1" class="form-label">Nombre cesionario <?php echo $numeroCesionario ?></label>
-                                                <input type="text" class="form-control" id="idInputNombreCesionario<?php echo $numeroCesionario ?>" value="<?php echo $cesionario['nombre'] ?>">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                            <div class="mb-3">
-                                                <label for="idInputDpiCesionario1" class="form-label">No. DPI cesionario <?php echo $numeroCesionario ?></label>
-                                                <input type="text" class="form-control" id="idInputDpiCesionario<?php echo $numeroCesionario ?>" value="<?php echo $cesionario['dpi'] ?>">
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-
-                            <?php
-                                    $numeroCesionario++;
-                                }
-                            }
-                            ?>
-
-
-
-
-                        </div>
-
-
-
-
-                    </div>
-
-                </div>
-
-            </div>
-
 
 
 
@@ -160,7 +94,7 @@ include '../funcionesphp/detallesDocumento.php';
 
                         <div class="d-flex justify-content-center">
 
-                            <embed src="<?php echo $documento['url_archivo'] ?>" id="idembed" width="80%" height="500" type="application/pdf">
+                            <embed src="<?php echo $documento['url_archivo']?>" id="idembed" width="80%" height="500" type="application/pdf">
 
 
                         </div>
@@ -176,10 +110,10 @@ include '../funcionesphp/detallesDocumento.php';
 
     </div>
 
-    <a href="#" class="float" onclick="modificarDocumento()">
+    <a class="float" onclick="guardarDocumento()">
         <i class="fa fa-save fa-lg my-float"></i>
         <br>
-        <label>Gardar</label>
+        <label>Guardar</label>
     </a>
 
     <script>
@@ -187,71 +121,41 @@ include '../funcionesphp/detallesDocumento.php';
         const app = firebase.initializeApp(firebaseConfig);
         // Initialize Cloud Storage and get a reference to the service
         const storage = app.storage();
-
         const inputArchivo = document.getElementById("idInputFile");
-        var cambioArchivo = false;
-
         var bytesArchivo;
 
-        var cantidadCesionarios = <?php echo count($cesionarios) ?>;
+        var existeNumeroEscritura = false;
+        var cambioArchivo = false;
 
-        var cardCesionarios = document.getElementById("idCardCesionarios");
 
-        function eliminarCesionarios() {
-            if (cantidadCesionarios <= 1) {
+        function validarNumeroEscritura(value) {
+            var numerEscrituraActual = "<?php echo $documento['numero_escritura']; ?>";
+            if (numerEscrituraActual == value) {
                 return;
             }
-            cantidadCesionarios -= 1;
-            cardCesionarios.innerHTML = "";
-            for (let index = 1; index <= cantidadCesionarios; index++) {
-
-                cardCesionarios.innerHTML = cardCesionarios.innerHTML +
-                    `
-            <div class="row">
-
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-    <div class="mb-3">
-        <label for="idInputNombreCesionario${index}" class="form-label">Nombre cesionario ${index}</label>
-        <input type="text" class="form-control" id="idInputNombreCesionario${index}" placeholder="">
-    </div>
-</div>
-
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-    <div class="mb-3">
-        <label for="idInputDpiCesionario${index}" class="form-label">No. DPI cesionario ${index}</label>
-        <input type="text" class="form-control" id="idInputDpiCesionario${index}" placeholder="">
-    </div>
-</div>
-
-</div>  `;
-
-            }
+            $.ajax({
+                type: "POST",
+                url: '/funcionesphp/validarNumeroEscritura.php',
+                data: {
+                    numEscritura: value,
+                    validNumEscritura: 'si'
+                },
+                success: function(response) {
+                    if (response.estado === "ok") {
+                        $("#idInputNumEscritura").removeClass("is-invalid");
+                        existeNumeroEscritura = false;
+                    }
+                    if (response.estado === "error") {
+                        $("#idInputNumEscritura").addClass("is-invalid");
+                        existeNumeroEscritura = true;
+                    }
+                },
+                error: function(xhr, status) {
+                    console.log('HUBO UN ERROR');
+                    console.log(xhr, status);
+                }
+            });
         }
-
-        function agregarCesionarios() {
-            cantidadCesionarios += 1;
-            cardCesionarios.innerHTML = cardCesionarios.innerHTML +
-                `
-            <div class="row">
-
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-    <div class="mb-3">
-        <label for="idInputNombreCesionario${cantidadCesionarios}" class="form-label">Nombre cesionario ${cantidadCesionarios}</label>
-        <input type="text" class="form-control" id="idInputNombreCesionario${cantidadCesionarios}" placeholder="">
-    </div>
-</div>
-
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-    <div class="mb-3">
-        <label for="idInputDpiCesionario${cantidadCesionarios}" class="form-label">No. DPI cesionario ${cantidadCesionarios}</label>
-        <input type="text" class="form-control" id="idInputDpiCesionario${cantidadCesionarios}" placeholder="">
-    </div>
-</div>
-
-</div>  `;
-
-        }
-
 
         function fileSelected(event) {
             cambioArchivo = true;
@@ -293,10 +197,21 @@ include '../funcionesphp/detallesDocumento.php';
         }
 
 
-        function modificarDocumento() {
+        function guardarDocumento() {
+
+
+            if (existeNumeroEscritura) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'El numero de escritura ya existe',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                });
+                return;
+            }
 
             Swal.fire({
-                title: 'Modificando...',
+                title: 'Guardando...',
                 timerProgressBar: true,
                 allowOutsideClick: false,
                 didOpen: () => {
@@ -304,29 +219,15 @@ include '../funcionesphp/detallesDocumento.php';
                 },
             });
 
-            var cesionarios = [];
-
-            for (var index = 1; index <= cantidadCesionarios; index++) {
-                cesionarios.push({
-                    nombre: document.getElementById(`idInputNombreCesionario${index}`).value,
-                    dpi: document.getElementById(`idInputDpiCesionario${index}`).value
-                });
-            }
-
-            console.log(cesionarios);
-
             var documento = {
                 numEscrituraAnt: <?php echo $documento['numero_escritura'] ?>,
-                idTipoDocumento: 3,
-                nombreCedente: document.getElementById('idInputNombreCedente').value,
-                dpiCedente: document.getElementById('idInputDpiCedente').value,
-                cesionarios: cesionarios,
+                idTipoDocumento: 2,
+                nombreDeclarador: document.getElementById('idInputNombreDeclarador').value,
+                dpiDeclarador: document.getElementById('idInputDpiDeclarador').value,
                 fecha: document.getElementById('idInputFecha').value,
                 numEscritura: document.getElementById('idInputNumEscritura').value,
                 urlArchivo: ""
             }
-
-            console.log(documento);
 
             if (!cambioArchivo) {
                 documento.urlArchivo = "<?php echo $documento['url_archivo'] ?>";
@@ -348,7 +249,7 @@ include '../funcionesphp/detallesDocumento.php';
                             }, 1200);
 
                             setTimeout(() => {
-                                window.location.href = "/paginas/listardocumentos.php";
+                                window.location.href = "/paginas/administrador/listardocumentos.php";
                             }, 3000);
 
                         }
@@ -369,8 +270,11 @@ include '../funcionesphp/detallesDocumento.php';
                 return;
             }
 
+            console.log(documento);
             const nombreArchivo = 'documento-' + Number(new Date().getTime() / 1000).toFixed(0).toString() + '.pdf';
-            const storageRef = storage.ref('escaneos/herencias/' + nombreArchivo);
+
+
+            const storageRef = storage.ref('escaneos/declaracionesJuradas/' + nombreArchivo);
             const task = storageRef.put(bytesArchivo);
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -410,7 +314,7 @@ include '../funcionesphp/detallesDocumento.php';
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/paginas/listardocumentos.php";
+                                    window.location.href = "/paginas/administrador/listardocumentos.php";
                                 }, 3000);
 
                             }
