@@ -8,9 +8,9 @@ $nombreUsuario = $_POST['nombreUsuario'];
 
 $stmt = $conn->prepare("SELECT * FROM usuarios WHERE nombre_usuario = ? LIMIT 1");
 $stmt->execute([$nombreUsuario]);
-$documento = $stmt->fetch();
+$usuario = $stmt->fetch();
 
-if ($documento > 0) {
+if ($usuario > 0) {
     $myObj = new stdClass();
     $myObj->mensaje = "Nombrede usuario ya existe";
     $myObj->estado = 'error';

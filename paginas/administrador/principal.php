@@ -17,6 +17,9 @@
 
 <body>
 
+    <div class="container">
+        <h1>Bienvenido <?php echo $_SESSION['usuario']['nombre']; ?></h1>
+    </div>
 
 </body>
 

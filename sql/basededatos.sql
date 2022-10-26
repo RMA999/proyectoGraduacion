@@ -145,6 +145,7 @@ OR REPLACE VIEW vista_usuarios AS
 SELECT
     usuarios.id AS id_usuario,
     usuarios.nombre_usuario,
+    usuarios.contrasenia,
     usuarios.estado,
     usuarios.id_rol,
     personas.id AS id_persona,

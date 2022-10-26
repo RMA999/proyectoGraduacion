@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+  header("Location: /paginas/sesion/login.php");
+  return;
+}
+
+if ($_SESSION['usuario']['id_rol'] > 2) {
+  header("Location: /paginas/usuario/principal.php");
+  return;
+}
+
+?>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="/paginas/administrador/principal.php">Inicio</a>
@@ -39,15 +54,15 @@
           </div>
         </li>
 
-        </ul>
+      </ul>
     </div>
   </div>
 
   <div class="d-flex">
     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
       <ul class="navbar-nav">
-        
-  <li class="nav-item dropdown col-6 col-md-auto">
+
+        <li class="nav-item dropdown col-6 col-md-auto">
 
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person">
@@ -55,6 +70,7 @@
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
               </svg>
             </i>
+            <?php echo $_SESSION['usuario']['nombre_usuario']; ?>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">Perfil</a></li>
@@ -62,7 +78,7 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="/paginas/administrador/login.php">Cerrar Sesión</a></li>
+            <li><a class="dropdown-item" href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
           </ul>
 
         </li>
@@ -70,7 +86,62 @@
       </ul>
     </div>
   </div>
-  
- </nav>
 
- 
+</nav>
+
+<script>
+  function cerrarSesion() {
+
+    Swal.fire({
+      title: 'Cerrando sesion',
+      timerProgressBar: true,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading()
+      },
+    });
+
+    const usuario = {
+      idUsuario: '<?php echo $_SESSION['usuario']['id_usuario']; ?>',
+      funcion: 'logout'
+    };
+
+    $.ajax({
+      type: "POST",
+      url: '/funcionesphp/sesion.php',
+      data: usuario,
+      success: function(response) {
+        console.log(response);
+
+        if (response.mensaje === "Sesion cerrada") {
+
+          setTimeout(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Sesion cerrada',
+              showConfirmButton: false
+            });
+          }, 1200);
+
+          setTimeout(() => {
+            window.location.href = "/paginas/sesion/login.php";
+          }, 2500);
+
+        }
+
+
+      },
+      error: function(xhr, status) {
+        console.log('HUBO UN ERROR');
+        console.log(xhr, status);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error en el servidor',
+          showConfirmButton: false,
+          showCloseButton: true,
+        });
+      }
+    });
+
+  }
+</script>

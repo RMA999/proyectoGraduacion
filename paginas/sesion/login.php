@@ -52,14 +52,14 @@
                 contrasenia,
                 funcion: 'login'
             };
-            // Swal.fire({
-            //     title: 'Iniciando sesion',
-            //     timerProgressBar: true,
-            //     allowOutsideClick: false,
-            //     didOpen: () => {
-            //         Swal.showLoading()
-            //     },
-            // });
+            Swal.fire({
+                title: 'Iniciando sesion',
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+            });
 
             console.log(usuario);
 
@@ -69,6 +69,7 @@
                 data: usuario,
                 success: function(response) {
                     console.log(response);
+                    var pagina = "/paginas/administrador/principal.php";
 
                     if (response.mensaje === "Sesion iniciada") {
 
@@ -80,10 +81,21 @@
                             });
                         }, 1200);
 
-                        // setTimeout(() => {
-                        //     window.location.href = "/paginas/administrador/principal.php";
-                        // }, 3000);
+                        if (response.usuario.id_rol > 2) {
+                            pagina = "/paginas/usuario/principal.php";
+                        }
+                        setTimeout(() => {
+                            window.location.href = pagina;
+                        }, 3000);
 
+                    } else {
+                        setTimeout(() => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Verifique las credenciales',
+                                showConfirmButton: false
+                            });
+                        }, 1200);
                     }
 
 
