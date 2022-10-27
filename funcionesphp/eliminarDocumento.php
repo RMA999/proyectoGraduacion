@@ -13,6 +13,9 @@ if ($tipoDocumento == "Declaración jurada") {
 
         $conn->beginTransaction();
 
+        $stmt = $conn->prepare("DELETE FROM peticiones WHERE id_documento = ?");
+        $stmt->execute([$idDocumento]);
+
         $stmt = $conn->prepare("SELECT * FROM documentos WHERE id = ? LIMIT 1");
         $stmt->execute([$idDocumento]);
         $documento = $stmt->fetch();
@@ -47,6 +50,9 @@ if ($tipoDocumento == "Compraventa") {
     try {
 
         $conn->beginTransaction();
+
+        $stmt = $conn->prepare("DELETE FROM peticiones WHERE id_documento = ?");
+        $stmt->execute([$idDocumento]);
 
         $stmt = $conn->prepare("SELECT * FROM documentos WHERE id = ? LIMIT 1");
         $stmt->execute([$idDocumento]);
@@ -87,6 +93,9 @@ if ($tipoDocumento == "Donacion Entre Vivos") {
 
         $conn->beginTransaction();
 
+        $stmt = $conn->prepare("DELETE FROM peticiones WHERE id_documento = ?");
+        $stmt->execute([$idDocumento]);
+
         $stmt = $conn->prepare("SELECT * FROM documentos WHERE id = ? LIMIT 1");
         $stmt->execute([$idDocumento]);
         $documento = $stmt->fetch();
@@ -124,6 +133,9 @@ if ($tipoDocumento == "Cesion de Derechos Hereditarios") {
     try {
 
         $conn->beginTransaction();
+
+        $stmt = $conn->prepare("DELETE FROM peticiones WHERE id_documento = ?");
+        $stmt->execute([$idDocumento]);
 
         $stmt = $conn->prepare("SELECT * FROM documentos WHERE numero_escritura = ?");
         $stmt->execute([$numeroEscritura]);
