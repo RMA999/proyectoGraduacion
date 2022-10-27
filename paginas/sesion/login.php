@@ -23,7 +23,7 @@
             <img src="https://w7.pngwing.com/pngs/770/246/png-transparent-judge-lawyer-gavel-training-course-hand-logo-law-firm.png" alt="">
         </div>
         <div class="text-center mt-4 name">
-            Iniciar Sesion
+            Iniciar Sesion xxx
         </div>
         <form class="p-3 mt-3" onsubmit="event.preventDefault(); iniciarSesion();">
             <div class="form-field d-flex align-items-center">
