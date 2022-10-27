@@ -127,7 +127,7 @@ if ($tipoDocumento == "Donacion Entre Vivos") {
     return;
 }
 
-
+//hola
 if ($tipoDocumento == "Cesion de Derechos Hereditarios") {
 
     try {
