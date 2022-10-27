@@ -54,6 +54,33 @@ CREATE TABLE documentos (
     CONSTRAINT FK_documento_tipos_documento FOREIGN KEY (id_tipo_documento) REFERENCES `tipos_documentos` (id)
 );
 
+CREATE TABLE peticiones (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_documento INT,
+    id_usuario INT,
+    estado VARCHAR(100),
+    CONSTRAINT FK_peticion_documento FOREIGN KEY (id_documento) REFERENCES `documentos` (id),
+    CONSTRAINT FK_peticion_usuario FOREIGN KEY (id_usuario) REFERENCES `usuarios` (id)
+);
+
+CREATE
+OR REPLACE VIEW vista_peticiones AS
+SELECT
+    peticiones.id AS id_peticion,
+    peticiones.estado,
+    documentos.id AS id_documento,
+    documentos.numero_escritura,
+    documentos.url_archivo,
+    tipos_documentos.nombre AS tipo_documento,
+    usuarios.id AS id_usuario,
+    usuarios.nombre_usuario
+FROM
+    (((
+        peticiones
+        INNER JOIN documentos ON peticiones.id_documento = documentos.id)
+        INNER JOIN tipos_documentos ON documentos.id_tipo_documento = tipos_documentos.id)
+        INNER JOIN usuarios ON peticiones.id_usuario = usuarios.id);
+
 CREATE
 OR REPLACE VIEW vista_documentos AS
 SELECT
