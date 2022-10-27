@@ -37,7 +37,7 @@ if ($_SESSION['usuario']['id_rol'] < 3) {
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">Peticiones</a>
+          <a class="nav-link" href="/paginas/usuario/listarpeticiones.php">Peticiones</a>
         </li>
 
 
