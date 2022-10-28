@@ -109,12 +109,13 @@
             $('#idTabladocumentos tbody').on('click', '#idAccionMostrarPeticiones', function() {
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
+                window.location.href = `/paginas/administrador/listarpeticiones.php?idUsuario=${data['id_usuario']}&&nombreUsuario=${data['nombre_usuario']}`;
 
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Funcion no disponible',
-                    showConfirmButton: false
-                });
+                // Swal.fire({
+                //     icon: 'info',
+                //     title: 'Funcion no disponible',
+                //     showConfirmButton: false
+                // });
 
             });
 

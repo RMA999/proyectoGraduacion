@@ -94,6 +94,9 @@ if ($funcion == "eliminarUsuario") {
 
         $conn->beginTransaction();
 
+        $stmt = $conn->prepare("DELETE FROM peticiones WHERE id_usuario = ?;");
+        $stmt->execute([$idUsuario]);
+
         $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ?;");
         $stmt->execute([$idUsuario]);
 

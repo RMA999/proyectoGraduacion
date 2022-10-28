@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla documentos</title>
+    <title>Peticiones</title>
 
     <?php
     include 'headers/headerBootstrap.php';
@@ -21,6 +21,12 @@
 
     <div class="container mt-2">
 
+        <?php if (isset($_GET['nombreUsuario'])) : ?>
+            <h2>Peticiones del usuario: <?php echo $_GET['nombreUsuario']; ?></h2>
+        <?php else : ?>
+            <h2>Mostrando todas las peticiones</h2>
+        <?php endif; ?>
+
         <table id="idTabladocumentos" class="table table-striped" width="100%"></table>
 
     </div>
@@ -33,9 +39,9 @@
                 'serverSide': true,
                 'serverMethod': 'post',
                 'ajax': {
-                    'url': '/funcionesphp/listarPeticionesUsuario.php',
+                    'url': '/funcionesphp/listarPeticionesAdmin.php',
                     'data': {
-                        id_usuario: <?php echo $_SESSION['usuario']['id_usuario']; ?>
+                        id_usuario: <?php echo $_GET['idUsuario']; ?>
                     },
                 },
                 'columns': [{
@@ -61,7 +67,8 @@
                         data: 'url_archivo',
                         "render": function(data, type, full) {
                             return '<div class="btn-group">' +
-                                '<button type="button" id="idAccionMostrarPdf" class="btn btn-outline-secondary" > <i class="fa-solid fa-eye" data-toggle="tooltip" data-placement="top" title="Ver documento"></i> Visualizar </button>' +
+                                '<button type="button" id="idAccionMostrarPdf" class="btn btn-outline-success" > <i class="fa-solid fa-check" data-toggle="tooltip" data-placement="top" title="Aprovar"></i> </button>' +
+                                '<button type="button" id="idAccionMostrarPdf" class="btn btn-outline-danger" > <i class="fa-solid fa-x" data-toggle="tooltip" data-placement="top" title="Rechazar"></i> </button>' +
                                 // '<button type="button" id="idAccionModificar" class="btn btn-outline-secondary" > <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Modificar"></i> </button>' +
                                 // '<button type="button" id="idAccionDetalles" class="btn btn-outline-secondary" > <i class="fa-solid fa-info-circle" data-toggle="tooltip" data-placement="top" title="Detalles"></i> </button>' +
                                 // '<button type="button" id="idAccionEliminar" class="btn btn-outline-secondary" > <i class="fa-solid fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></i> </button>' +
