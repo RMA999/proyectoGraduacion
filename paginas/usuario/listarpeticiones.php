@@ -109,7 +109,17 @@
                 if (data.estado == "pendiente") {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Esta peticion aun esta pendiente',
+                        title: 'Esta petición aun esta pendiente',
+                        showConfirmButton: false,
+                        showCloseButton: true,
+                    });
+                    return;
+                }
+
+                if (data.estado == "rechazada") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Esta petición fue rechazada',
                         showConfirmButton: false,
                         showCloseButton: true,
                     });
@@ -117,7 +127,7 @@
                 }
 
 
-                if (data.estado == "aprobada") {
+                if (data.estado == "aprovada") {
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", data['url_archivo'], true);
                     xhr.responseType = "blob";

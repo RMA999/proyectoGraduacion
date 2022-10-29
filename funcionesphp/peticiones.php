@@ -40,6 +40,29 @@ if ($funcion == "crear") {
 }
 
 
+if ($funcion == "aprobarRechazar") {
+    $idPeticion = $_POST['id_peticion'];
+    $estado = $_POST['estado'];
+
+    try {
+        $stmt = $conn->prepare("UPDATE peticiones SET estado = ? WHERE id = ?;");
+        $stmt->execute([$estado, $idPeticion]);
+    } catch (Exception $e) {
+        $myObj = new stdClass();
+        $myObj->mensaje = $e->getMessage();
+        $myObj->estado = 'error';
+        echo json_encode($myObj);
+        return;
+    }
+    $myObj = new stdClass();
+    $myObj->mensaje = "Peticion " . $estado;
+    $myObj->estado = 'ok';
+    echo json_encode($myObj);
+    return;
+}
+
+
+
 
 
 $myObj = new stdClass();

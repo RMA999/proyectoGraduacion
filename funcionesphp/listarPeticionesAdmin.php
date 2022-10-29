@@ -62,6 +62,7 @@ $data = array();
 
 foreach ($empRecords as $row) {
    $data[] = array(
+      "id_peticion" => $row['id_peticion'],
       "id_documento" => $row['id_documento'],
       "numero_escritura" => $row['numero_escritura'],
       "tipo_documento" => $row['tipo_documento'],

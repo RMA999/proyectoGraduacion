@@ -67,11 +67,8 @@
                         data: 'url_archivo',
                         "render": function(data, type, full) {
                             return '<div class="btn-group">' +
-                                '<button type="button" id="idAccionMostrarPdf" class="btn btn-outline-success" > <i class="fa-solid fa-check" data-toggle="tooltip" data-placement="top" title="Aprovar"></i> </button>' +
-                                '<button type="button" id="idAccionMostrarPdf" class="btn btn-outline-danger" > <i class="fa-solid fa-x" data-toggle="tooltip" data-placement="top" title="Rechazar"></i> </button>' +
-                                // '<button type="button" id="idAccionModificar" class="btn btn-outline-secondary" > <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Modificar"></i> </button>' +
-                                // '<button type="button" id="idAccionDetalles" class="btn btn-outline-secondary" > <i class="fa-solid fa-info-circle" data-toggle="tooltip" data-placement="top" title="Detalles"></i> </button>' +
-                                // '<button type="button" id="idAccionEliminar" class="btn btn-outline-secondary" > <i class="fa-solid fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></i> </button>' +
+                                '<button type="button" id="idAccionAprobar" class="btn btn-outline-success" > <i class="fa-solid fa-check" data-toggle="tooltip" data-placement="top" title="Aprovar"></i> </button>' +
+                                '<button type="button" id="idAccionRechazar" class="btn btn-outline-danger" > <i class="fa-solid fa-x" data-toggle="tooltip" data-placement="top" title="Rechazar"></i> </button>' +
                                 '</div>'
                         },
                     }
@@ -108,37 +105,95 @@
 
             }).draw();
 
+            function modificarPeticion(idPeticion, estado) {
+                const peticion = {
+                    id_peticion: idPeticion,
+                    estado,
+                    funcion: 'aprobarRechazar'
+                };
+                var mensaje = {
+                    pregunta: '',
+                    respuesta: ''
+                };
+                if (estado == 'aprovada') {
+                    mensaje.pregunta = 'Esta seguro de aprobar esta petición';
+                    mensaje.respuesta = 'Petición Aprovada';
+                }
+                if (estado == 'rechazada') {
+                    mensaje.pregunta = 'Esta seguro de rechazar esta petición';
+                    mensaje.respuesta = 'Petición rechazada';
 
-            $('#idTabladocumentos tbody').on('click', '#idAccionMostrarPdf', function() {
+                }
+                Swal.fire({
+                    title: '¿Estas seguro?',
+                    text: mensaje.pregunta,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        Swal.fire({
+                            title: 'Procesando...',
+                            timerProgressBar: true,
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading()
+                            },
+                        });
+
+                        $.ajax({
+                            type: "POST",
+                            url: '/funcionesphp/peticiones.php',
+                            data: peticion,
+                            success: function(response) {
+                                console.log(response);
+
+                                if (response.estado === "ok") {
+
+                                    setTimeout(() => {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: mensaje.respuesta,
+                                            showConfirmButton: false
+                                        });
+                                        tabla.ajax.reload();
+                                    }, 1200);
+
+
+                                }
+
+
+                            },
+                            error: function(xhr, status) {
+                                console.log('HUBO UN ERROR');
+                                console.log(xhr, status);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error al intentar modificar la petición',
+                                    showConfirmButton: false,
+                                    showCloseButton: true,
+                                });
+                            }
+                        });
+
+
+                    }
+                });
+            }
+
+
+            $('#idTabladocumentos tbody').on('click', '#idAccionAprobar', function() {
                 var data = tabla.row($(this).parents('tr')).data();
+                modificarPeticion(data.id_peticion, 'aprovada');
+            });
 
-
-                if (data.estado == "pendiente") {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Esta peticion aun esta pendiente',
-                        showConfirmButton: false,
-                        showCloseButton: true,
-                    });
-                    return;
-                }
-
-
-                if (data.estado == "aprobada") {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("GET", data['url_archivo'], true);
-                    xhr.responseType = "blob";
-                    xhr.onload = function(e) {
-                        if (this.status === 200) {
-                            var url = window.URL.createObjectURL(this.response);
-                            window.open(url, '_blank').focus();
-                        }
-                    };
-                    xhr.send();
-                    return;
-                }
-
-
+            $('#idTabladocumentos tbody').on('click', '#idAccionRechazar', function() {
+                var data = tabla.row($(this).parents('tr')).data();
+                modificarPeticion(data.id_peticion, 'rechazada');
             });
 
 
