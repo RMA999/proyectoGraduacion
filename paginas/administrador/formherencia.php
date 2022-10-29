@@ -46,7 +46,7 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiCedente" class="form-label">No. DPI cedente</label>
-                                    <input type="text" class="form-control" id="idInputDpiCedente">
+                                    <input type="text" class="form-control" id="idInputDpiCedente" onkeyup="validarDpi(this)">
                                 </div>
                             </div>
 
@@ -109,7 +109,7 @@
                                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                     <div class="mb-3">
                                         <label for="idInputDpiCesionario1" class="form-label">No. DPI cesionario 1</label>
-                                        <input type="text" class="form-control" id="idInputDpiCesionario1">
+                                        <input type="text" class="form-control" id="idInputDpiCesionario1" onkeyup="validarDpi(this)">
                                     </div>
                                 </div>
 
@@ -182,6 +182,21 @@
 
         var existeNumeroEscritura = false;
 
+        var validDpi = {};
+
+        function validarDpi(e) {
+            const dpiRegex = /^[0-9]{13}$/;
+            console.log('dpi:', dpiRegex.test(e.value));
+            validDpi[`${e.id}`] = dpiRegex.test(e.value);
+            if (dpiRegex.test(e.value)) {
+                $(`#${e.id}`).removeClass("is-invalid");
+                $(`#${e.id}`).addClass("is-valid");
+            } else {
+                $(`#${e.id}`).removeClass("is-valid");
+                $(`#${e.id}`).addClass("is-invalid");
+            }
+        }
+
 
         function validarNumeroEscritura(value) {
             $.ajax({
@@ -223,14 +238,14 @@
 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
     <div class="mb-3">
         <label for="idInputNombreCesionario${index}" class="form-label">Nombre cesionario ${index}</label>
-        <input type="text" class="form-control" id="idInputNombreCesionario${index}" >
+        <input type="text" class="form-control" id="idInputNombreCesionario${index}" onkeyup="validarDpi(this)">
     </div>
 </div>
 
 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
     <div class="mb-3">
         <label for="idInputDpiCesionario${index}" class="form-label">No. DPI cesionario ${index}</label>
-        <input type="text" class="form-control" id="idInputDpiCesionario${index}" >
+        <input type="text" class="form-control" id="idInputDpiCesionario${index}" onkeyup="validarDpi(this)">
     </div>
 </div>
 
@@ -248,14 +263,14 @@
 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
     <div class="mb-3">
         <label for="idInputNombreCesionario${cantidadCesionarios}" class="form-label">Nombre cesionario ${cantidadCesionarios}</label>
-        <input type="text" class="form-control" id="idInputNombreCesionario${cantidadCesionarios}" >
+        <input type="text" class="form-control" id="idInputNombreCesionario${cantidadCesionarios}" onkeyup="validarDpi(this)">
     </div>
 </div>
 
 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
     <div class="mb-3">
         <label for="idInputDpiCesionario${cantidadCesionarios}" class="form-label">No. DPI cesionario ${cantidadCesionarios}</label>
-        <input type="text" class="form-control" id="idInputDpiCesionario${cantidadCesionarios}" >
+        <input type="text" class="form-control" id="idInputDpiCesionario${cantidadCesionarios}" onkeyup="validarDpi(this)">
     </div>
 </div>
 
@@ -304,6 +319,20 @@
 
 
         function guardarDocumento() {
+
+            for (const property in validDpi) {
+                console.log(`${property}: ${validDpi[property]}`);
+                if (!validDpi[property]) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'La información del dpi es incorrecta',
+                        showConfirmButton: false,
+                        showCloseButton: true,
+                    });
+                    return;
+                }
+            }
+
 
             if (existeNumeroEscritura) {
                 Swal.fire({

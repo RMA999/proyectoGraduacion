@@ -43,7 +43,7 @@ include '../../funcionesphp/listarRoles.php';
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpi" class="form-label">Dpi</label>
-                                    <input type="text" class="form-control" id="idInputDpi">
+                                    <input type="text" class="form-control" id="idInputDpi" onkeyup="validarDpi(this)">
                                 </div>
                             </div>
 
@@ -67,7 +67,10 @@ include '../../funcionesphp/listarRoles.php';
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputContrasenia" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id="idInputContrasenia">
+                                    <input type="password" class="form-control" id="idInputContrasenia" onkeyup="validarPassword(this)">
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        Contraseña insegura
+                                    </div>
                                 </div>
                             </div>
 
@@ -131,6 +134,36 @@ include '../../funcionesphp/listarRoles.php';
         var existeUsuario = true;
         var contraseniaValida = false;
 
+        var validDpi = {};
+        var validPassword = false;
+
+        function validarPassword(e) {
+            const dpiRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/;
+            console.log('dpi:', dpiRegex.test(e.value));
+            if (dpiRegex.test(e.value)) {
+                $(`#${e.id}`).removeClass("is-invalid");
+                $(`#${e.id}`).addClass("is-valid");
+                validPassword = true;
+            } else {
+                $(`#${e.id}`).removeClass("is-valid");
+                $(`#${e.id}`).addClass("is-invalid");
+                validPassword = false;
+            }
+        }
+
+        function validarDpi(e) {
+            const dpiRegex = /^[0-9]{13}$/;
+            console.log('dpi:', dpiRegex.test(e.value));
+            validDpi[`${e.id}`] = dpiRegex.test(e.value);
+            if (dpiRegex.test(e.value)) {
+                $(`#${e.id}`).removeClass("is-invalid");
+                $(`#${e.id}`).addClass("is-valid");
+            } else {
+                $(`#${e.id}`).removeClass("is-valid");
+                $(`#${e.id}`).addClass("is-invalid");
+            }
+        }
+
         function validadUsuarioExiste(value) {
             $.ajax({
                 type: "POST",
@@ -177,6 +210,30 @@ include '../../funcionesphp/listarRoles.php';
 
 
         function crearUsuario() {
+
+            if (!validPassword) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'La contraseña es insegura',
+                    text: 'Debe contener al menos una mayuscula, un numero, un caracter especial y una longitud de minina 8',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                });
+                return;
+            }
+
+            for (const property in validDpi) {
+                console.log(`${property}: ${validDpi[property]}`);
+                if (!validDpi[property]) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'La información del dpi es incorrecta',
+                        showConfirmButton: false,
+                        showCloseButton: true,
+                    });
+                    return;
+                }
+            }
 
             if (existeUsuario) {
                 Swal.fire({
