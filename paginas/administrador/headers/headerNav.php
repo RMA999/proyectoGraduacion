@@ -78,11 +78,11 @@ if ($_SESSION['usuario']['id_rol'] > 2) {
             <?php echo $_SESSION['usuario']['nombre_usuario']; ?>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Perfil</a></li>
-            <li><a class="dropdown-item" href="#">Configuracion</a></li>
-            <li>
+            <!-- <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" href="#">Configuracion</a></li> -->
+            <!-- <li>
               <hr class="dropdown-divider">
-            </li>
+            </li> -->
             <li><a class="dropdown-item" href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
           </ul>
 
