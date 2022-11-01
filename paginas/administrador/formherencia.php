@@ -61,7 +61,7 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" onkeyup="validarNumeroEscritura(this.value)">
+                                    <input type="number" class="form-control" id="idInputNumEscritura" onkeyup="validarNumeroEscritura(this.value)">
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         Numero de escritura ya existe
                                     </div>

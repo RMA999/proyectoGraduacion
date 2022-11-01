@@ -125,7 +125,7 @@
                     window.location.href = `/paginas/administrador/modificarcompraventa.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
                 }
                 if (data['tipo_documento'] === "Declaración jurada") {
-                    window.location.href = `/paginas/administrador/testmodificardeclaracion.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
+                    window.location.href = `/paginas/administrador/modificardeclaracion.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
                 }
             });
 

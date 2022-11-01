@@ -42,28 +42,28 @@ include '../../funcionesphp/detallesDocumento.php';
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreDeclarador" class="form-label">Nombre Declarador</label>
-                                    <input type="text" class="form-control" id="idInputNombreDeclarador" value="<?php echo $declarador['nombre']?>">
+                                    <input type="text" class="form-control" id="idInputNombreDeclarador" value="<?php echo $declarador['nombre'] ?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiDeclarador" class="form-label">No. DPI</label>
-                                    <input type="text" class="form-control" id="idInputDpiDeclarador" value="<?php echo $declarador['dpi']?>">
+                                    <input type="text" class="form-control" id="idInputDpiDeclarador" value="<?php echo $declarador['dpi'] ?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputFecha" class="form-label">Fecha</label>
-                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento']?>">
+                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento'] ?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura']?>" onkeyup="validarNumeroEscritura(this.value)">
+                                    <input type="number" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura'] ?>" onkeyup="validarNumeroEscritura(this.value)">
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         Numero de escritura ya existe
                                     </div>
@@ -94,7 +94,7 @@ include '../../funcionesphp/detallesDocumento.php';
 
                         <div class="d-flex justify-content-center">
 
-                            <embed src="<?php echo $documento['url_archivo']?>" id="idembed" width="80%" height="500" type="application/pdf">
+                            <embed src="<?php echo $documento['url_archivo'] ?>" id="idembed" width="80%" height="500" type="application/pdf">
 
 
                         </div>

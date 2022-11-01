@@ -42,42 +42,42 @@ include '../../funcionesphp/detallesDocumento.php';
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreVendedor" class="form-label">Nombre vendedor</label>
-                                    <input type="text" class="form-control" id="idInputNombreVendedor" value="<?php echo $vendedor['nombre']?>">
+                                    <input type="text" class="form-control" id="idInputNombreVendedor" value="<?php echo $vendedor['nombre'] ?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNombreComprador" class="form-label">Nombre comprador</label>
-                                    <input type="text" class="form-control" id="idInputNombreComprador" value="<?php echo $comprador['nombre']?>">
+                                    <input type="text" class="form-control" id="idInputNombreComprador" value="<?php echo $comprador['nombre'] ?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiVendedor" class="form-label">No. DPI vendedor</label>
-                                    <input type="text" class="form-control" id="idInputDpiVendedor" value="<?php echo $vendedor['dpi']?>">
+                                    <input type="text" class="form-control" id="idInputDpiVendedor" value="<?php echo $vendedor['dpi'] ?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputDpiComprador" class="form-label">No. DPI comprador</label>
-                                    <input type="text" class="form-control" id="idInputDpiComprador" value="<?php echo $comprador['dpi']?>">
+                                    <input type="text" class="form-control" id="idInputDpiComprador" value="<?php echo $comprador['dpi'] ?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputFecha" class="form-label">Fecha</label>
-                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento']?>">
+                                    <input type="date" class="form-control" id="idInputFecha" value="<?php echo $documento['fecha_documento'] ?>">
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class="mb-3">
                                     <label for="idInputNumEscritura" class="form-label">No. De Escritura</label>
-                                    <input type="text" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura']?>" onkeyup="validarNumeroEscritura(this.value)">
+                                    <input type="number" class="form-control" id="idInputNumEscritura" value="<?php echo $documento['numero_escritura'] ?>" onkeyup="validarNumeroEscritura(this.value)">
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         Numero de escritura ya existe
                                     </div>
