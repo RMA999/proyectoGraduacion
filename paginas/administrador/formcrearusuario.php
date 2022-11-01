@@ -68,6 +68,7 @@ include '../../funcionesphp/listarRoles.php';
                                 <div class="mb-3">
                                     <label for="idInputContrasenia" class="form-label">Contraseña</label>
                                     <input type="password" class="form-control" id="idInputContrasenia" onkeyup="validarPassword(this)">
+                                    <small id="emailHelp" class="form-text text-muted">Ingresar un mínimo de 8 carácteres</small>
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         Contraseña insegura
                                     </div>

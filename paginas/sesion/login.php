@@ -92,7 +92,7 @@
                         setTimeout(() => {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Verifique las credenciales',
+                                title: 'Revisar su usuario o contraseña',
                                 showConfirmButton: false
                             });
                         }, 1200);
