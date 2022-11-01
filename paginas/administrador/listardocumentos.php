@@ -127,6 +127,9 @@
                 if (data['tipo_documento'] === "Declaración jurada") {
                     window.location.href = `/paginas/administrador/modificardeclaracion.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
                 }
+                if (data['tipo_documento'] === "Donacion Entre Vivos") {
+                    window.location.href = `/paginas/administrador/modificardonacion.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
+                }
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionDetalles', function() {

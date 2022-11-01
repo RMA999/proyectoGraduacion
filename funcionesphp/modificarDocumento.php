@@ -176,6 +176,56 @@ if ($tipoDocumento == "Declaración jurada") {
     return;
 }
 
+if ($tipoDocumento == "Donacion Entre Vivos") {
+    $numEscrituraAnt = $_POST['numEscrituraAnt'];
+    $nombreDonante = $_POST['nombreDonante'];
+    $nombreDonatario = $_POST['nombreDonatario'];
+    $dpiDonante = $_POST['dpiDonante'];
+    $dpiDonatario = $_POST['dpiDonatario'];
+    $fecha = $_POST['fecha'];
+    $numEscritura = $_POST['numEscritura'];
+    $urlArchivo = $_POST['urlArchivo'];
+
+
+    try {
+
+        $conn->beginTransaction();
+
+        $stmt = $conn->prepare("SELECT * FROM documentos WHERE numero_escritura = ?");
+        $stmt->execute([$numEscrituraAnt]);
+        $documento = $stmt->fetch();
+
+        //Update persona donador
+        $stmt = $conn->prepare("UPDATE personas SET dpi = ?, nombre = ? WHERE id = ?");
+        $stmt->execute([$dpiDonante, $nombreDonante, $documento['id_persona_donador']]);
+
+        //Update persona donatario
+        $stmt = $conn->prepare("UPDATE personas SET dpi = ?, nombre = ? WHERE id = ?");
+        $stmt->execute([$dpiDonatario, $nombreDonatario, $documento['id_persona_donatario']]);
+
+        //Update documento
+        $stmt = $conn->prepare("UPDATE documentos SET fecha = ?, numero_escritura = ?, url_archivo = ? WHERE id = ?");
+        $stmt->execute([$fecha, $numEscritura, $urlArchivo, $documento['id']]);
+
+        $conn->commit();
+
+        $myObj = new stdClass();
+        $myObj->mensaje = "Documento modificado";
+        $myObj->estado = 'ok';
+        echo json_encode($myObj);
+    } catch (Exception $e) {
+        // echo $e->getMessage();
+        $conn->rollBack();
+        $myObj = new stdClass();
+        $myObj->mensaje = $e->getMessage();
+        $myObj->estado = 'error';
+        echo json_encode($myObj);
+    }
+
+
+    return;
+}
+
 
 
 $myObj = new stdClass();

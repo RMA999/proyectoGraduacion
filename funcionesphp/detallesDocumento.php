@@ -14,21 +14,21 @@ if ($tipoDocumento == "Cesion de Derechos Hereditarios") {
     $stmt = $conn->prepare("SELECT * FROM vista_documentos WHERE id_documento = ? LIMIT 1");
     $stmt->execute([$idDocumento]);
     $documento = $stmt->fetch();
-    
+
     $stmt = $conn->prepare("SELECT * FROM vista_cedentes WHERE numero_escritura = ? LIMIT 1");
     $stmt->execute([$documento['numero_escritura']]);
     $cedente = $stmt->fetch();
-    
+
     $stmt = $conn->prepare("SELECT * FROM vista_cesionarios WHERE numero_escritura = ?");
     $stmt->execute([$documento['numero_escritura']]);
-    $cesionarios = $stmt->fetchAll();       
+    $cesionarios = $stmt->fetchAll();
 }
 
 if ($tipoDocumento == "Compraventa") {
     $stmt = $conn->prepare("SELECT * FROM vista_documentos WHERE id_documento = ? LIMIT 1");
     $stmt->execute([$idDocumento]);
     $documento = $stmt->fetch();
-    
+
     $stmt = $conn->prepare("SELECT * FROM vista_compradores WHERE numero_escritura = ? LIMIT 1");
     $stmt->execute([$documento['numero_escritura']]);
     $comprador = $stmt->fetch();
@@ -36,16 +36,28 @@ if ($tipoDocumento == "Compraventa") {
     $stmt = $conn->prepare("SELECT * FROM vista_vendedores WHERE numero_escritura = ? LIMIT 1");
     $stmt->execute([$documento['numero_escritura']]);
     $vendedor = $stmt->fetch();
-         
 }
 
 if ($tipoDocumento == "Declaración jurada") {
     $stmt = $conn->prepare("SELECT * FROM vista_documentos WHERE id_documento = ? LIMIT 1");
     $stmt->execute([$idDocumento]);
     $documento = $stmt->fetch();
-    
+
     $stmt = $conn->prepare("SELECT * FROM vista_declaradores WHERE numero_escritura = ? LIMIT 1");
     $stmt->execute([$documento['numero_escritura']]);
     $declarador = $stmt->fetch();
-         
+}
+
+if ($tipoDocumento == "Donacion Entre Vivos") {
+    $stmt = $conn->prepare("SELECT * FROM vista_documentos WHERE id_documento = ? LIMIT 1");
+    $stmt->execute([$idDocumento]);
+    $documento = $stmt->fetch();
+
+    $stmt = $conn->prepare("SELECT * FROM vista_donadores WHERE numero_escritura = ? LIMIT 1");
+    $stmt->execute([$documento['numero_escritura']]);
+    $donador = $stmt->fetch();
+
+    $stmt = $conn->prepare("SELECT * FROM vista_donatarios WHERE numero_escritura = ? LIMIT 1");
+    $stmt->execute([$documento['numero_escritura']]);
+    $donatario = $stmt->fetch();
 }

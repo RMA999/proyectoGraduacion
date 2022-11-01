@@ -184,3 +184,30 @@ FROM
         usuarios
         INNER JOIN personas ON usuarios.id_persona = personas.id)
         INNER JOIN roles ON usuarios.id_rol = roles.id);
+
+
+CREATE
+OR REPLACE VIEW vista_donadores AS
+SELECT
+    personas.id AS id_persona,
+    personas.nombre,
+    personas.dpi,
+    documentos.numero_escritura
+FROM
+    (
+        personas
+        INNER JOIN documentos ON personas.id = documentos.id_persona_donador
+    );
+
+CREATE
+OR REPLACE VIEW vista_donatarios AS
+SELECT
+    personas.id AS id_persona,
+    personas.nombre,
+    personas.dpi,
+    documentos.numero_escritura
+FROM
+    (
+        personas
+        INNER JOIN documentos ON personas.id = documentos.id_persona_donatario
+    );
