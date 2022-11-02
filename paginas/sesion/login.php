@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+if (isset($_SESSION['usuario'])) {
+    if ($_SESSION['usuario']['id_rol'] > 2) {
+        header("Location: /paginas/usuario/principal.php");
+        return;
+    } else {
+        header("Location: /paginas/administrador/principal.php");
+        return;
+    }
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
