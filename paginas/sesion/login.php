@@ -88,7 +88,6 @@ if (isset($_SESSION['usuario'])) {
                     var pagina = "/paginas/administrador/principal.php";
 
                     if (response.mensaje === "Sesion iniciada") {
-
                         setTimeout(() => {
                             Swal.fire({
                                 icon: 'success',
@@ -104,6 +103,14 @@ if (isset($_SESSION['usuario'])) {
                             window.location.href = pagina;
                         }, 3000);
 
+                    } else if (response.mensaje === 'Usuario desactivado') {
+                        setTimeout(() => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'El usuario ha sido desactivado',
+                                showConfirmButton: false
+                            });
+                        }, 1200);
                     } else {
                         setTimeout(() => {
                             Swal.fire({

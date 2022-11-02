@@ -68,7 +68,7 @@
                         "render": function(data, type, full) {
                             return '<div class="btn-group">' +
                                 '<button type="button" id="idAccionModificar" class="btn btn-outline-secondary" > <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Modificar"></i> </button>' +
-                                '<button type="button" id="idAccionEliminar" class="btn btn-outline-secondary" > <i class="fa-solid fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></i> </button>' +
+                                '<button type="button" id="idAccionEliminar" class="btn btn-outline-secondary" > <i class="fa-solid fa-undo" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar"></i> </button>' +
                                 '<button type="button" id="idAccionMostrarPeticiones" class="btn btn-outline-secondary" > <i class="fa-solid fa-list" data-toggle="tooltip" data-placement="top" title="Mostrar Peticiones"></i> </button>' +
                                 '</div>'
                         },
@@ -129,10 +129,18 @@
                 var data = tabla.row($(this).parents('tr')).data();
                 console.log(data);
 
+                var mensaje = "";
+
+                if (data['estado'] === 'desactivado') {
+                    mensaje = `Activar el Usuario: ${data['nombre_usuario']}`
+                } else {
+                    mensaje = `Desactivar el Usuario: ${data['nombre_usuario']}`
+                }
+
                 if (data['nombre_rol'] == "Super Administrador") {
                     Swal.fire({
                         icon: 'error',
-                        title: 'No es permitido eliminar usuario Super Administrador',
+                        title: 'No es permitido desactivar el usuario Super Administrador',
                         showConfirmButton: false,
                         showCloseButton: true,
                     });
@@ -142,17 +150,17 @@
                 const usuarioAEliminar = {
                     idUsuario: data['id_usuario'],
                     idPersona: data['id_persona'],
-                    funcion: 'eliminarUsuario'
+                    funcion: 'activarDesactivar'
                 };
 
                 Swal.fire({
                     title: '¿Estas seguro?',
-                    text: `Eliminar el Usuario: ${data['nombre_usuario']}`,
+                    text: mensaje,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, Borrarlo',
+                    confirmButtonText: 'Si',
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -173,18 +181,30 @@
                             success: function(response) {
                                 console.log(response);
 
-                                if (response.estado === "ok") {
+                                if (response.mensaje === "Usuario activado") {
 
                                     setTimeout(() => {
                                         Swal.fire({
                                             icon: 'success',
-                                            title: 'Usuario eliminado',
+                                            title: 'Usuario Activado',
                                             showConfirmButton: false
                                         });
                                         tabla.ajax.reload();
                                     }, 1200);
+                                    return;
+                                }
 
+                                if (response.mensaje === "Usuario desactivado") {
 
+                                    setTimeout(() => {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Usuario Desactivado',
+                                            showConfirmButton: false
+                                        });
+                                        tabla.ajax.reload();
+                                    }, 1200);
+                                    return;
                                 }
 
 

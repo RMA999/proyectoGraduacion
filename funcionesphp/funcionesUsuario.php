@@ -87,27 +87,32 @@ if ($funcion == "modificarUsuario") {
 }
 
 
-if ($funcion == "eliminarUsuario") {
-    $idPersona = $_POST['idPersona'];
+if ($funcion == "activarDesactivar") {
     $idUsuario = $_POST['idUsuario'];
+    $nuevoEstado = "";
     try {
 
         $conn->beginTransaction();
 
-        $stmt = $conn->prepare("DELETE FROM peticiones WHERE id_usuario = ?;");
+        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = ?");
         $stmt->execute([$idUsuario]);
+        $usuario = $stmt->fetch();
 
-        $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ?;");
-        $stmt->execute([$idUsuario]);
-
-        $stmt = $conn->prepare("DELETE FROM personas WHERE id = ?;");
-        $stmt->execute([$idPersona]);
+        if ($usuario['estado'] == "desactivado") {
+            $stmt = $conn->prepare("UPDATE usuarios SET estado = ? WHERE id = ?;");
+            $stmt->execute(["desconectado", $idUsuario]);
+            $nuevoEstado = "activado";
+        } else {
+            $stmt = $conn->prepare("UPDATE usuarios SET estado = ? WHERE id = ?;");
+            $stmt->execute(["desactivado", $idUsuario]);
+            $nuevoEstado = "desactivado";
+        }
 
 
         $conn->commit();
 
         $myObj = new stdClass();
-        $myObj->mensaje = "Usuario eliminado";
+        $myObj->mensaje = "Usuario " . $nuevoEstado;
         $myObj->estado = 'ok';
         echo json_encode($myObj);
     } catch (Exception $e) {
@@ -130,8 +135,4 @@ if ($funcion == "eliminarUsuario") {
 $myObj = new stdClass();
 $myObj->mensaje = "funcion de usuario no encontrada";
 $myObj->estado = 'error';
-$myObj->funcion = $funcion;
-$myObj->numEscrituraAnt = $numEscrituraAnt;
-$myObj->cantidadCesionarios = $cantidadCesionarios;
-$myObj->urlArchivo = $urlArchivo;
 echo json_encode($myObj);

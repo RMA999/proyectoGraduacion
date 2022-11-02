@@ -22,6 +22,14 @@ if ($funcion == "login") {
         return;
     }
 
+    if ($usuario['estado'] == "desactivado") {
+        $myObj = new stdClass();
+        $myObj->mensaje = "Usuario desactivado";
+        $myObj->estado = 'error';
+        echo json_encode($myObj);
+        return;
+    }
+
     if ($usuario['contrasenia'] != $contrasenia) {
         $myObj = new stdClass();
         $myObj->mensaje = "Contraseña incorrecta";
