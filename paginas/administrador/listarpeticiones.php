@@ -115,13 +115,13 @@
                     pregunta: '',
                     respuesta: ''
                 };
-                if (estado == 'aprovada') {
+                if (estado == 'Aprobada') {
                     mensaje.pregunta = 'Esta seguro de aprobar esta petición';
-                    mensaje.respuesta = 'Petición Aprovada';
+                    mensaje.respuesta = 'Petición Aprobada';
                 }
-                if (estado == 'rechazada') {
+                if (estado == 'Rechazada') {
                     mensaje.pregunta = 'Esta seguro de rechazar esta petición';
-                    mensaje.respuesta = 'Petición rechazada';
+                    mensaje.respuesta = 'Petición Rechazada';
 
                 }
                 Swal.fire({
@@ -188,12 +188,12 @@
 
             $('#idTabladocumentos tbody').on('click', '#idAccionAprobar', function() {
                 var data = tabla.row($(this).parents('tr')).data();
-                modificarPeticion(data.id_peticion, 'aprovada');
+                modificarPeticion(data.id_peticion, 'Aprobada');
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionRechazar', function() {
                 var data = tabla.row($(this).parents('tr')).data();
-                modificarPeticion(data.id_peticion, 'rechazada');
+                modificarPeticion(data.id_peticion, 'Rechazada');
             });
 
 

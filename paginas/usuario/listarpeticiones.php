@@ -116,10 +116,10 @@
                     return;
                 }
 
-                if (data.estado == "rechazada") {
+                if (data.estado == "Rechazada") {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Esta petición fue rechazada',
+                        title: 'Esta petición fue Rechazada',
                         showConfirmButton: false,
                         showCloseButton: true,
                     });
@@ -127,7 +127,7 @@
                 }
 
 
-                if (data.estado == "aprovada") {
+                if (data.estado == "Aprobada") {
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", data['url_archivo'], true);
                     xhr.responseType = "blob";
