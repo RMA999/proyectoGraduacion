@@ -90,6 +90,7 @@ if ($tipoDocumento == "Compraventa") {
     $fecha = $_POST['fecha'];
     $numEscritura = $_POST['numEscritura'];
     $urlArchivo = $_POST['urlArchivo'];
+    $ubicacionFisica = $_POST['ubicacionFisica'];
 
 
     try {
@@ -109,8 +110,8 @@ if ($tipoDocumento == "Compraventa") {
         $stmt->execute([$dpiVendedor, $nombreVendedor, $documento['id_persona_vendedor']]);
 
         //Update documento
-        $stmt = $conn->prepare("UPDATE documentos SET fecha = ?, numero_escritura = ?, url_archivo = ? WHERE id = ?");
-        $stmt->execute([$fecha, $numEscritura, $urlArchivo, $documento['id']]);
+        $stmt = $conn->prepare("UPDATE documentos SET fecha = ?, numero_escritura = ?, ubicacion_fisica = ?, url_archivo = ? WHERE id = ?");
+        $stmt->execute([$fecha, $numEscritura, $ubicacionFisica, $urlArchivo, $documento['id']]);
 
         $conn->commit();
 

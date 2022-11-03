@@ -84,6 +84,13 @@ include '../../funcionesphp/detallesDocumento.php';
                                 </div>
                             </div>
 
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="mb-3">
+                                    <label for="idInputUbicacionFisica" class="form-label">Ubicación Fisica</label>
+                                    <textarea class="form-control" id="idInputUbicacionFisica" rows="3"><?php echo $documento['ubicacion_fisica'] ?></textarea>
+                                </div>
+                            </div>
+
                         </div>
 
 
@@ -244,6 +251,7 @@ include '../../funcionesphp/detallesDocumento.php';
                 dpiComprador: document.getElementById('idInputDpiComprador').value,
                 fecha: document.getElementById('idInputFecha').value,
                 numEscritura: document.getElementById('idInputNumEscritura').value,
+                ubicacionFisica: document.getElementById('idInputUbicacionFisica').value,
                 urlArchivo: ""
             }
 
