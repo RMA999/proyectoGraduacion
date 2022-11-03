@@ -43,6 +43,7 @@ CREATE TABLE documentos (
     fecha DATE NOT NULL,
     fecha_escaneado DATE DEFAULT CURRENT_TIMESTAMP,
     numero_escritura VARCHAR(20) NOT NULL,
+    ubicacion_fisica VARCHAR(1000) NOT NULL,
     url_archivo VARCHAR(2083) NOT NULL,
     CONSTRAINT FK_documento_persona_vendedor FOREIGN KEY (id_persona_vendedor) REFERENCES `personas` (id),
     CONSTRAINT FK_documento_persona_comprador FOREIGN KEY (id_persona_comprador) REFERENCES `personas` (id),
@@ -93,6 +94,7 @@ SELECT
     documentos.id_tipo_documento,
     tipos_documentos.nombre AS tipo_documento,
     documentos.fecha AS fecha_documento,
+    documentos.ubicacion_fisica,
     documentos.url_archivo
 FROM
     (
