@@ -13,6 +13,7 @@ $dpiDonatario = $_POST['dpiDonatario'];
 $fecha = $_POST['fecha'];
 $numEscritura = $_POST['numEscritura'];
 $urlArchivo = $_POST['urlArchivo'];
+$ubicacionFisica = $_POST['ubicacionFisica'];
 
 // $conn = null;
 
@@ -26,9 +27,9 @@ $stmt = $conn->prepare("INSERT INTO personas(dpi,nombre)
 $stmt->execute([$dpiDonatario, $nombreDonatario]);
 $idDonatario = $conn->lastInsertId();
 
-$stmt = $conn->prepare("INSERT INTO documentos(id_tipo_documento, id_persona_donador, id_persona_donatario, fecha, numero_escritura, url_archivo) 
-                              VALUES(?,?,?,?,?,?);");
-$stmt->execute([$tipoDocumento, $idDonante, $idDonatario, $fecha, $numEscritura, $urlArchivo]);
+$stmt = $conn->prepare("INSERT INTO documentos(id_tipo_documento, id_persona_donador, id_persona_donatario, fecha, numero_escritura, ubicacion_fisica, url_archivo) 
+                              VALUES(?,?,?,?,?,?,?);");
+$stmt->execute([$tipoDocumento, $idDonante, $idDonatario, $fecha, $numEscritura, $ubicacionFisica, $urlArchivo]);
 $idDocumento = $conn->lastInsertId();
 
 $myObj = new stdClass();
