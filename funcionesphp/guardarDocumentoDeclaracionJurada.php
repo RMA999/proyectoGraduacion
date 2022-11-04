@@ -11,15 +11,16 @@ $nombreDeclarador = $_POST['nombreDeclarador'];
 $dpiDeclarador = $_POST['dpiDeclarador'];
 $fecha = $_POST['fecha'];
 $urlArchivo = $_POST['urlArchivo'];
+$ubicacionFisica = $_POST['ubicacionFisica'];
 
 $stmt = $conn->prepare("INSERT INTO personas(dpi,nombre) 
                               VALUES(?,?);");
 $stmt->execute([$dpiDeclarador, $nombreDeclarador]);
 $idDeclarador = $conn->lastInsertId();
 
-$stmt = $conn->prepare("INSERT INTO documentos(id_tipo_documento, id_persona_declarador, fecha, numero_escritura, url_archivo) 
-                              VALUES(?,?,?,?,?);");
-$stmt->execute([$tipoDocumento, $idDeclarador, $fecha, $numEscritura, $urlArchivo]);
+$stmt = $conn->prepare("INSERT INTO documentos(id_tipo_documento, id_persona_declarador, fecha, numero_escritura, ubicacion_fisica, url_archivo) 
+                              VALUES(?,?,?,?,?,?);");
+$stmt->execute([$tipoDocumento, $idDeclarador, $fecha, $numEscritura, $ubicacionFisica, $urlArchivo]);
 $idDocumento = $conn->lastInsertId();
 
 $myObj = new stdClass();
