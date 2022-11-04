@@ -68,6 +68,13 @@
                                 </div>
                             </div>
 
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="mb-3">
+                                    <label for="idInputUbicacionFisica" class="form-label">Ubicación Fisica</label>
+                                    <textarea class="form-control" id="idInputUbicacionFisica" rows="3"></textarea>
+                                </div>
+                            </div>
+
                         </div>
 
 
@@ -372,6 +379,7 @@
                 cesionarios: cesionarios,
                 fecha: document.getElementById('idInputFecha').value,
                 numEscritura: document.getElementById('idInputNumEscritura').value,
+                ubicacionFisica: document.getElementById('idInputUbicacionFisica').value,
                 urlArchivo: ""
             }
 
@@ -420,7 +428,7 @@
                                 }, 1200);
 
                                 setTimeout(() => {
-                                    window.location.href = "/paginas/administrador/principal.php";
+                                    window.location.href = "/paginas/administrador/listardocumentos.php";
                                 }, 3000);
 
                             }

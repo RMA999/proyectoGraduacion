@@ -12,6 +12,7 @@ $dpiCedente = $_POST['dpiCedente'];
 $fecha = $_POST['fecha'];
 $numEscritura = $_POST['numEscritura'];
 $urlArchivo = $_POST['urlArchivo'];
+$ubicacionFisica = $_POST['ubicacionFisica'];
 
 $cesionarios = (array) $_POST['cesionarios'];
 
@@ -38,9 +39,9 @@ for ($x = 0; $x < $cantidadCesionarios; $x++) {
 }
 
 for ($x = 0; $x < $cantidadCesionarios; $x++) {
-    $stmt = $conn->prepare("INSERT INTO documentos(id_tipo_documento, id_persona_cedente, id_persona_cesionario, fecha, numero_escritura, url_archivo) 
-    VALUES(?,?,?,?,?,?);");
-    $stmt->execute([$tipoDocumento, $idCedente, $respuesta["idsCesionarios"][$x], $fecha, $numEscritura, $urlArchivo]);
+    $stmt = $conn->prepare("INSERT INTO documentos(id_tipo_documento, id_persona_cedente, id_persona_cesionario, fecha, ubicacion_fisica, numero_escritura, url_archivo) 
+    VALUES(?,?,?,?,?,?,?);");
+    $stmt->execute([$tipoDocumento, $idCedente, $respuesta["idsCesionarios"][$x], $fecha, $ubicacionFisica, $numEscritura, $urlArchivo]);
     array_push($respuesta['idsDocumentos'], $conn->lastInsertId());
 }
 
