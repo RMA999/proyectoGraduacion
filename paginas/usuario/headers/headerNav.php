@@ -29,8 +29,8 @@ if ($_SESSION['usuario']['id_rol'] < 3) {
           <div class="dropdown-menu">
             <a href="#" class="dropdown-item">Compraventa</a>
             <a href="#" class="dropdown-item">Declaración jurada</a>
-            <a href="#" class="dropdown-item">Cesion de Derechos Hereditarios</a>
-            <a href="#" class="dropdown-item">Donacion Entre Vivos</a>
+            <a href="#" class="dropdown-item">Cesión de Derechos Hereditarios</a>
+            <a href="#" class="dropdown-item">Donación Entre Vivos</a>
             <div class="dropdown-divider"></div>
             <a href="/paginas/usuario/listardocumentos.php" class="dropdown-item">Todos los documentos</a>
           </div>

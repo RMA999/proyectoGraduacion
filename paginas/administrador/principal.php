@@ -23,16 +23,29 @@
 
         <div class="row">
 
-            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-3">
                 <div class="card text-center">
                     <div class="card-header">
                         Peticiones
                     </div>
                     <div class="card-body">
-                        <canvas id="myChart" width="400" height="400"></canvas>
+                        <canvas id="graficaPeticiones" width="400" height="400"></canvas>
                     </div>
                 </div>
             </div>
+
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-3">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Documentos Escaneados
+                    </div>
+                    <div class="card-body">
+                        <canvas id="graficaDocumentos" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
 
         </div>
 
@@ -41,7 +54,8 @@
 
 
     <script>
-        const ctx = document.getElementById('myChart');
+        const ctxPeticiones = document.getElementById('graficaPeticiones');
+        const ctxDocumentos = document.getElementById('graficaDocumentos');
 
         function getRandomIntInclusive(min, max) {
             min = Math.ceil(min);
@@ -49,8 +63,7 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-
-        var data = {
+        var dataPeticiones = {
             datasets: [{
                 label: 'My First Dataset',
                 data: [300, 50, 100],
@@ -68,12 +81,53 @@
             ]
         };
 
-        const config = {
-            type: 'pie',
-            data: data,
+
+        var dataDocumentos = {
+            labels: ['Compraventa', 'Declaración Jurada', 'Cesión de Derechos Hereditarios', 'Donación Entre Vivos'],
+            datasets: [{
+                label: 'Documentos',
+                data: [65, 59, 80, 20],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(153, 102, 255)',
+                    'rgb(75, 192, 192)'
+                ],
+                borderWidth: 1
+            }]
         };
 
-        const myChart = new Chart(ctx, config);
+        const configPeticiones = {
+            type: 'pie',
+            data: dataPeticiones,
+        };
+
+        const configDocumentos = {
+            type: 'bar',
+            data: dataDocumentos,
+            options: {
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            },
+        };
+
+
+        const graficaPeticiones = new Chart(ctxPeticiones, configPeticiones);
+        const graficaDocumentos = new Chart(ctxDocumentos, configDocumentos);
 
 
         setInterval(() => {
@@ -85,8 +139,8 @@
             ];
 
             console.log(newData);
-            myChart.data.datasets[0].data = newData;
-            myChart.update();
+            graficaPeticiones.data.datasets[0].data = newData;
+            graficaPeticiones.update();
 
         }, 3000);
     </script>
