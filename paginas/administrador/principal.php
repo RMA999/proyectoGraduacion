@@ -43,6 +43,13 @@
     <script>
         const ctx = document.getElementById('myChart');
 
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+
         var data = {
             datasets: [{
                 label: 'My First Dataset',
@@ -67,6 +74,21 @@
         };
 
         const myChart = new Chart(ctx, config);
+
+
+        setInterval(() => {
+
+            var newData = [
+                getRandomIntInclusive(1, 100),
+                getRandomIntInclusive(1, 100),
+                getRandomIntInclusive(1, 100)
+            ];
+
+            console.log(newData);
+            myChart.data.datasets[0].data = newData;
+            myChart.update();
+
+        }, 3000);
     </script>
 
 </body>
