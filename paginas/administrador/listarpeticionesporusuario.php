@@ -39,7 +39,7 @@
                 'serverSide': true,
                 'serverMethod': 'post',
                 'ajax': {
-                    'url': '/funcionesphp/listarPeticionesAdmin.php',
+                    'url': '/funcionesphp/listarPeticionesAdminPorUsuario.php',
                     'data': {
                         id_usuario: <?php echo $_GET['idUsuario']; ?>
                     },

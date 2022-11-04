@@ -12,7 +12,7 @@ if ($funcion == "crear") {
     try {
 
         $stmt = $conn->prepare("SELECT * FROM peticiones WHERE id_documento = ? AND id_usuario = ? AND estado = ? LIMIT 1");
-        $stmt->execute([$idDocumento, $idUsuario, "pendiente"]);
+        $stmt->execute([$idDocumento, $idUsuario, "Pendiente"]);
         $peticion = $stmt->fetch();
 
         if ($peticion > 0) {
@@ -24,7 +24,7 @@ if ($funcion == "crear") {
         }
 
         $stmt = $conn->prepare("INSERT INTO peticiones (id_documento, id_usuario, estado) VALUES (?,?,?)");
-        $stmt->execute([$idDocumento, $idUsuario, "pendiente"]);
+        $stmt->execute([$idDocumento, $idUsuario, "Pendiente"]);
     } catch (Exception $e) {
         $myObj = new stdClass();
         $myObj->mensaje = $e->getMessage();

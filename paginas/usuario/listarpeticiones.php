@@ -106,10 +106,10 @@
                 var data = tabla.row($(this).parents('tr')).data();
 
 
-                if (data.estado == "pendiente") {
+                if (data.estado == "Pendiente") {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Esta petición aun esta pendiente',
+                        title: 'Esta petición aun esta Pendiente',
                         showConfirmButton: false,
                         showCloseButton: true,
                     });

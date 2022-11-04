@@ -10,31 +10,32 @@ $columnIndex = $_POST['order'][0]['column']; // Column index
 $columnName = $_POST['columns'][$columnIndex]['data']; // Column name
 $columnSortOrder = $_POST['order'][0]['dir']; // asc or desc
 $searchValue = $_POST['search']['value']; // Search value
+$idUsuario = $_POST['id_usuario'];
 
 $searchArray = array();
 
 // Search
-$searchQuery = " AND estado LIKE :estado";
+$searchQuery = " AND id_usuario LIKE :id_usuario";
 $searchArray = array(
-   'estado' => "%Pendiente%"
+   'id_usuario' => "%$idUsuario%"
 );
 if ($searchValue != '') {
-   $searchQuery = " AND estado LIKE :estado AND (
+   $searchQuery = " AND id_usuario LIKE :id_usuario AND (
            numero_escritura LIKE :numero_escritura  OR 
            tipo_documento LIKE :tipo_documento  OR
-           nombre_usuario LIKE :nombre_usuario  
+           estado LIKE :estado
            ) ";
    $searchArray = array(
       'numero_escritura' => "%$searchValue%",
       'tipo_documento' => "%$searchValue%",
-      'nombre_usuario' => "%$searchValue%",
-      'estado' => "%Pendiente%"
+      'estado' => "%$searchValue%",
+      'id_usuario' => "%$idUsuario%"
    );
 }
 
 // Total number of records without filtering
-$stmt = $conn->prepare("SELECT COUNT(*) AS allcount FROM vista_peticiones ");
-$stmt->execute();
+$stmt = $conn->prepare("SELECT COUNT(*) AS allcount FROM vista_peticiones WHERE id_usuario = ?");
+$stmt->execute([$idUsuario]);
 $records = $stmt->fetch();
 $totalRecords = $records['allcount'];
 
@@ -65,7 +66,6 @@ foreach ($empRecords as $row) {
       "id_documento" => $row['id_documento'],
       "numero_escritura" => $row['numero_escritura'],
       "tipo_documento" => $row['tipo_documento'],
-      "nombre_usuario" => $row['nombre_usuario'],
       "estado" => $row['estado'],
       "url_archivo" => $row['url_archivo'],
    );

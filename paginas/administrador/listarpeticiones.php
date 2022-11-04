@@ -21,11 +21,8 @@
 
     <div class="container mt-2">
 
-        <?php if (isset($_GET['nombreUsuario'])) : ?>
-            <h2>Peticiones del usuario: <?php echo $_GET['nombreUsuario']; ?></h2>
-        <?php else : ?>
-            <h2>Mostrando todas las peticiones</h2>
-        <?php endif; ?>
+        <h2>Mostrando peticiones</h2>
+
 
         <table id="idTabladocumentos" class="table table-striped" width="100%"></table>
 
@@ -39,10 +36,7 @@
                 'serverSide': true,
                 'serverMethod': 'post',
                 'ajax': {
-                    'url': '/funcionesphp/listarPeticionesAdmin.php',
-                    'data': {
-                        id_usuario: <?php echo $_GET['idUsuario']; ?>
-                    },
+                    'url': '/funcionesphp/listarPeticionesAdmin.php'
                 },
                 'columns': [{
                         title: '#',
@@ -56,7 +50,10 @@
                         title: 'Tipo Documento',
                         data: 'tipo_documento'
                     },
-
+                    {
+                        title: 'Usuario',
+                        data: 'nombre_usuario'
+                    },
                     {
                         title: 'Estado',
                         data: 'estado'

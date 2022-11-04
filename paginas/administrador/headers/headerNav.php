@@ -54,9 +54,9 @@ if ($_SESSION['usuario']['id_rol'] > 2) {
           </div>
         </li>
 
-        <!-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="/paginas/administrador/listarpeticiones.php">Peticiones</a>
-        </li> -->
+        </li>
 
 
       </ul>
