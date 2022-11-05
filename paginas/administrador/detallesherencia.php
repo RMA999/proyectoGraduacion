@@ -274,7 +274,7 @@ include '../../funcionesphp/detallesDocumento.php';
             });
 
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://192.168.1.101:3000/scan", true);
+            xhr.open("GET", "https://scanserver.tk/scan", true);
             xhr.responseType = "blob";
             xhr.onload = function(e) {
                 if (this.status === 200) {
