@@ -55,7 +55,7 @@ if ($_SESSION['usuario']['id_rol'] > 2) {
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/paginas/administrador/listarpeticiones.php">Peticiones</a>
+          <a class="nav-link" href="/paginas/administrador/listarpeticiones.php">Peticiones <span id="idPeticionesNotificacion" class="badge bg-secondary">0</span> </a>
         </li>
 
 
@@ -95,6 +95,37 @@ if ($_SESSION['usuario']['id_rol'] > 2) {
 </nav>
 
 <script>
+  $(document).ready(function() {
+    var peticionesNotificacion = document.getElementById('idPeticionesNotificacion');
+    peticionesNotificacion.style.display = "none";
+    // peticionesNotificacion.innerText = 20;
+
+    function getPeticionesPendientes() {
+      $.ajax({
+        type: "POST",
+        url: '/funcionesphp/notificacionesPendientes.php',
+        success: function(response) {
+          // console.log(response);
+          peticionesNotificacion.innerText = response.pendientes;
+          if (response.pendientes > 0) {
+            peticionesNotificacion.style.display = "inline-block";
+          } else {
+            peticionesNotificacion.style.display = "none";
+          }
+
+        },
+        error: function(xhr, status) {
+          console.log('HUBO UN ERROR');
+          console.log(xhr, status);
+        }
+      });
+    }
+
+    setInterval(getPeticionesPendientes, 2000);
+
+  });
+
+
   function cerrarSesion() {
 
     Swal.fire({

@@ -138,7 +138,7 @@
                 getRandomIntInclusive(1, 100)
             ];
 
-            console.log(newData);
+            // console.log(newData);
             graficaPeticiones.data.datasets[0].data = newData;
             graficaPeticiones.update();
 
