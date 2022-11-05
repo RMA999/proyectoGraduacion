@@ -82,6 +82,28 @@ FROM
         INNER JOIN tipos_documentos ON documentos.id_tipo_documento = tipos_documentos.id)
         INNER JOIN usuarios ON peticiones.id_usuario = usuarios.id);
 
+-- CREATE
+-- OR REPLACE VIEW vista_documentos AS
+-- SELECT
+--     ROW_NUMBER() OVER (
+--         ORDER BY
+--             documentos.id
+--     ) as rowNumber,
+--     documentos.id AS id_documento,
+--     documentos.numero_escritura,
+--     documentos.id_tipo_documento,
+--     tipos_documentos.nombre AS tipo_documento,
+--     documentos.fecha AS fecha_documento,
+--     documentos.ubicacion_fisica,
+--     documentos.url_archivo
+-- FROM
+--     (
+--         documentos
+--         INNER JOIN tipos_documentos ON documentos.id_tipo_documento = tipos_documentos.id
+--     )
+-- GROUP BY
+--     documentos.numero_escritura;
+
 CREATE
 OR REPLACE VIEW vista_documentos AS
 SELECT
@@ -95,12 +117,25 @@ SELECT
     tipos_documentos.nombre AS tipo_documento,
     documentos.fecha AS fecha_documento,
     documentos.ubicacion_fisica,
-    documentos.url_archivo
+    documentos.url_archivo,
+    COMPRADOR.nombre AS nombre_comprador,
+    VENDEDOR.nombre AS nombre_vendedor,
+    DECLARADOR.nombre AS nombre_declarador,
+    DONATARIO.nombre AS nombre_donatario,
+    DONADOR.nombre AS nombre_donador,
+    CEDENTE.nombre AS nombre_cedente,
+    CESIONARIO.nombre AS nombre_cesionario
 FROM
-    (
+    ((((((((
         documentos
-        INNER JOIN tipos_documentos ON documentos.id_tipo_documento = tipos_documentos.id
-    )
+        INNER JOIN tipos_documentos ON documentos.id_tipo_documento = tipos_documentos.id)
+     	LEFT JOIN personas COMPRADOR ON COMPRADOR.id = documentos.id_persona_comprador)
+     	LEFT JOIN personas VENDEDOR ON VENDEDOR.id = documentos.id_persona_vendedor)
+     	LEFT JOIN personas DECLARADOR ON DECLARADOR.id = documentos.id_persona_declarador)
+     	LEFT JOIN personas DONATARIO ON DONATARIO.id = documentos.id_persona_donatario)
+     	LEFT JOIN personas DONADOR ON DONADOR.id = documentos.id_persona_donador)
+     	LEFT JOIN personas CEDENTE ON CEDENTE.id = documentos.id_persona_cedente)
+     	LEFT JOIN personas CESIONARIO ON CESIONARIO.id = documentos.id_persona_cesionario)
 GROUP BY
     documentos.numero_escritura;
 

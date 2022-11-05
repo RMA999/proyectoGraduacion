@@ -19,6 +19,13 @@ if ($searchValue != '') {
    $searchQuery = " AND (
            numero_escritura LIKE :numero_escritura  OR 
            tipo_documento LIKE :tipo_documento  OR
+           nombre_comprador LIKE :nombre_comprador  OR
+           nombre_vendedor LIKE :nombre_vendedor  OR
+           nombre_declarador LIKE :nombre_declarador  OR
+           nombre_donatario LIKE :nombre_donatario  OR
+           nombre_donador LIKE :nombre_donador  OR
+           nombre_cedente LIKE :nombre_cedente  OR
+           nombre_cesionario LIKE :nombre_cesionario  OR
            
            fecha_documento LIKE :fecha_documento 
             
@@ -26,6 +33,13 @@ if ($searchValue != '') {
    $searchArray = array(
       'numero_escritura' => "%$searchValue%",
       'tipo_documento' => "%$searchValue%",
+      'nombre_comprador' => "%$searchValue%",
+      'nombre_vendedor' => "%$searchValue%",
+      'nombre_declarador' => "%$searchValue%",
+      'nombre_donatario' => "%$searchValue%",
+      'nombre_donador' => "%$searchValue%",
+      'nombre_cedente' => "%$searchValue%",
+      'nombre_cesionario' => "%$searchValue%",
 
       'fecha_documento' => "%$searchValue%"
    );
