@@ -35,11 +35,11 @@ if ($_SESSION['usuario']['id_rol'] > 2) {
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Documentos</a>
           <div class="dropdown-menu">
-            <a href="#" class="dropdown-item">Compraventa</a>
+            <!-- <a href="#" class="dropdown-item">Compraventa</a>
             <a href="#" class="dropdown-item">Declaración jurada</a>
             <a href="#" class="dropdown-item">Cesión de Derechos Hereditarios</a>
             <a href="#" class="dropdown-item">Donación Entre Vivos</a>
-            <div class="dropdown-divider"></div>
+            <div class="dropdown-divider"></div> -->
             <a href="/paginas/administrador/listardocumentos.php" class="dropdown-item">Todos los documentos</a>
           </div>
         </li>
