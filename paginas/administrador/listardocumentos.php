@@ -140,6 +140,18 @@
                     window.location.href = `/paginas/administrador/detallesherencia.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
                 }
 
+                if (data['tipo_documento'] === "Compraventa") {
+                    window.location.href = `/paginas/administrador/detallescompraventa.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
+                }
+
+                if (data['tipo_documento'] === "Declaración jurada") {
+                    window.location.href = `/paginas/administrador/detallesdeclaracion.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
+                }
+
+                if (data['tipo_documento'] === "Donacion Entre Vivos") {
+                    window.location.href = `/paginas/administrador/detallesdonacion.php?id_documento=${data['id_documento']}&id_tipo_documento=${data['id_tipo_documento']}`;
+                }
+
             });
 
             $('#idTabladocumentos tbody').on('click', '#idAccionEliminar', function() {
