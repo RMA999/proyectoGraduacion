@@ -66,7 +66,7 @@
         var dataPeticiones = {
             datasets: [{
                 label: 'My First Dataset',
-                data: [300, 50, 100],
+                data: [0, 0, 0],
                 backgroundColor: [
                     'rgb(54, 162, 235)',
                     'rgb(255, 99, 132)',
@@ -130,19 +130,52 @@
         const graficaDocumentos = new Chart(ctxDocumentos, configDocumentos);
 
 
-        setInterval(() => {
+        // setInterval(() => {
 
-            var newData = [
-                getRandomIntInclusive(1, 100),
-                getRandomIntInclusive(1, 100),
-                getRandomIntInclusive(1, 100)
-            ];
+        //     var newData = [
+        //         getRandomIntInclusive(1, 100),
+        //         getRandomIntInclusive(1, 100),
+        //         getRandomIntInclusive(1, 100)
+        //     ];
 
-            // console.log(newData);
-            graficaPeticiones.data.datasets[0].data = newData;
-            graficaPeticiones.update();
+        //     // console.log(newData);
+        //     graficaPeticiones.data.datasets[0].data = newData;
+        //     graficaPeticiones.update();
 
-        }, 3000);
+        // }, 3000);
+
+
+        function getPeticiones() {
+            $.ajax({
+                type: "POST",
+                url: '/funcionesphp/datosGraficas.php',
+                success: function(response) {
+                    const newDataPeticiones = [
+                        response.peticiones.aprobadas,
+                        response.peticiones.rechazadas,
+                        response.peticiones.pendientes
+                    ];
+                    const newDataDocumentos = [
+                        response.documentos.compraventa,
+                        response.documentos.declaracion,
+                        response.documentos.herencia,
+                        response.documentos.donacion,
+                    ];
+                    graficaPeticiones.data.datasets[0].data = newDataPeticiones;
+                    graficaDocumentos.data.datasets[0].data = newDataDocumentos;
+                    graficaPeticiones.update();
+                    graficaDocumentos.update();
+                },
+                error: function(xhr, status) {
+                    console.log('HUBO UN ERROR');
+                    console.log(xhr, status);
+                }
+            });
+        }
+
+        getPeticiones();
+
+        setInterval(getPeticiones, 2000);
     </script>
 
 </body>
